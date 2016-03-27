@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.MenuItemCompat;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,6 +14,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.SearchView;
+import android.widget.Toast;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -57,6 +64,41 @@ public class HomeActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.home, menu);
+        MenuItem searchItem = menu.findItem(R.id.searchBox);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Call<Search> mySearch = ApiClientOmdb.getInterface().getMySearch(query);
+                mySearch.enqueue(new Callback<Search>() {
+                    @Override
+                    public void onResponse(Call<Search> call, Response<Search> response) {
+                        if(response.isSuccessful()){
+                            SearchFragment sf = new SearchFragment();
+                            Bundle b = new Bundle();
+                            Search s = response.body();
+                            b.putSerializable("searchMovie", s);
+                            sf.setArguments(b);
+                            getFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, sf).commit();
+                        }
+                        else{
+                            Toast.makeText(HomeActivity.this, response.code()+response.message() , Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Search> call, Throwable t) {
+
+                    }
+                });
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return  false;
+            }
+        });
         return true;
     }
 
