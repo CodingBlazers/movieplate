@@ -4,15 +4,15 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/homeicon"
+            android:icon="@drawable/home"
             android:title="Home" />
         <item
             android:id="@+id/nav_movie"
-            android:icon="@drawable/movieicon"
+            android:icon="@drawable/movie"
             android:title="Movie" />
         <item
             android:id="@+id/nav_tv"
-            android:icon="@drawable/tvicon"
+            android:icon="@drawable/tv"
             android:title="TV" />
         <item
             android:id="@+id/nav_celebs"
@@ -28,7 +28,7 @@
                 android:title="Watchlist" />
             <item
                 android:id="@+id/nav_rating"
-                android:icon="@drawable/rating"
+                android:icon="@drawable/ratings"
                 android:title="Ratings" />
         </menu>
     </item>
