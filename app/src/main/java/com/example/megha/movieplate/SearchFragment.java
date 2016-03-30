@@ -23,7 +23,6 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_search_fragment, container, false);
         Bundle b = getArguments();
-        s = (Search) b.getSerializable("searchMovie");
         poster = (ImageView) v.findViewById(R.id.posterSearch);
         movieTitle = (TextView) v.findViewById(R.id.movieTitleSearch);
         genre = (TextView) v.findViewById(R.id.genreSearch);
@@ -37,22 +36,20 @@ public class SearchFragment extends Fragment {
         language = (TextView) v.findViewById(R.id.languageSearch);
         metaScore = (TextView) v.findViewById(R.id.metaScoreSearch);
 
-
-//        Picasso.with(getActivity()).load(s.Poster).into(poster);
-
-        movieTitle.setText(s.title);
-        genre.setText(s.genre);
-        duration.setText(s.duration);
-        plot.setText(s.plot);
-        releaseDate.setText(s.releaseDate);
-        director.setText(s.director);
-        actors.setText(s.actors);
-        writer.setText(s.writer);
-        imdbRating.setText(s.imdbRating);
-        language.setText(s.language);
-        metaScore.setText(s.metaScore);
         if(b != null){
             Search s = (Search) b.getSerializable("searchMovie");
+            Picasso.with(getActivity()).load(s.Poster).into(poster);
+            movieTitle.setText(s.title);
+            genre.setText(s.genre);
+            duration.setText(s.duration);
+            plot.setText(s.plot);
+            releaseDate.setText(s.releaseDate);
+            director.setText(s.director);
+            actors.setText(s.actors);
+            writer.setText(s.writer);
+            imdbRating.setText(s.imdbRating);
+            language.setText(s.language);
+            metaScore.setText(s.metaScore);
         }
         return v;
     }

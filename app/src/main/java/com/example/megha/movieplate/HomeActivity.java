@@ -69,7 +69,7 @@ public class HomeActivity extends AppCompatActivity
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Call<Search> mySearch = ApiClientOmdb.getInterface().getMySearch(query);
+                Call<Search> mySearch = ApiClientOmdb.getInterface().getMySearch("", query);
                 mySearch.enqueue(new Callback<Search>() {
                     @Override
                     public void onResponse(Call<Search> call, Response<Search> response) {
