@@ -9,23 +9,23 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by Megha on 27-03-2016.
+ * Created by Megha on 31-03-2016.
  */
-public class ApiClientOmdb {
-    private static ApiInterfaceOmdb mService;
+public class ApiClientMoviedb {
+    private static ApiInterfaceMoviedb mService;
 
-    public static ApiInterfaceOmdb getInterface() {
+    public static ApiInterfaceMoviedb getInterface() {
         if (mService == null) {
             Gson gson = new GsonBuilder()
                     .excludeFieldsWithModifiers(Modifier.TRANSIENT, Modifier.STATIC)
                     .create();
 
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://www.omdbapi.com/")
+                    .baseUrl("https://api.themoviedb.org/")
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();
 
-            mService = retrofit.create(ApiInterfaceOmdb.class);
+            mService = retrofit.create(ApiInterfaceMoviedb.class);
         }
         return mService;
     }
