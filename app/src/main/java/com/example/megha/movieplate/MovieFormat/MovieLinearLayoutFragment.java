@@ -1,4 +1,4 @@
-package com.example.megha.movieplate;
+package com.example.megha.movieplate.MovieFormat;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -7,7 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.example.megha.movieplate.Constants;
 import com.example.megha.movieplate.MovieFormat.Movie;
+import com.example.megha.movieplate.R;
 import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
@@ -47,7 +49,6 @@ public class MovieLinearLayoutFragment extends Fragment {
             Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w300/"+movie.results.get(8).getPoster_path()).into(iv9);
             Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w300/"+movie.results.get(9).getPoster_path()).into(iv10);
         }
-
         return view;
     }
 }

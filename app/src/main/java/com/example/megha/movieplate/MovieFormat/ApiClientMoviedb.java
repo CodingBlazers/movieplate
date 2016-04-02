@@ -1,5 +1,6 @@
-package com.example.megha.movieplate;
+package com.example.megha.movieplate.MovieFormat;
 
+import com.example.megha.movieplate.MovieFormat.ApiInterfaceMoviedb;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

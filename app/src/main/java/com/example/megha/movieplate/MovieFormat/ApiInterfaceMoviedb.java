@@ -1,4 +1,4 @@
-package com.example.megha.movieplate;
+package com.example.megha.movieplate.MovieFormat;
 
 import com.example.megha.movieplate.MovieFormat.Movie;
 

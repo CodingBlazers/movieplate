@@ -11,6 +11,7 @@ import retrofit2.http.Url;
  */
 public interface ApiInterfaceOmdb {
 
+    //In query it will append ? than parameter than equal to by itself.
     @GET
-    Call<Search> getMySearch(@Url String urlString, @Query("t") String item);
+    Call<Search> getMySearch(@Url String urlstring, @Query("t") String item);
 }

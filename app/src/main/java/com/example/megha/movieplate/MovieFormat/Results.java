@@ -4,7 +4,7 @@ package com.example.megha.movieplate.MovieFormat;
  * Created by Megha on 31-03-2016.
  */
 public class Results {
-    //Comment(Megha): Made the hierarchy. Will use that in future. For now, we only need link of posters stored in poster_path.
+    //Made the hierarchy. Will use that in future. For now, we only need link of posters stored in poster_path.
     String poster_path;
     String adult;
     String overview;

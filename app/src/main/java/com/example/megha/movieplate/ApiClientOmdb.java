@@ -16,9 +16,9 @@ public class ApiClientOmdb {
 
     public static ApiInterfaceOmdb getInterface() {
         if (mService == null) {
-            Gson gson = new GsonBuilder()
-                    .excludeFieldsWithModifiers(Modifier.TRANSIENT, Modifier.STATIC)
-                    .create();
+            Gson gson = new GsonBuilder().create();
+                    //.excludeFieldsWithModifiers(Modifier.TRANSIENT, Modifier.STATIC)
+                    //.create();
 
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl("http://www.omdbapi.com/")

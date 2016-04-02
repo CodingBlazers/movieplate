@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,6 +19,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SearchView;
 import android.widget.Toast;
+
+import com.example.megha.movieplate.CelebsFormat.CelebsFragment;
+import com.example.megha.movieplate.MovieFormat.MovieFragment;
+import com.example.megha.movieplate.TVFormat.TvFragment;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -71,20 +76,21 @@ public class HomeActivity extends AppCompatActivity
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Call<Search> mySearch = ApiClientOmdb.getInterface().getMySearch("", query);
+                Log.i("Query",query);
+                Call<Search> mySearch = ApiClientOmdb.getInterface().getMySearch("",query);
                 mySearch.enqueue(new Callback<Search>() {
                     @Override
                     public void onResponse(Call<Search> call, Response<Search> response) {
-                        if(response.isSuccessful()){
-                            SearchFragment sf = new SearchFragment();
-                            Bundle b = new Bundle();
+                        if (response.isSuccessful()) {
                             Search s = response.body();
+                            Bundle b = new Bundle();
+                            SearchFragment sf = new SearchFragment();
                             b.putSerializable("searchMovie", s);
                             sf.setArguments(b);
                             getFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, sf).commit();
                         }
-                        else{
-                            Toast.makeText(HomeActivity.this, response.code()+response.message() , Toast.LENGTH_LONG).show();
+                        else {
+                            Toast.makeText(HomeActivity.this, response.code() + response.message(), Toast.LENGTH_LONG).show();
                         }
                     }
 
@@ -97,8 +103,9 @@ public class HomeActivity extends AppCompatActivity
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
-                return  false;
+            public boolean onQueryTextChange(String newText)
+            {
+                return false;
             }
         });
         return true;
@@ -114,18 +121,16 @@ public class HomeActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
 
-        }
-        else if(id == R.id.action_about){
+        } else if (id == R.id.action_about) {
             Intent i = new Intent();
             i.setClass(HomeActivity.this, AboutUsActivity.class);
             startActivity(i);
-        }
-        else if(id == R.id.action_contactUs){
+        } else if (id == R.id.action_contactUs) {
             Intent i = new Intent();
             i.setClass(HomeActivity.this, ContactUsActivity.class);
             startActivity(i);
-        }
-        else if(id == R.id.action_signOut){
+        } else if (id == R.id.action_signOut) {
+
         }
 
         return true;
@@ -141,7 +146,9 @@ public class HomeActivity extends AppCompatActivity
         editor.putString(Constants.API_KEY, "4b21312cf568464ee6b05097ebc6f824");
         editor.commit();
         if (id == R.id.nav_home) {
+
         } else if (id == R.id.nav_movie) {
+            setTitle("Movies");
             MovieFragment mf = new MovieFragment();
             Bundle b = new Bundle();
             String api_key = sp.getString(Constants.API_KEY, null);
@@ -149,9 +156,22 @@ public class HomeActivity extends AppCompatActivity
             mf.setArguments(b);
             getFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, mf).commit();
         } else if (id == R.id.nav_celebs) {
+            setTitle("Most Popular Celebs");
+            String api_key=sp.getString(Constants.API_KEY,null);
+            CelebsFragment celebsFragment=new CelebsFragment();
+            Bundle b=new Bundle();
+            b.putSerializable(Constants.CELEBS_URL_API_KEY,api_key);
+            celebsFragment.setArguments(b);
+            getFragmentManager().beginTransaction().replace(R.id.homeFrameLayout,celebsFragment).commit();
 
         } else if (id == R.id.nav_tv) {
-
+            setTitle("TV");
+            TvFragment tvFragment=new TvFragment();
+            Bundle b=new Bundle();
+            String api_key=sp.getString(Constants.API_KEY,null);
+            b.putSerializable(Constants.TV_URL_API_KEY,api_key);
+            tvFragment.setArguments(b);
+            getFragmentManager().beginTransaction().replace(R.id.homeFrameLayout,tvFragment).commit();
         } else if (id == R.id.nav_rating) {
 
         } else if (id == R.id.nav_watchlist) {
