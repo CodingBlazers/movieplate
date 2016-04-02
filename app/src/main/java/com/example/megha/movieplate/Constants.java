@@ -11,4 +11,5 @@ public class Constants {
     public static String MOVIE_TO_LINEAR_LAYOUT_FRAGMENT = "Movies";
     public static String TV_TO_LINEAR_LAYOUT_FRAGMENT="TV";
     public static String CELEBS_TO_LINEAR_LAYOUT_FRAGMENT="Celebs";
+    public static String SINGLE_MOVIE_DETAILS = "singleMovieDetails";
 }

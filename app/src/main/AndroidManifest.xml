@@ -22,7 +22,9 @@
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ContactUsActivity" />
-        <activity android:name=".AboutUsActivity"></activity>
+        <activity android:name=".AboutUsActivity" />
+        <activity android:name=".MovieFormat.SingelMovieActivity" />
+        <activity android:name=".SingleMovieActivity"></activity>
     </application>
 
 </manifest>
