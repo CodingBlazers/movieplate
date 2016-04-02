@@ -5,7 +5,9 @@ import java.io.Serializable;
 /**
  * Created by Megha on 31-03-2016.
  */
-public class Results implements Serializable {
+
+public class Results implements Serializable{
+
     //Made the hierarchy. Will use that in future. For now, we only need link of posters stored in poster_path.
     String poster_path;
     public String adult;

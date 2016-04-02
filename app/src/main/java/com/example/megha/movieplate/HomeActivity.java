@@ -38,6 +38,7 @@ public class HomeActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +56,13 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        HomeFragment hf=new HomeFragment();
+        Bundle b = new Bundle();
+        SharedPreferences sp = getSharedPreferences("MoviePlate", Context.MODE_PRIVATE);
+        String api_key = sp.getString(Constants.API_KEY, null);
+        b.putSerializable(Constants.MOVIE_URL_API_KEY, api_key);
+        hf.setArguments(b);
+        getFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, hf).commit();
     }
 
     @Override
@@ -146,7 +154,13 @@ public class HomeActivity extends AppCompatActivity
         editor.putString(Constants.API_KEY, "4b21312cf568464ee6b05097ebc6f824");
         editor.commit();
         if (id == R.id.nav_home) {
-
+            setTitle("Home");
+            HomeFragment hf=new HomeFragment();
+            Bundle b = new Bundle();
+            String api_key = sp.getString(Constants.API_KEY, null);
+            b.putSerializable(Constants.MOVIE_URL_API_KEY, api_key);
+            hf.setArguments(b);
+            getFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, hf).commit();
         } else if (id == R.id.nav_movie) {
             setTitle("Movies");
             MovieFragment mf = new MovieFragment();
