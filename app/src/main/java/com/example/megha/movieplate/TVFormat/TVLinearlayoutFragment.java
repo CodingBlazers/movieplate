@@ -1,6 +1,7 @@
 package com.example.megha.movieplate.TVFormat;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 import com.example.megha.movieplate.Constants;
 import com.example.megha.movieplate.R;
 import com.squareup.picasso.Picasso;
+
+import java.io.Serializable;
 
 /**
  * Created by HIman$hu on 4/1/2016.
@@ -24,7 +27,7 @@ public class TVLinearlayoutFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_tv_linear_layout_fragment, container, false);
         Bundle b = getArguments();
-        TV tv = (TV) b.getSerializable(Constants.TV_TO_LINEAR_LAYOUT_FRAGMENT);
+        final TV tv = (TV) b.getSerializable(Constants.TV_TO_LINEAR_LAYOUT_FRAGMENT);
 
         iv1 = (ImageView) view.findViewById(R.id.imageView1);
         iv2 = (ImageView) view.findViewById(R.id.imageView2);
@@ -69,6 +72,82 @@ public class TVLinearlayoutFragment extends Fragment {
             Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w300/" + tv.TVShowresults.get(9).getPoster_path()).into(iv10);
             tv10.setText(tv.TVShowresults.get(9).getName());
         }
+
+        final Intent intent = new Intent();
+        intent.setClass(getActivity(), TVShowDetails.class);
+
+        //Results class must implements Serializable otherwise class cast exception occurs.
+        iv1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra(Constants.SINGLE_TV_SHOW_DETAILS, tv.TVShowresults.get(0));
+                startActivity(intent);
+            }
+        });
+        iv2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra(Constants.SINGLE_TV_SHOW_DETAILS, tv.TVShowresults.get(1));
+                startActivity(intent);
+            }
+        });
+        iv3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra(Constants.SINGLE_TV_SHOW_DETAILS, tv.TVShowresults.get(2));
+                startActivity(intent);
+            }
+        });
+        iv4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra(Constants.SINGLE_TV_SHOW_DETAILS, tv.TVShowresults.get(3));
+                startActivity(intent);
+            }
+        });
+        iv5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra(Constants.SINGLE_TV_SHOW_DETAILS, tv.TVShowresults.get(4));
+                startActivity(intent);
+            }
+        });
+        iv6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra(Constants.SINGLE_TV_SHOW_DETAILS, tv.TVShowresults.get(5));
+                startActivity(intent);
+            }
+        });
+        iv7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra(Constants.SINGLE_TV_SHOW_DETAILS, tv.TVShowresults.get(6));
+                startActivity(intent);
+            }
+        });
+        iv8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra(Constants.SINGLE_TV_SHOW_DETAILS, tv.TVShowresults.get(7));
+                startActivity(intent);
+            }
+        });
+        iv9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra(Constants.SINGLE_TV_SHOW_DETAILS, tv.TVShowresults.get(8));
+                startActivity(intent);
+            }
+        });
+        iv10.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra(Constants.SINGLE_TV_SHOW_DETAILS, tv.TVShowresults.get(9));
+                startActivity(intent);
+            }
+        });
+
         return view;
     }
 

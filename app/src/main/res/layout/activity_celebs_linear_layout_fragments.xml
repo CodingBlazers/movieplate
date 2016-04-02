@@ -10,18 +10,18 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/imageView1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:adjustViewBounds="false" />
+                android:layout_height="150dp"
+                android:layout_weight="2" />
 
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
                 android:layout_weight="3">
 
                 <TextView
@@ -32,10 +32,9 @@
 
                 <TextView
                     android:id="@+id/MoviesListTextView1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@+id/NameTextView1"
-                    android:layout_alignRight="@+id/NameTextView1"
                     android:layout_below="@+id/NameTextView1" />
 
             </RelativeLayout>
@@ -50,12 +49,12 @@
             <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="150dp"
                 android:layout_weight="2"/>
 
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
                 android:layout_weight="3">
 
                 <TextView
@@ -66,10 +65,9 @@
 
                 <TextView
                     android:id="@+id/MoviesListTextView2"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@+id/NameTextView2"
-                    android:layout_alignRight="@+id/NameTextView2"
                     android:layout_below="@+id/NameTextView2" />
 
             </RelativeLayout>
@@ -84,12 +82,12 @@
             <ImageView
                 android:id="@+id/imageView3"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="150dp"
                 android:layout_weight="2" />
 
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
                 android:layout_weight="3">
 
                 <TextView
@@ -100,10 +98,9 @@
 
                 <TextView
                     android:id="@+id/MoviesListTextView3"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@+id/NameTextView3"
-                    android:layout_alignRight="@+id/NameTextView3"
                     android:layout_below="@+id/NameTextView3" />
 
             </RelativeLayout>
@@ -118,12 +115,12 @@
             <ImageView
                 android:id="@+id/imageView4"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="150dp"
                 android:layout_weight="2" />
 
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
                 android:layout_weight="3">
 
                 <TextView
@@ -134,10 +131,9 @@
 
                 <TextView
                     android:id="@+id/MoviesListTextView4"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@+id/NameTextView4"
-                    android:layout_alignRight="@+id/NameTextView4"
                     android:layout_below="@+id/NameTextView4" />
 
             </RelativeLayout>
@@ -146,18 +142,17 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/imageView5"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="150dp"
                 android:layout_weight="2" />
 
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
                 android:layout_weight="3">
 
                 <TextView
@@ -168,10 +163,9 @@
 
                 <TextView
                     android:id="@+id/MoviesListTextView5"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@+id/NameTextView5"
-                    android:layout_alignRight="@+id/NameTextView5"
                     android:layout_below="@+id/NameTextView5" />
 
             </RelativeLayout>
@@ -186,12 +180,12 @@
             <ImageView
                 android:id="@+id/imageView6"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="150dp"
                 android:layout_weight="2" />
 
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
                 android:layout_weight="3">
 
                 <TextView
@@ -202,10 +196,9 @@
 
                 <TextView
                     android:id="@+id/MoviesListTextView6"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@+id/NameTextView6"
-                    android:layout_alignRight="@+id/NameTextView6"
                     android:layout_below="@+id/NameTextView6" />
 
             </RelativeLayout>
@@ -220,12 +213,12 @@
             <ImageView
                 android:id="@+id/imageView7"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="150dp"
                 android:layout_weight="2" />
 
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
                 android:layout_weight="3">
 
                 <TextView
@@ -236,10 +229,9 @@
 
                 <TextView
                     android:id="@+id/MoviesListTextView7"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@+id/NameTextView7"
-                    android:layout_alignRight="@+id/NameTextView7"
                     android:layout_below="@+id/NameTextView7" />
 
             </RelativeLayout>
@@ -254,12 +246,12 @@
             <ImageView
                 android:id="@+id/imageView8"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="150dp"
                 android:layout_weight="2" />
 
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
                 android:layout_weight="3">
 
                 <TextView
@@ -270,10 +262,9 @@
 
                 <TextView
                     android:id="@+id/MoviesListTextView8"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@+id/NameTextView8"
-                    android:layout_alignRight="@+id/NameTextView8"
                     android:layout_below="@+id/NameTextView8" />
 
             </RelativeLayout>
@@ -288,12 +279,12 @@
             <ImageView
                 android:id="@+id/imageView9"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="150dp"
                 android:layout_weight="2" />
 
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
                 android:layout_weight="3">
 
                 <TextView
@@ -304,10 +295,9 @@
 
                 <TextView
                     android:id="@+id/MoviesListTextView9"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@+id/NameTextView9"
-                    android:layout_alignRight="@+id/NameTextView9"
                     android:layout_below="@+id/NameTextView9" />
 
             </RelativeLayout>
@@ -322,12 +312,12 @@
             <ImageView
                 android:id="@+id/imageView10"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="150dp"
                 android:layout_weight="2" />
 
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
                 android:layout_weight="3">
 
                 <TextView
@@ -338,10 +328,9 @@
 
                 <TextView
                     android:id="@+id/MoviesListTextView10"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@+id/NameTextView10"
-                    android:layout_alignRight="@+id/NameTextView10"
                     android:layout_below="@+id/NameTextView10" />
 
             </RelativeLayout>
