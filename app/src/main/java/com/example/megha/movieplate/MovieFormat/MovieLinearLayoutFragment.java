@@ -54,7 +54,7 @@ public class MovieLinearLayoutFragment extends Fragment{
         }
 
         final Intent i = new Intent();
-        i.setClass(getActivity(), SingleMovieActivity .class);
+        i.setClass(getActivity(), SingleMovieActivity.class);
         iv1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

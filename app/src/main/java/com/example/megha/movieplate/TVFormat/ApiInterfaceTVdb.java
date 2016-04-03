@@ -14,4 +14,7 @@ public interface ApiInterfaceTVdb {
 
     @GET("/3/tv/top_rated")
     Call<TV> getMostratedTvShows(@Query("api_key") String key);
+
+    @GET("/3/tv/airing_today")
+    Call<TV> getOnAirTVShows(@Query("api_key") String key);
 }

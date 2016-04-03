@@ -23,7 +23,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ContactUsActivity" />
         <activity android:name=".AboutUsActivity" />
-        <activity android:name=".MovieFormat.SingelMovieActivity" />
+        <activity android:name=".TVFormat.TVShowDetails" />
         <activity android:name=".SingleMovieActivity"></activity>
     </application>
 

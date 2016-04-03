@@ -11,7 +11,12 @@ import android.widget.Toast;
 
 import com.example.megha.movieplate.MovieFormat.ApiClientMoviedb;
 import com.example.megha.movieplate.MovieFormat.Movie;
+import com.example.megha.movieplate.MovieFormat.MovieFragment;
 import com.example.megha.movieplate.MovieFormat.MovieLinearLayoutFragment;
+import com.example.megha.movieplate.TVFormat.ApiClientTVDb;
+import com.example.megha.movieplate.TVFormat.TV;
+import com.example.megha.movieplate.TVFormat.TVLinearlayoutFragment;
+import com.example.megha.movieplate.TVFormat.TVShowDetails;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,7 +24,6 @@ import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
 
-    ImageView iv1, iv2, iv3, iv4, iv5, iv6, iv7, iv8, iv9, iv10;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -31,7 +35,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call<Movie> call, Response<Movie> response) {
                 Movie movie = response.body();
-                Home_activity_linear_layout mf = new Home_activity_linear_layout();
+                MovieLinearLayoutFragment mf = new MovieLinearLayoutFragment();
                 Bundle b = new Bundle();
                 b.putSerializable(Constants.MOVIE_TO_LINEAR_LAYOUT_FRAGMENT, movie);
                 mf.setArguments(b);
@@ -40,7 +44,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Movie> call, Throwable t) {
-
+                Toast.makeText(getActivity(), "You are not connected to Internet", Toast.LENGTH_LONG).show();
             }
         });
         Call<Movie> upcoming_movies=ApiClientMoviedb.getInterface().getUpcomingMovies(key);
@@ -48,7 +52,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call<Movie> call, Response<Movie> response) {
                 Movie movie = response.body();
-                Home_activity_linear_layout mf = new Home_activity_linear_layout();
+                MovieLinearLayoutFragment mf = new MovieLinearLayoutFragment();
                 Bundle b = new Bundle();
                 b.putSerializable(Constants.MOVIE_TO_LINEAR_LAYOUT_FRAGMENT, movie);
                 mf.setArguments(b);
@@ -57,24 +61,24 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Movie> call, Throwable t) {
-
+                Toast.makeText(getActivity(), "You are not connected to Internet", Toast.LENGTH_LONG).show();
             }
         });
-        Call<Movie> on_air_tv_shows=ApiClientMoviedb.getInterface().getOnAirTVShows(key);
-        on_air_tv_shows.enqueue(new Callback<Movie>() {
+        Call<TV> on_air_tv_shows= ApiClientTVDb.getInterface().getOnAirTVShows(key);
+        on_air_tv_shows.enqueue(new Callback<TV>() {
             @Override
-            public void onResponse(Call<Movie> call, Response<Movie> response) {
-                Movie movie = response.body();
-                Home_activity_linear_layout mf = new Home_activity_linear_layout();
+            public void onResponse(Call<TV> call, Response<TV> response) {
+                TV tv = response.body();
+                TVLinearlayoutFragment mf = new TVLinearlayoutFragment();
                 Bundle b = new Bundle();
-                b.putSerializable(Constants.MOVIE_TO_LINEAR_LAYOUT_FRAGMENT, movie);
+                b.putSerializable(Constants.TV_TO_LINEAR_LAYOUT_FRAGMENT, tv);
                 mf.setArguments(b);
                 getFragmentManager().beginTransaction().replace(R.id.frameLayoutonairTvshows, mf).commit();
             }
 
             @Override
-            public void onFailure(Call<Movie> call, Throwable t) {
-
+            public void onFailure(Call<TV> call, Throwable t) {
+                Toast.makeText(getActivity(), "You are not connected to Internet", Toast.LENGTH_LONG).show();
             }
         });
         return view;
