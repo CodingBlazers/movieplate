@@ -25,7 +25,7 @@ public class CelebsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_celebs_fragment, container, false);
         Bundle b = getArguments();
-        String key = b.getString(Constants.CELEBS_URL_API_KEY);
+        final String key = b.getString(Constants.CELEBS_URL_API_KEY);
         Call<Celebs> PopularPeople = ApiClientCelebDb.getInterface().getPopularPerson(key);
         PopularPeople.enqueue(new Callback<Celebs>() {
             @Override
@@ -35,6 +35,7 @@ public class CelebsFragment extends Fragment {
                     Bundle b = new Bundle();
                     CelebsLinearLayoutFragment cf = new CelebsLinearLayoutFragment();
                     b.putSerializable(Constants.CELEBS_TO_LINEAR_LAYOUT_FRAGMENT, celebs);
+                    b.putSerializable(Constants.API_KEY,key);
                     cf.setArguments(b);
                     getFragmentManager().beginTransaction().replace(R.id.CelebsFramelayout, cf).commit();
                 }

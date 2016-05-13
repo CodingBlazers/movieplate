@@ -15,4 +15,7 @@ public interface ApiInterfaceCelebDb {
     @GET("/3/person/popular")
     Call<Celebs> getPopularPerson(@Query("api_key") String key);
 
+    @GET("/3/person/{id}")
+    Call<CelebsDetails> getPersonDetails(@Path("id") String userId, @Query("api_key") String key);
+
 }

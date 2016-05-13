@@ -24,7 +24,14 @@
         <activity android:name=".ContactUsActivity" />
         <activity android:name=".AboutUsActivity" />
         <activity android:name=".TVFormat.TVShowDetails" />
-        <activity android:name=".SingleMovieActivity"></activity>
+        <activity android:name=".MovieFormat.SingleMovieActivity" />
+
+        <receiver
+            android:name=".MoviePlateReceiver"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".CelebsFormat.CelebrityDetailsActivity"></activity>
     </application>
 
 </manifest>

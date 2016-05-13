@@ -9,12 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.megha.movieplate.Constants;
-import com.example.megha.movieplate.MovieFormat.Movie;
 import com.example.megha.movieplate.R;
-import com.example.megha.movieplate.SingleMovieActivity;
 import com.squareup.picasso.Picasso;
-
-import java.io.Serializable;
 
 /**
  * Created by Megha on 31-03-2016.

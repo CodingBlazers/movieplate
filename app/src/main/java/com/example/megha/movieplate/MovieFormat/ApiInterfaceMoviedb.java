@@ -21,8 +21,10 @@ public interface ApiInterfaceMoviedb {
 
     @GET("/3/movie/upcoming")
     Call<Movie> getUpcomingMovies(@Query("api_key") String key);
+
     @GET("/3/movie/now_playing")
     Call<Movie> getNowPlayingMovies(@Query("api_key") String key);
+
     @GET("/3/tv/airing_today")
     Call<Movie> getOnAirTVShows(@Query("api_key") String key);
 
