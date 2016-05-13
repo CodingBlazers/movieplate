@@ -5,6 +5,8 @@ package com.example.megha.movieplate;
  */
 public class Constants {
     public static String API_KEY = "ApiKey";
+    public static String SHARED_PREFERNCE = "MoviePlate";
+    public static String SESSION_ID_SP = "SessionId";
     public static String MOVIE_URL_API_KEY = "MovieUrlApiKey";
     public static String TV_URL_API_KEY="TVUrlApiKey";
     public static String CELEBS_URL_API_KEY="CelebsApiKey";
@@ -13,4 +15,5 @@ public class Constants {
     public static String CELEBS_TO_LINEAR_LAYOUT_FRAGMENT="Celebs";
     public static String SINGLE_MOVIE_DETAILS = "SingleMovieDetails";
     public static String SINGLE_TV_SHOW_DETAILS="SingleTvShowDetails";
+    public static String ID_SP = "UserId";
 }

@@ -14,4 +14,5 @@ public interface ApiInterfaceOmdb {
     //In query it will append ? than parameter than equal to by itself.
     @GET
     Call<Search> getMySearch(@Url String urlstring, @Query("t") String item);
+
 }
