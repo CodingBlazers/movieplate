@@ -39,8 +39,8 @@ public class HomeActivity extends AppCompatActivity
         setContentView(R.layout.activity_home);
         //Here we use toolbar(coordinate layout)incase of action bar and add a line .NoActionBar in manifests.
         //-->android.support.design.widget.CoordinatorLayout in xml file which will also support the previous android version.
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 //
 //        //This button will remain fixed in every page of our application.
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
