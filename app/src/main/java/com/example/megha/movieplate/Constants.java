@@ -5,6 +5,10 @@ package com.example.megha.movieplate;
  */
 public class Constants {
     public static String API_KEY = "ApiKey";
+
+    // Boolean to tell that Api key is present in SP or not
+    public static String BOOLEAN_API_KEY_PRESENT = "ApiKeyInSP";
+
     public static String MOVIE_URL_API_KEY = "MovieUrlApiKey";
     public static String TV_URL_API_KEY="TVUrlApiKey";
     public static String CELEBS_URL_API_KEY="CelebsApiKey";

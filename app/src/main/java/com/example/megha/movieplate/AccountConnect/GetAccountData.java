@@ -18,7 +18,7 @@ public class GetAccountData extends AppCompatActivity {
     public static boolean detailsTaken = false;
     public void getAccountDetails(){
 
-        SharedPreferences sp = getSharedPreferences(Constants.SHARED_PREFERNCE, Context.MODE_PRIVATE);
+        SharedPreferences sp = getSharedPreferences(Constants.SHARED_PREFERENCE, Context.MODE_PRIVATE);
         String key = sp.getString(Constants.API_KEY, null);
         final SharedPreferences.Editor editor = sp.edit();
         String sessionId = sp.getString(Constants.SESSION_ID_SP, null);

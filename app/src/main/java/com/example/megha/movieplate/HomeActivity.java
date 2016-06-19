@@ -159,14 +159,11 @@ public class HomeActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         SharedPreferences sp = getSharedPreferences("MoviePlate", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putString(Constants.API_KEY, "4b21312cf568464ee6b05097ebc6f824");
-        editor.commit();
+        String api_key = sp.getString(Constants.API_KEY, null);
         if (id == R.id.nav_home) {
             setTitle("Home");
             HomeFragment hf=new HomeFragment();
             Bundle b = new Bundle();
-            String api_key = sp.getString(Constants.API_KEY, null);
             b.putSerializable(Constants.MOVIE_URL_API_KEY, api_key);
             hf.setArguments(b);
             getFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, hf).commit();
@@ -174,13 +171,11 @@ public class HomeActivity extends AppCompatActivity
             setTitle("Movies");
             MovieFragment mf = new MovieFragment();
             Bundle b = new Bundle();
-            String api_key = sp.getString(Constants.API_KEY, null);
             b.putSerializable(Constants.MOVIE_URL_API_KEY, api_key);
             mf.setArguments(b);
             getFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, mf).commit();
         } else if (id == R.id.nav_celebs) {
             setTitle("Most Popular Celebs");
-            String api_key=sp.getString(Constants.API_KEY,null);
             CelebsFragment celebsFragment=new CelebsFragment();
             Bundle b=new Bundle();
             b.putSerializable(Constants.CELEBS_URL_API_KEY,api_key);
@@ -191,7 +186,6 @@ public class HomeActivity extends AppCompatActivity
             setTitle("TV");
             TvFragment tvFragment=new TvFragment();
             Bundle b=new Bundle();
-            String api_key=sp.getString(Constants.API_KEY,null);
             b.putSerializable(Constants.TV_URL_API_KEY,api_key);
             tvFragment.setArguments(b);
             getFragmentManager().beginTransaction().replace(R.id.homeFrameLayout,tvFragment).commit();
