@@ -9,4 +9,9 @@
 
     <string name="top_rated_movies">Top Rated Movies</string>
     <string name="popular_movies">Popular Movies</string>
+
+    <string name="movie_watchlist">Watchlist Of Movies</string>
+    <string name="tv_show_watchlist">Watchlist Of TV Shows</string>
+
+    <string name="add_to_favourite">+</string>
 </resources>

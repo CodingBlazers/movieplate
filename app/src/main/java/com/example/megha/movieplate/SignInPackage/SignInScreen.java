@@ -28,6 +28,7 @@ public class SignInScreen extends AppCompatActivity {
     boolean requestTokenGrant = false;
     boolean requestTokenVerify = false;
     SharedPreferences sp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +57,7 @@ public class SignInScreen extends AppCompatActivity {
                     Log.i("Request Token Grant", "Request Token Request Unsuccessful");
                     editor.putBoolean(Constants.BOOLEAN_ACCESS_TOKEN_TAKEN, false);
                     editor.commit();
+                    requestTokenGrant = false;
                 }
             }
 
@@ -64,6 +66,7 @@ public class SignInScreen extends AppCompatActivity {
                 Log.i("Request Token Grant", "Request Token Grant Error");
                 editor.putBoolean(Constants.BOOLEAN_ACCESS_TOKEN_TAKEN, false);
                 editor.commit();
+                requestTokenGrant = false;
             }
         });
         logInButton.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +74,7 @@ public class SignInScreen extends AppCompatActivity {
             public void onClick(View v) {
                 final String username = username_edit_text.getText().toString();
                 final String password = password_edit_text.getText().toString();
-                if(sp.getBoolean(Constants.BOOLEAN_ACCESS_TOKEN_TAKEN, false)){
+                if(requestTokenGrant){
                     Call<account_access> authenticate = ApiClientMoviedb.getInterface().getRequestAuthenticated(api_key, token, username, password);
                     authenticate.enqueue(new Callback<account_access>() {
                         @Override
@@ -98,7 +101,8 @@ public class SignInScreen extends AppCompatActivity {
                                             editor.putBoolean(Constants.BOOLEAN_SIGNED_IN, true);
                                             editor.commit();
                                             Toast.makeText(SignInScreen.this, "Signed In", Toast.LENGTH_SHORT);
-                                            Log.i("Session id: ", "verified");
+                                            Log.i("Session id: ", "verified"+session_id);
+                                            getAccountSignInDetails();
                                             Intent i = new Intent();
                                             i.setClass(SignInScreen.this, HomeActivity.class);
                                             startActivity(i);
@@ -124,6 +128,7 @@ public class SignInScreen extends AppCompatActivity {
                                 Log.i("Request Token Vrfctn", "Request Token can't be verified " + response.errorBody());
                                 editor.putBoolean(Constants.BOOLEAN_ACCESS_TOKEN_VERIFIED, false);
                                 editor.commit();
+                                requestTokenVerify = false;
                             }
                         }
 
@@ -132,6 +137,7 @@ public class SignInScreen extends AppCompatActivity {
                             Log.i("Request Token Vrfctn", "Network Error: request token can't be verified");
                             editor.putBoolean(Constants.BOOLEAN_ACCESS_TOKEN_VERIFIED, false);
                             editor.commit();
+                            requestTokenVerify = false;
                         }
                     });
                 }
@@ -143,4 +149,37 @@ public class SignInScreen extends AppCompatActivity {
             }
         });
     }
+
+    public void getAccountSignInDetails(){
+        SharedPreferences sp = getSharedPreferences(Constants.SHARED_PREFERENCE, Context.MODE_PRIVATE);
+        String key = sp.getString(Constants.API_KEY, null);
+        final SharedPreferences.Editor editor = sp.edit();
+        String sessionId = sp.getString(Constants.SESSION_ID_SP, null);
+        Call<AccountDetails> details = ApiClientAccountDetails.getInterface().getAccountDetails(key, sessionId);
+        details.enqueue(new Callback<AccountDetails>() {
+            @Override
+            public void onResponse(Call<AccountDetails> call, Response<AccountDetails> response) {
+                if (response.isSuccessful()) {
+                    AccountDetails accountDetails = response.body();
+                    editor.putString(Constants.ID_SP, accountDetails.getId());
+                    editor.commit();
+                    editor.putBoolean(Constants.BOOLEAN_GET_ACCOUNT_ID, true);
+                    editor.commit();
+                    Log.i("Session id: ", "user id granted");
+                } else {
+                    editor.putBoolean(Constants.BOOLEAN_GET_ACCOUNT_ID, false);
+                    editor.commit();
+                    Log.i("Session id: ", "user id not granted "+response.errorBody());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AccountDetails> call, Throwable t) {
+                editor.putBoolean(Constants.BOOLEAN_GET_ACCOUNT_ID, false);
+                editor.commit();
+                Log.i("Session id: ", "user id not granted");
+            }
+        });
+    }
+
 }

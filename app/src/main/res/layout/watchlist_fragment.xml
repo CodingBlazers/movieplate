@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.megha.movieplate.HomeActivity">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/movie_watchlist"
+                android:textAlignment="center"
+                android:textSize="@dimen/title_size"
+                android:layout_margin="@dimen/margin"/>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/containerMovieWatchlist"
+                android:layout_margin="@dimen/margin"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_show_watchlist"
+                android:textAlignment="center"
+                android:textSize="@dimen/title_size"
+                android:layout_margin="@dimen/margin"/>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/containerTVShowWatchlist"
+                android:layout_margin="@dimen/margin"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        </LinearLayout>
+    </ScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

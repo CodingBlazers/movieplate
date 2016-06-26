@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.example.megha.movieplate.CelebsFormat.CelebsFragment;
 import com.example.megha.movieplate.MovieFormat.MovieFragment;
 import com.example.megha.movieplate.TVFormat.TvFragment;
+import com.example.megha.movieplate.WatchlistFormat.WatchlistFragment;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -192,7 +193,16 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.nav_rating) {
 
         } else if (id == R.id.nav_watchlist) {
-
+            setTitle("Watchlist");
+            String sessionId = sp.getString(Constants.SESSION_ID_SP, null);
+            String userId = sp.getString(Constants.ID_SP, null);
+            WatchlistFragment watchlistFragment = new WatchlistFragment();
+            Bundle b = new Bundle();
+            b.putSerializable(Constants.WATCHLIST_URL_API_KEY, api_key);
+            b.putSerializable(Constants.WATCHLIST_URL_SESSION_ID, sessionId);
+            b.putSerializable(Constants.WATCHLIST_URL_USER_ID, userId);
+            watchlistFragment.setArguments(b);
+            getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, watchlistFragment).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
