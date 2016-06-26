@@ -8,10 +8,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <ImageView
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageView1"/>
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView1"/>
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="41dp"
+                android:text="@string/add_to_favourite"
+                android:textSize="40dp"
+                android:textAlignment="center"
+                android:textColor="#F7FE2E"
+                android:background="#A9A9F5"
+                android:alpha="0.5"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
