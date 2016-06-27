@@ -11,7 +11,8 @@ import retrofit2.http.Url;
  */
 public interface ApiInterfaceOmdb {
 
-    //In query it will append ? than parameter than equal to by itself.
+    // In query it will append ? than parameter than equal to by itself.
+    // Url request to OMDB Api for searching movie
     @GET
     Call<Search> getMySearch(@Url String urlstring, @Query("t") String item);
 

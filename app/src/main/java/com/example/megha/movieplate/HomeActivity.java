@@ -38,25 +38,11 @@ public class HomeActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
         //Here we use toolbar(coordinate layout)incase of action bar and add a line .NoActionBar in manifests.
         //-->android.support.design.widget.CoordinatorLayout in xml file which will also support the previous android version.
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-//
-//        //This button will remain fixed in every page of our application.
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar snackbar=Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null);
-//                View sbView=snackbar.getView();
-//                sbView.setBackgroundColor(Color.BLACK);
-//                TextView textView=(TextView)sbView.findViewById(android.support.design.R.id.snackbar_text);
-//                textView.setTextColor(Color.GREEN);
-//                snackbar.show();
-//            }
-//        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -72,7 +58,7 @@ public class HomeActivity extends AppCompatActivity
         String api_key = sp.getString(Constants.API_KEY, null);
         b.putSerializable(Constants.MOVIE_URL_API_KEY, api_key);
         hf.setArguments(b);
-        getFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, hf).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, hf).commit();
     }
 
     @Override
@@ -105,7 +91,7 @@ public class HomeActivity extends AppCompatActivity
                             SearchFragment sf = new SearchFragment();
                             b.putSerializable("searchMovie", s);
                             sf.setArguments(b);
-                            getFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, sf).commit();
+                            getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, sf).commit();
                         }
                         else {
                             Toast.makeText(HomeActivity.this, response.code() + response.message(), Toast.LENGTH_LONG).show();
@@ -126,8 +112,23 @@ public class HomeActivity extends AppCompatActivity
                 return false;
             }
         });
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                SharedPreferences sp = getSharedPreferences("MoviePlate", Context.MODE_PRIVATE);
+                String api_key = sp.getString(Constants.API_KEY, null);
+                setTitle("Home");
+                HomeFragment hf=new HomeFragment();
+                Bundle b = new Bundle();
+                b.putSerializable(Constants.MOVIE_URL_API_KEY, api_key);
+                hf.setArguments(b);
+                getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, hf).commit();
+                return true;
+            }
+        });
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -161,38 +162,55 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
         SharedPreferences sp = getSharedPreferences("MoviePlate", Context.MODE_PRIVATE);
         String api_key = sp.getString(Constants.API_KEY, null);
+
+        // launching home fragment for click on home in navigation button
         if (id == R.id.nav_home) {
             setTitle("Home");
             HomeFragment hf=new HomeFragment();
             Bundle b = new Bundle();
             b.putSerializable(Constants.MOVIE_URL_API_KEY, api_key);
             hf.setArguments(b);
-            getFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, hf).commit();
-        } else if (id == R.id.nav_movie) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, hf).commit();
+        }
+
+        // launching movie fragment for click on maovie in navigation button
+        else if (id == R.id.nav_movie) {
             setTitle("Movies");
             MovieFragment mf = new MovieFragment();
             Bundle b = new Bundle();
             b.putSerializable(Constants.MOVIE_URL_API_KEY, api_key);
             mf.setArguments(b);
-            getFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, mf).commit();
-        } else if (id == R.id.nav_celebs) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, mf).commit();
+        }
+
+        // launching celebs fragment for click on celebs in navigation button
+        else if (id == R.id.nav_celebs) {
             setTitle("Most Popular Celebs");
             CelebsFragment celebsFragment=new CelebsFragment();
             Bundle b=new Bundle();
             b.putSerializable(Constants.CELEBS_URL_API_KEY,api_key);
             celebsFragment.setArguments(b);
-            getFragmentManager().beginTransaction().replace(R.id.homeFrameLayout,celebsFragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout,celebsFragment).commit();
 
-        } else if (id == R.id.nav_tv) {
+        }
+
+        // launching TV fragment for click on TV shows in navigation button
+        else if (id == R.id.nav_tv) {
             setTitle("TV");
             TvFragment tvFragment=new TvFragment();
             Bundle b=new Bundle();
             b.putSerializable(Constants.TV_URL_API_KEY,api_key);
             tvFragment.setArguments(b);
-            getFragmentManager().beginTransaction().replace(R.id.homeFrameLayout,tvFragment).commit();
-        } else if (id == R.id.nav_rating) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout,tvFragment).commit();
+        }
 
-        } else if (id == R.id.nav_watchlist) {
+        // to do
+        else if (id == R.id.nav_rating) {
+
+        }
+
+        // launching watchlist fragment for click on watchlist in navigation button
+        else if (id == R.id.nav_watchlist) {
             setTitle("Watchlist");
             String sessionId = sp.getString(Constants.SESSION_ID_SP, null);
             String userId = sp.getString(Constants.ID_SP, null);
