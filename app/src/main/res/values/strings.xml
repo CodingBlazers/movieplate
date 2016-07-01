@@ -15,4 +15,6 @@
 
     <string name="add_to_favourite">+</string>
 
+
+    <string name="logout_submit_button"> Log out </string>
 </resources>

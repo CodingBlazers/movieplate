@@ -9,6 +9,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
+        android:launchMode="singleTop"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity"
             android:screenOrientation="portrait"
@@ -26,6 +27,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ContactUsActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".SignInPackage.LogOutActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".AboutUsActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".TVFormat.TVShowDetails"
@@ -33,6 +36,7 @@
         <activity android:name=".MovieFormat.SingleMovieActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".SignInPackage.SignInScreen"
+            android:noHistory="true"
             android:screenOrientation="portrait"/>
 
         <receiver

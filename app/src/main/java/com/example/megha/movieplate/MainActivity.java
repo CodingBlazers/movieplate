@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);//This is to hide notification bar from the splash screen
-        final SharedPreferences sp = getSharedPreferences("MoviePlate", Context.MODE_PRIVATE);
+        final SharedPreferences sp = getSharedPreferences(Constants.SHARED_PREFERENCE, Context.MODE_PRIVATE);
         boolean api_key_present = sp.getBoolean(Constants.BOOLEAN_API_KEY_PRESENT, false);
         if (! api_key_present){
             SharedPreferences.Editor editor = sp.edit();
@@ -36,10 +36,14 @@ public class MainActivity extends AppCompatActivity {
                 boolean signedIn = sp.getBoolean(Constants.BOOLEAN_SIGNED_IN, false);
                 //If already signed in than open the HomeActivity else open the SignInScreen
                 if(signedIn){
+                    // set the new task and clear flags
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     intent.setClass(MainActivity.this, HomeActivity.class);
 
                 }
                 else{
+                    // set the new task and clear flags
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     intent.setClass(MainActivity.this, SignInScreen.class);
 
                 }

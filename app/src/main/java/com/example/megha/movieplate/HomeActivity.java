@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.megha.movieplate.CelebsFormat.CelebsFragment;
 import com.example.megha.movieplate.MovieFormat.MovieFragment;
+import com.example.megha.movieplate.SignInPackage.LogOutActivity;
 import com.example.megha.movieplate.TVFormat.TvFragment;
 import com.example.megha.movieplate.WatchlistFormat.WatchlistFragment;
 
@@ -152,7 +153,9 @@ public class HomeActivity extends AppCompatActivity
             i.setClass(HomeActivity.this, ContactUsActivity.class);
             startActivity(i);
         } else if (id == R.id.action_signOut) {
-
+            Intent i = new Intent();
+            i.setClass(HomeActivity.this, LogOutActivity.class);
+            startActivity(i);
         }
 
         return true;
