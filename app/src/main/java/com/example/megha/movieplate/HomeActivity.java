@@ -41,6 +41,8 @@ public class HomeActivity extends AppCompatActivity
 
         //Here we use toolbar(coordinate layout)incase of action bar and add a line .NoActionBar in manifests.
         //-->android.support.design.widget.CoordinatorLayout in xml file which will also support the previous android version.
+
+        //Toolbar tells that three lines of drawer is clicked and it will opens the drawer.
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -58,6 +60,7 @@ public class HomeActivity extends AppCompatActivity
         String api_key = sp.getString(Constants.API_KEY, null);
         b.putSerializable(Constants.MOVIE_URL_API_KEY, api_key);
         hf.setArguments(b);
+        //We can also use getFragmentmanager() which bring us the fragment but we cannot rely on it as it will also fetch some another fragment.
         getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, hf).commit();
     }
 
@@ -89,7 +92,7 @@ public class HomeActivity extends AppCompatActivity
                             Search s = response.body();
                             Bundle b = new Bundle();
                             SearchFragment sf = new SearchFragment();
-                            b.putSerializable("searchMovie", s);
+                            b.putSerializable("SearchContent", s);
                             sf.setArguments(b);
                             getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, sf).commit();
                         }
@@ -118,7 +121,7 @@ public class HomeActivity extends AppCompatActivity
                 SharedPreferences sp = getSharedPreferences("MoviePlate", Context.MODE_PRIVATE);
                 String api_key = sp.getString(Constants.API_KEY, null);
                 setTitle("Home");
-                HomeFragment hf=new HomeFragment();
+                HomeFragment hf = new HomeFragment();
                 Bundle b = new Bundle();
                 b.putSerializable(Constants.MOVIE_URL_API_KEY, api_key);
                 hf.setArguments(b);

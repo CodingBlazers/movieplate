@@ -10,7 +10,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,12 +22,18 @@
         <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_home"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ContactUsActivity" />
-        <activity android:name=".AboutUsActivity" />
-        <activity android:name=".TVFormat.TVShowDetails" />
-        <activity android:name=".MovieFormat.SingleMovieActivity" />
-        <activity android:name=".SignInPackage.SignInScreen" />
+        <activity android:name=".ContactUsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".AboutUsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".TVFormat.TVShowDetails"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".MovieFormat.SingleMovieActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".SignInPackage.SignInScreen"
+            android:screenOrientation="portrait"/>
 
         <receiver
             android:name=".MoviePlateReceiver"

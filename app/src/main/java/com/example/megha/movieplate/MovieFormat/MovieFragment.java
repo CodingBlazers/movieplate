@@ -1,5 +1,6 @@
 package com.example.megha.movieplate.MovieFormat;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -71,6 +72,7 @@ public class MovieFragment extends Fragment {
             }
         });
         return view;
+
     }
 
 }

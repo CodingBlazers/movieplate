@@ -8,14 +8,5 @@
     android:layout_alignParentRight="true"
     android:layout_alignParentLeft="true"
     tools:context="com.example.megha.movieplate.MainActivity"
-    android:background="#01030a">
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/movieimage"
-        android:id="@+id/imageView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+    android:background="@drawable/img">
 </RelativeLayout>

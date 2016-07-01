@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.example.megha.movieplate.SignInPackage.SignInScreen;
@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);//This is to hide notification bar from the splash screen
         final SharedPreferences sp = getSharedPreferences("MoviePlate", Context.MODE_PRIVATE);
         boolean api_key_present = sp.getBoolean(Constants.BOOLEAN_API_KEY_PRESENT, false);
         if (! api_key_present){
@@ -27,11 +27,14 @@ public class MainActivity extends AppCompatActivity {
             editor.commit();
         }
 
+        //In manifest hide the action bar from the main activity so that splash screen appears properly
+        final int SPLASH_TIME_OUT=3000;
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 Intent intent = new Intent();
                 boolean signedIn = sp.getBoolean(Constants.BOOLEAN_SIGNED_IN, false);
+                //If already signed in than open the HomeActivity else open the SignInScreen
                 if(signedIn){
                     intent.setClass(MainActivity.this, HomeActivity.class);
 
@@ -45,6 +48,6 @@ public class MainActivity extends AppCompatActivity {
                 overridePendingTransition(R.animator.fade_in, R.animator.fade_out);
                 finish();
             }
-        }, 2000);
+        },SPLASH_TIME_OUT);
     }
 }

@@ -39,7 +39,7 @@ public class SearchFragment extends Fragment {
 
         Bundle b = getArguments();
         if (b != null) {
-            s = (Search) b.getSerializable("searchMovie");
+            s = (Search) b.getSerializable("SearchContent");
             if (s != null) {
                 Picasso.with(getActivity()).load(s.Poster).into(poster);
                 movieTitle.setText(s.title);

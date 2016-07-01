@@ -17,6 +17,8 @@ public class ApiClientMoviedb {
 
     public static ApiInterfaceMoviedb getInterface() {
         if (mService == null) {
+            //Gson is a Java library that can be used to convert Java Objects into their JSON representation.
+            //It can also be used to convert a JSON string to an equivalent Java object.
             Gson gson = new GsonBuilder()
                     .excludeFieldsWithModifiers(Modifier.TRANSIENT, Modifier.STATIC)
                     .create();

@@ -26,6 +26,7 @@ public class HomeFragment extends Fragment {
 
     @Nullable
     @Override
+    //From onCreateview we get to know about what type of view we have to attach(landscape/portrait)
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_home_fragment, container, false);
         Bundle b = getArguments();
