@@ -1,5 +1,8 @@
 package com.example.megha.movieplate.TVFormat;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.megha.movieplate.Constants;
+import com.example.megha.movieplate.Database_Connect.Image_Converter;
+import com.example.megha.movieplate.Database_Connect.SQL_Helper;
 import com.example.megha.movieplate.R;
 import com.squareup.picasso.Picasso;
 
@@ -28,6 +33,22 @@ public class TVLinearlayoutFragment extends Fragment {
         view = inflater.inflate(R.layout.activity_tv_linear_layout_fragment, container, false);
         Bundle b = getArguments();
         final TV tv = (TV) b.getSerializable(Constants.TV_TO_LINEAR_LAYOUT_FRAGMENT);
+        String type=b.getString("type");
+        SQL_Helper helper=new SQL_Helper(getActivity(),1);
+        SQLiteDatabase db=helper.getReadableDatabase();
+        String tablename="";
+        if(type.equals("tv_most_rated"))
+            tablename=helper.MOST_RATED_TV_TABLE_NAME;
+        if(type.equals("tv_popular"))
+            tablename=helper.POPULAR_TV_TABLE_NAME;
+        if(type.equals("on_air_movies"))
+            tablename=helper.ON_AIR_TV_TABLE_NAME;
+       
+
+
+
+        Cursor c=db.query(true,tablename, new String[]{helper._ID, helper.TABLE_IMAGE, helper.TABLE_OBJECT}, null, null, null, null, helper._ID, null);
+        c.moveToNext();
 
         iv1 = (ImageView) view.findViewById(R.id.imageView1);
         iv2 = (ImageView) view.findViewById(R.id.imageView2);
@@ -51,26 +72,88 @@ public class TVLinearlayoutFragment extends Fragment {
         tv10 = (TextView) view.findViewById(R.id.textView10);
 
         if (b != null) {
-            Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w300/" + tv.TVShowresults.get(0).getPoster_path()).into(iv1);
+            int i=c.getColumnIndex(helper.TABLE_IMAGE);
+            byte[] img_byte;
+            Bitmap img;
+            img_byte=c.getBlob(i);
+            img= Image_Converter.getImage(img_byte);
+            iv1.setImageBitmap(img);
             tv1.setText(tv.TVShowresults.get(0).getName());
-            Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w300/" + tv.TVShowresults.get(1).getPoster_path()).into(iv2);
+            c.moveToNext();
+
+            img_byte=c.getBlob(i);
+            img= Image_Converter.getImage(img_byte);
+            iv2.setImageBitmap(img);
             tv2.setText(tv.TVShowresults.get(1).getName());
-            Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w300/" + tv.TVShowresults.get(2).getPoster_path()).into(iv3);
+            c.moveToNext();
+
+            img_byte=c.getBlob(i);
+            img= Image_Converter.getImage(img_byte);
+            iv3.setImageBitmap(img);
             tv3.setText(tv.TVShowresults.get(2).getName());
-            Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w300/" + tv.TVShowresults.get(3).getPoster_path()).into(iv4);
+            c.moveToNext();
+
+            img_byte=c.getBlob(i);
+            img= Image_Converter.getImage(img_byte);
+            iv4.setImageBitmap(img);
             tv4.setText(tv.TVShowresults.get(3).getName());
-            Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w300/" + tv.TVShowresults.get(4).getPoster_path()).into(iv5);
+            c.moveToNext();
+
+            img_byte=c.getBlob(i);
+            img= Image_Converter.getImage(img_byte);
+            iv5.setImageBitmap(img);
             tv5.setText(tv.TVShowresults.get(4).getName());
-            Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w300/" + tv.TVShowresults.get(5).getPoster_path()).into(iv6);
+            c.moveToNext();
+
+            img_byte=c.getBlob(i);
+            img= Image_Converter.getImage(img_byte);
+            iv6.setImageBitmap(img);
             tv6.setText(tv.TVShowresults.get(5).getName());
-            Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w300/" + tv.TVShowresults.get(6).getPoster_path()).into(iv7);
+            c.moveToNext();
+
+            img_byte=c.getBlob(i);
+            img= Image_Converter.getImage(img_byte);
+            iv7.setImageBitmap(img);
             tv7.setText(tv.TVShowresults.get(6).getName());
-            Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w300/" + tv.TVShowresults.get(7).getPoster_path()).into(iv8);
+            c.moveToNext();
+
+            img_byte=c.getBlob(i);
+            img= Image_Converter.getImage(img_byte);
+            iv8.setImageBitmap(img);
             tv8.setText(tv.TVShowresults.get(7).getName());
-            Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w300/" + tv.TVShowresults.get(8).getPoster_path()).into(iv9);
+            c.moveToNext();
+
+            img_byte=c.getBlob(i);
+            img= Image_Converter.getImage(img_byte);
+            iv9.setImageBitmap(img);
             tv9.setText(tv.TVShowresults.get(8).getName());
-            Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w300/" + tv.TVShowresults.get(9).getPoster_path()).into(iv10);
+            c.moveToNext();
+
+            img_byte=c.getBlob(i);
+            img= Image_Converter.getImage(img_byte);
             tv10.setText(tv.TVShowresults.get(9).getName());
+            iv10.setImageBitmap(img);
+
+//            Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w300/" + tv.TVShowresults.get(0).getPoster_path()).into(iv1);
+//            tv1.setText(tv.TVShowresults.get(0).getName());
+//            Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w300/" + tv.TVShowresults.get(1).getPoster_path()).into(iv2);
+//            tv2.setText(tv.TVShowresults.get(1).getName());
+//            Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w300/" + tv.TVShowresults.get(2).getPoster_path()).into(iv3);
+//            tv3.setText(tv.TVShowresults.get(2).getName());
+//            Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w300/" + tv.TVShowresults.get(3).getPoster_path()).into(iv4);
+//            tv4.setText(tv.TVShowresults.get(3).getName());
+//            Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w300/" + tv.TVShowresults.get(4).getPoster_path()).into(iv5);
+//            tv5.setText(tv.TVShowresults.get(4).getName());
+//            Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w300/" + tv.TVShowresults.get(5).getPoster_path()).into(iv6);
+//            tv6.setText(tv.TVShowresults.get(5).getName());
+//            Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w300/" + tv.TVShowresults.get(6).getPoster_path()).into(iv7);
+//            tv7.setText(tv.TVShowresults.get(6).getName());
+//            Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w300/" + tv.TVShowresults.get(7).getPoster_path()).into(iv8);
+//            tv8.setText(tv.TVShowresults.get(7).getName());
+//            Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w300/" + tv.TVShowresults.get(8).getPoster_path()).into(iv9);
+//            tv9.setText(tv.TVShowresults.get(8).getName());
+//            Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w300/" + tv.TVShowresults.get(9).getPoster_path()).into(iv10);
+//            tv10.setText(tv.TVShowresults.get(9).getName());
         }
 
         final Intent intent = new Intent();

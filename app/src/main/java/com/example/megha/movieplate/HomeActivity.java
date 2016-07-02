@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.ResultReceiver;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
@@ -23,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.megha.movieplate.CelebsFormat.CelebsFragment;
+import com.example.megha.movieplate.Database_Connect.MyIntentService;
 import com.example.megha.movieplate.MovieFormat.MovieFragment;
 import com.example.megha.movieplate.SignInPackage.LogOutActivity;
 import com.example.megha.movieplate.TVFormat.TvFragment;
@@ -56,13 +58,27 @@ public class HomeActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         HomeFragment hf=new HomeFragment();
-        Bundle b = new Bundle();
+        getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, hf).commit();
+        startBackground_Intent_Service();
+    }
+
+    private void startBackground_Intent_Service() {
+        final Intent i=new Intent(HomeActivity.this, MyIntentService.class);
         SharedPreferences sp = getSharedPreferences("MoviePlate", Context.MODE_PRIVATE);
         String api_key = sp.getString(Constants.API_KEY, null);
-        b.putSerializable(Constants.MOVIE_URL_API_KEY, api_key);
-        hf.setArguments(b);
-        //We can also use getFragmentmanager() which bring us the fragment but we cannot rely on it as it will also fetch some another fragment.
-        getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, hf).commit();
+
+        i.putExtra("KEY",api_key);
+        i.putExtra("RECIEVER",new ResultReceiver(null)
+        {
+            @Override
+            protected void onReceiveResult(int resultCode, Bundle resultData) {
+                //perform checks written in white cb copy and update boolean service finshed written in small concept ccopy
+                // and handle the case internet is not connectedd...from intent service check resultcode and associated string in bundle
+               Log.i("service","service is finished");
+                super.onReceiveResult(resultCode, resultData);
+            }
+        });
+        startService(i);
     }
 
     @Override
@@ -173,9 +189,7 @@ public class HomeActivity extends AppCompatActivity
         if (id == R.id.nav_home) {
             setTitle("Home");
             HomeFragment hf=new HomeFragment();
-            Bundle b = new Bundle();
-            b.putSerializable(Constants.MOVIE_URL_API_KEY, api_key);
-            hf.setArguments(b);
+
             getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, hf).commit();
         }
 
@@ -183,9 +197,7 @@ public class HomeActivity extends AppCompatActivity
         else if (id == R.id.nav_movie) {
             setTitle("Movies");
             MovieFragment mf = new MovieFragment();
-            Bundle b = new Bundle();
-            b.putSerializable(Constants.MOVIE_URL_API_KEY, api_key);
-            mf.setArguments(b);
+
             getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, mf).commit();
         }
 
@@ -193,9 +205,7 @@ public class HomeActivity extends AppCompatActivity
         else if (id == R.id.nav_celebs) {
             setTitle("Most Popular Celebs");
             CelebsFragment celebsFragment=new CelebsFragment();
-            Bundle b=new Bundle();
-            b.putSerializable(Constants.CELEBS_URL_API_KEY,api_key);
-            celebsFragment.setArguments(b);
+
             getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout,celebsFragment).commit();
 
         }
@@ -204,9 +214,7 @@ public class HomeActivity extends AppCompatActivity
         else if (id == R.id.nav_tv) {
             setTitle("TV");
             TvFragment tvFragment=new TvFragment();
-            Bundle b=new Bundle();
-            b.putSerializable(Constants.TV_URL_API_KEY,api_key);
-            tvFragment.setArguments(b);
+
             getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout,tvFragment).commit();
         }
 

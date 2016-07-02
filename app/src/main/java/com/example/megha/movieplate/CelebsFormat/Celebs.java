@@ -11,5 +11,5 @@ import java.util.ArrayList;
 public class Celebs implements Serializable{
     int page;
     @SerializedName("results")
-    ArrayList<Results> CelebsList;
+    public  ArrayList<Results> CelebsList;
 }

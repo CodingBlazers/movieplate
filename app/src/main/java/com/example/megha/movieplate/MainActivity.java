@@ -13,7 +13,7 @@ import com.example.megha.movieplate.SignInPackage.SignInScreen;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageView iv;
+   
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

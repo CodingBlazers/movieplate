@@ -18,6 +18,11 @@ public class Constants {
     public static String WATCHLIST_URL_API_KEY = "WatchlistApiKey";
     public static String WATCHLIST_URL_SESSION_ID = "WatchlistSessionId";
     public static String WATCHLIST_URL_USER_ID = "WatchlistUserId";
+    public static final int RESULT_SUCCESS=0;
+    public static final int INTERNET_CONNECTION_FAILURE=2;
+    public static final int OTHER_SERVER_ERROR=1;
+
+
 
     // Passing arguments from fragment to child fragments
     public static String MOVIE_TO_LINEAR_LAYOUT_FRAGMENT = "Movies";
