@@ -1,5 +1,7 @@
 package com.example.megha.movieplate.MovieFormat;
 
+import android.graphics.Bitmap;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -9,4 +11,5 @@ import java.util.ArrayList;
 public class Movie implements Serializable {
     public int page;
     public ArrayList<Results> results;
+    public Bitmap Mov_img;
 }

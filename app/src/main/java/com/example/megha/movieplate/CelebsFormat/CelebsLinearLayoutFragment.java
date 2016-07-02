@@ -1,5 +1,8 @@
 package com.example.megha.movieplate.CelebsFormat;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.megha.movieplate.Constants;
+import com.example.megha.movieplate.Database_Connect.Image_Converter;
+import com.example.megha.movieplate.Database_Connect.SQL_Helper;
 import com.example.megha.movieplate.R;
 import com.squareup.picasso.Picasso;
 
@@ -29,6 +34,10 @@ public class CelebsLinearLayoutFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.activity_celebs_linear_layout_fragments, container, false);
+        SQL_Helper helper=new SQL_Helper(getActivity(),1);
+        SQLiteDatabase db=helper.getReadableDatabase();
+        Cursor c=db.query(true, helper.CELEB_TABLE_NAME, new String[]{helper._ID, helper.TABLE_IMAGE, helper.TABLE_OBJECT}, null, null, null, null, helper._ID, null);
+        c.moveToNext();
         b = getArguments();
         final Celebs celebs = (Celebs) b.getSerializable(Constants.CELEBS_TO_LINEAR_LAYOUT_FRAGMENT);
 
@@ -74,52 +83,82 @@ public class CelebsLinearLayoutFragment extends Fragment {
         mtv10 = (TextView) view.findViewById(R.id.MoviesListTextView10);
 
         if (b != null) {
-            Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w300/" + celebs.CelebsList.get(0).getProfile_path()).into(iv1);
+            int i=c.getColumnIndex(helper.TABLE_IMAGE);
+            byte[] img_byte;
+            Bitmap img;
+            img_byte=c.getBlob(i);
+            img= Image_Converter.getImage(img_byte);
+            iv1.setImageBitmap(img);
             ntv1.setText(celebs.CelebsList.get(0).getName());
             mtv1.setText(celebs.CelebsList.get(0).MoviesList.get(0).getOriginal_title() + "," + celebs.CelebsList.get(0).MoviesList.get(1).getOriginal_title() + "," +
                     celebs.CelebsList.get(0).MoviesList.get(2).getOriginal_title());
+            c.moveToNext();
 
-            Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w300/" + celebs.CelebsList.get(1).getProfile_path()).into(iv2);
+            img_byte=c.getBlob(i);
+            img= Image_Converter.getImage(img_byte);
+            iv2.setImageBitmap(img);
             ntv2.setText(celebs.CelebsList.get(1).getName());
             mtv2.setText(celebs.CelebsList.get(1).MoviesList.get(0).getOriginal_title() + "," + celebs.CelebsList.get(1).MoviesList.get(1).getOriginal_title() + "," +
                     celebs.CelebsList.get(1).MoviesList.get(2).getOriginal_title());
 
-            Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w300/" + celebs.CelebsList.get(2).getProfile_path()).into(iv3);
+            c.moveToNext();
+            img_byte=c.getBlob(i);
+            img= Image_Converter.getImage(img_byte);
+            iv3.setImageBitmap(img);
             ntv3.setText(celebs.CelebsList.get(2).getName());
             mtv3.setText(celebs.CelebsList.get(2).MoviesList.get(0).getOriginal_title() + "," + celebs.CelebsList.get(2).MoviesList.get(1).getOriginal_title() + "," +
                     celebs.CelebsList.get(2).MoviesList.get(2).getOriginal_title());
 
-            Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w300/" + celebs.CelebsList.get(3).getProfile_path()).into(iv4);
+            c.moveToNext();
+            img_byte=c.getBlob(i);
+            img= Image_Converter.getImage(img_byte);
+            iv4.setImageBitmap(img);
             ntv4.setText(celebs.CelebsList.get(3).getName());
             mtv4.setText(celebs.CelebsList.get(3).MoviesList.get(0).getOriginal_title() + "," + celebs.CelebsList.get(3).MoviesList.get(1).getOriginal_title() + "," +
                     celebs.CelebsList.get(3).MoviesList.get(2).getOriginal_title());
 
-            Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w300/" + celebs.CelebsList.get(4).getProfile_path()).into(iv5);
+            c.moveToNext();
+            img_byte=c.getBlob(i);
+            img= Image_Converter.getImage(img_byte);
+            iv5.setImageBitmap(img);
             ntv5.setText(celebs.CelebsList.get(4).getName());
             mtv5.setText(celebs.CelebsList.get(4).MoviesList.get(0).getOriginal_title() + "," + celebs.CelebsList.get(4).MoviesList.get(1).getOriginal_title() + "," +
                     celebs.CelebsList.get(4).MoviesList.get(2).getOriginal_title());
 
-            Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w300/" + celebs.CelebsList.get(5).getProfile_path()).into(iv6);
+            c.moveToNext();
+            img_byte=c.getBlob(i);
+            img= Image_Converter.getImage(img_byte);
+            iv6.setImageBitmap(img);
             ntv6.setText(celebs.CelebsList.get(5).getName());
             mtv6.setText(celebs.CelebsList.get(5).MoviesList.get(0).getOriginal_title() + "," + celebs.CelebsList.get(5).MoviesList.get(1).getOriginal_title() + "," +
                     celebs.CelebsList.get(5).MoviesList.get(2).getOriginal_title());
 
-            Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w300/" + celebs.CelebsList.get(6).getProfile_path()).into(iv7);
+            c.moveToNext();
+            img_byte=c.getBlob(i);
+            img= Image_Converter.getImage(img_byte);
+            iv7.setImageBitmap(img);
             ntv7.setText(celebs.CelebsList.get(6).getName());
             mtv7.setText(celebs.CelebsList.get(6).MoviesList.get(0).getOriginal_title() + "," + celebs.CelebsList.get(6).MoviesList.get(1).getOriginal_title() + "," +
                     celebs.CelebsList.get(6).MoviesList.get(2).getOriginal_title());
 
-            Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w300/" + celebs.CelebsList.get(7).getProfile_path()).into(iv8);
+            c.moveToNext();
+            img_byte=c.getBlob(i);
+            img= Image_Converter.getImage(img_byte);
+            iv8.setImageBitmap(img);
             ntv8.setText(celebs.CelebsList.get(7).getName());
             mtv8.setText(celebs.CelebsList.get(7).MoviesList.get(0).getOriginal_title() + "," + celebs.CelebsList.get(7).MoviesList.get(1).getOriginal_title() + "," +
                     celebs.CelebsList.get(7).MoviesList.get(2).getOriginal_title());
-
-            Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w300/" + celebs.CelebsList.get(8).getProfile_path()).into(iv9);
+            c.moveToNext();
+            img_byte=c.getBlob(i);
+            img= Image_Converter.getImage(img_byte);
+            iv9.setImageBitmap(img);
             ntv9.setText(celebs.CelebsList.get(8).getName());
             mtv9.setText(celebs.CelebsList.get(8).MoviesList.get(0).getOriginal_title() + "," + celebs.CelebsList.get(8).MoviesList.get(1).getOriginal_title() + "," +
                     celebs.CelebsList.get(8).MoviesList.get(2).getOriginal_title());
-
-            Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w300/" + celebs.CelebsList.get(9).getProfile_path()).into(iv10);
+            c.moveToNext();
+            img_byte=c.getBlob(i);
+            img= Image_Converter.getImage(img_byte);
+            iv10.setImageBitmap(img);
             ntv10.setText(celebs.CelebsList.get(9).getName());
             mtv10.setText(celebs.CelebsList.get(9).MoviesList.get(0).getOriginal_title() + "," + celebs.CelebsList.get(9).MoviesList.get(1).getOriginal_title());
 
