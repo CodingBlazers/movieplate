@@ -19,6 +19,11 @@ public class SearchFragment extends Fragment {
     ImageView poster;
     Search s;
 
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

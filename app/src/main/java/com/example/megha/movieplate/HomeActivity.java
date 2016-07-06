@@ -40,7 +40,7 @@ public class HomeActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        //Here we use toolbar(coordinate layout)incase of action bar and add a line .NoActionBar in manifests.
+        //Here we use toolbar(coordinate layout) in case of action bar and add a line .NoActionBar in manifests.
         //-->android.support.design.widget.CoordinatorLayout in xml file which will also support the previous android version.
 
         //Toolbar tells that three lines of drawer is clicked and it will opens the drawer.
@@ -61,7 +61,9 @@ public class HomeActivity extends AppCompatActivity
         String api_key = sp.getString(Constants.API_KEY, null);
         b.putSerializable(Constants.MOVIE_URL_API_KEY, api_key);
         hf.setArguments(b);
-        //We can also use getFragmentmanager() which bring us the fragment but we cannot rely on it as it will also fetch some another fragment.
+        setTitle("Home");
+
+        // We can't use getFragmentManager() because our fragment is support fragment. Also, we need support fragment because view pager is not there in fragment
         getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, hf).commit();
     }
 
@@ -71,7 +73,13 @@ public class HomeActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            Log.i("Home_Activity: ", "On back pressed");
+            SearchFragment searchFragment = (SearchFragment) getSupportFragmentManager().findFragmentByTag("SEARCH_FRAGMENT");
+            if (searchFragment != null && searchFragment.isVisible()) {
+                getSupportFragmentManager().popBackStack();
+            } else {
+                super.onBackPressed();
+            }
         }
     }
 
@@ -95,7 +103,8 @@ public class HomeActivity extends AppCompatActivity
                             SearchFragment sf = new SearchFragment();
                             b.putSerializable("SearchContent", s);
                             sf.setArguments(b);
-                            getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, sf).commit();
+
+                            getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, sf, "SEARCH_FRAGMENT").addToBackStack(null).commit();
                         }
                         else {
                             Toast.makeText(HomeActivity.this, response.code() + response.message(), Toast.LENGTH_LONG).show();
@@ -116,7 +125,7 @@ public class HomeActivity extends AppCompatActivity
                 return false;
             }
         });
-        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+        /*searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
                 SharedPreferences sp = getSharedPreferences("MoviePlate", Context.MODE_PRIVATE);
@@ -129,7 +138,7 @@ public class HomeActivity extends AppCompatActivity
                 getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, hf).commit();
                 return true;
             }
-        });
+        });*/
         return true;
     }
 
@@ -226,11 +235,12 @@ public class HomeActivity extends AppCompatActivity
             b.putSerializable(Constants.WATCHLIST_URL_SESSION_ID, sessionId);
             b.putSerializable(Constants.WATCHLIST_URL_USER_ID, userId);
             watchlistFragment.setArguments(b);
-            getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, watchlistFragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, watchlistFragment, "Show Watchlist Fragment").commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }
