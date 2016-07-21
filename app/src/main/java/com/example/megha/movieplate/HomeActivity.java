@@ -1,5 +1,7 @@
 package com.example.megha.movieplate;
 
+import android.app.SearchManager;
+import android.support.v7.widget.SearchView;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,7 +20,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +32,8 @@ import com.example.megha.movieplate.WatchlistFormat.WatchlistFragment;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.widget.SearchView.*;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -86,14 +89,16 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+
         getMenuInflater().inflate(R.menu.home, menu);
-        MenuItem searchItem = menu.findItem(R.id.searchBox);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+
+
+        final android.support.v7.widget.SearchView searchView = (android.support.v7.widget.SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Log.i("Query",query);
-                Call<Search> mySearch = ApiClientOmdb.getInterface().getMySearch("",query);
+                Log.i("Query", query);
+                Call<Search> mySearch = ApiClientOmdb.getInterface().getMySearch("", query);
                 mySearch.enqueue(new Callback<Search>() {
                     @Override
                     public void onResponse(Call<Search> call, Response<Search> response) {
@@ -105,42 +110,43 @@ public class HomeActivity extends AppCompatActivity
                             sf.setArguments(b);
 
                             getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, sf, "SEARCH_FRAGMENT").addToBackStack(null).commit();
-                        }
-                        else {
+                        } else {
                             Toast.makeText(HomeActivity.this, response.code() + response.message(), Toast.LENGTH_LONG).show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<Search> call, Throwable t) {
-                        Toast.makeText(HomeActivity.this, "You are not connected to Internet" , Toast.LENGTH_LONG).show();
+                        Toast.makeText(HomeActivity.this, "You are not connected to Internet", Toast.LENGTH_LONG).show();
                     }
                 });
                 return true;
             }
 
             @Override
-            public boolean onQueryTextChange(String newText)
-            {
+            public boolean onQueryTextChange(String newText) {
                 return false;
             }
         });
-        /*searchView.setOnCloseListener(new SearchView.OnCloseListener() {
-            @Override
-            public boolean onClose() {
-                SharedPreferences sp = getSharedPreferences("MoviePlate", Context.MODE_PRIVATE);
-                String api_key = sp.getString(Constants.API_KEY, null);
-                setTitle("Home");
-                HomeFragment hf = new HomeFragment();
-                Bundle b = new Bundle();
-                b.putSerializable(Constants.MOVIE_URL_API_KEY, api_key);
-                hf.setArguments(b);
-                getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, hf).commit();
-                return true;
-            }
-        });*/
+        SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         return true;
     }
+//        /*searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+//            @Override
+//            public boolean onClose() {
+//                SharedPreferences sp = getSharedPreferences("MoviePlate", Context.MODE_PRIVATE);
+//                String api_key = sp.getString(Constants.API_KEY, null);
+//                setTitle("Home");
+//                HomeFragment hf = new HomeFragment();
+//                Bundle b = new Bundle();
+//                b.putSerializable(Constants.MOVIE_URL_API_KEY, api_key);
+//                hf.setArguments(b);
+//                getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, hf).commit();
+//                return true;
+//            }
+//        });*/
+
 
 
     @Override
