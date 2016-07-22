@@ -1,200 +1,343 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
-    <HorizontalScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    <LinearLayout
 
-        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-            <RelativeLayout
+            <ImageView
+                android:id="@+id/imageView1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content" />
 
-                <ImageView
-                    android:id="@+id/imageView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="41dp"
+                android:alpha="0.5"
+                android:background="#A9A9F5"
+                android:text="@string/add_to_favourite"
+                android:textAlignment="center"
+                android:textColor="#F7FE2E"
+                android:textSize="40dp" />
 
-                <TextView
-                    android:id="@+id/textView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/imageView1"
-                    android:layout_alignRight="@+id/imageView1"
-                    android:layout_below="@+id/imageView1" />
-            </RelativeLayout>
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="80dp"
+                android:layout_height="50dp"
+                android:layout_alignLeft="@+id/imageView1"
+                android:layout_alignRight="@+id/imageView1"
+                android:layout_below="@+id/imageView1"
+                android:layout_marginTop="-10dp"
+                android:gravity="center"
+                android:textColor="#ffffff" />
+        </RelativeLayout>
 
-            <RelativeLayout
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageView2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content" />
 
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="41dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:alpha="0.5"
+                android:background="#A9A9F5"
+                android:text="@string/add_to_favourite"
+                android:textAlignment="center"
+                android:textColor="#F7FE2E"
+                android:textSize="40dp" />
 
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/imageView2"
-                    android:layout_alignRight="@+id/imageView2"
-                    android:layout_below="@+id/imageView2" />
-            </RelativeLayout>
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="80dp"
+                android:layout_height="50dp"
+                android:layout_alignLeft="@+id/imageView2"
+                android:layout_alignRight="@+id/imageView2"
+                android:layout_below="@+id/imageView2"
+                android:layout_marginTop="-10dp"
+                android:gravity="center"
+                android:textColor="#ffffff" />
+        </RelativeLayout>
 
-            <RelativeLayout
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageView3"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content" />
 
-                <ImageView
-                    android:id="@+id/imageView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="41dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:alpha="0.5"
+                android:background="#A9A9F5"
+                android:text="@string/add_to_favourite"
+                android:textAlignment="center"
+                android:textColor="#F7FE2E"
+                android:textSize="40dp" />
 
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/imageView3"
-                    android:layout_alignRight="@+id/imageView3"
-                    android:layout_below="@+id/imageView3" />
-            </RelativeLayout>
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="80dp"
+                android:layout_height="50dp"
+                android:layout_alignLeft="@+id/imageView3"
+                android:layout_alignRight="@+id/imageView3"
+                android:layout_below="@+id/imageView3"
+                android:layout_marginTop="-10dp"
+                android:gravity="center"
+                android:textColor="#ffffff" />
+        </RelativeLayout>
 
-            <RelativeLayout
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageView4"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content" />
 
-                <ImageView
-                    android:id="@+id/imageView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="41dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:alpha="0.5"
+                android:background="#A9A9F5"
+                android:text="@string/add_to_favourite"
+                android:textAlignment="center"
+                android:textColor="#F7FE2E"
+                android:textSize="40dp" />
 
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/imageView4"
-                    android:layout_alignRight="@+id/imageView4"
-                    android:layout_below="@+id/imageView4" />
-            </RelativeLayout>
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="80dp"
+                android:layout_height="50dp"
+                android:layout_alignLeft="@+id/imageView4"
+                android:layout_alignRight="@+id/imageView4"
+                android:layout_below="@+id/imageView4"
+                android:layout_marginTop="-10dp"
+                android:gravity="center"
+                android:textColor="#ffffff" />
+        </RelativeLayout>
 
-            <RelativeLayout
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageView5"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content" />
 
-                <ImageView
-                    android:id="@+id/imageView5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="41dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:alpha="0.5"
+                android:background="#A9A9F5"
+                android:text="@string/add_to_favourite"
+                android:textAlignment="center"
+                android:textColor="#F7FE2E"
+                android:textSize="40dp" />
 
-                <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/imageView5"
-                    android:layout_alignRight="@+id/imageView5"
-                    android:layout_below="@+id/imageView5" />
-            </RelativeLayout>
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="80dp"
+                android:layout_height="50dp"
+                android:layout_alignLeft="@+id/imageView5"
+                android:layout_alignRight="@+id/imageView5"
+                android:layout_below="@+id/imageView5"
+                android:layout_marginTop="-10dp"
+                android:gravity="center"
+                android:textColor="#ffffff" />
+        </RelativeLayout>
 
-            <RelativeLayout
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageView6"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content" />
 
-                <ImageView
-                    android:id="@+id/imageView6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="41dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:alpha="0.5"
+                android:background="#A9A9F5"
+                android:text="@string/add_to_favourite"
+                android:textAlignment="center"
+                android:textColor="#F7FE2E"
+                android:textSize="40dp" />
 
-                <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/imageView6"
-                    android:layout_alignRight="@+id/imageView6"
-                    android:layout_below="@+id/imageView6" />
-            </RelativeLayout>
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="80dp"
+                android:layout_height="50dp"
+                android:layout_alignLeft="@+id/imageView6"
+                android:layout_alignRight="@+id/imageView6"
+                android:layout_below="@+id/imageView6"
+                android:layout_marginTop="-10dp"
+                android:gravity="center"
+                android:textColor="#ffffff" />
+        </RelativeLayout>
 
-            <RelativeLayout
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageView7"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content" />
 
-                <ImageView
-                    android:id="@+id/imageView7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="41dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:alpha="0.5"
+                android:background="#A9A9F5"
+                android:text="@string/add_to_favourite"
+                android:textAlignment="center"
+                android:textColor="#F7FE2E"
+                android:textSize="40dp" />
 
-                <TextView
-                    android:id="@+id/textView7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/imageView7"
-                    android:layout_alignRight="@+id/imageView7"
-                    android:layout_below="@+id/imageView7" />
-            </RelativeLayout>
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="80dp"
+                android:layout_height="50dp"
+                android:layout_alignLeft="@+id/imageView7"
+                android:layout_alignRight="@+id/imageView7"
+                android:layout_below="@+id/imageView7"
+                android:layout_marginTop="-10dp"
+                android:gravity="center"
+                android:textColor="#ffffff" />
+        </RelativeLayout>
 
-            <RelativeLayout
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageView8"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content" />
 
-                <ImageView
-                    android:id="@+id/imageView8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="41dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:alpha="0.5"
+                android:background="#A9A9F5"
+                android:text="@string/add_to_favourite"
+                android:textAlignment="center"
+                android:textColor="#F7FE2E"
+                android:textSize="40dp" />
 
-                <TextView
-                    android:id="@+id/textView8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/imageView8"
-                    android:layout_alignRight="@+id/imageView8"
-                    android:layout_below="@+id/imageView8" />
-            </RelativeLayout>
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="80dp"
+                android:layout_height="50dp"
+                android:layout_alignLeft="@+id/imageView8"
+                android:layout_alignRight="@+id/imageView8"
+                android:layout_below="@+id/imageView8"
+                android:layout_marginTop="-10dp"
+                android:gravity="center"
+                android:textColor="#ffffff" />
+        </RelativeLayout>
 
-            <RelativeLayout
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageView9"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content" />
 
-                <ImageView
-                    android:id="@+id/imageView9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="41dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:alpha="0.5"
+                android:background="#A9A9F5"
+                android:text="@string/add_to_favourite"
+                android:textAlignment="center"
+                android:textColor="#F7FE2E"
+                android:textSize="40dp" />
 
-                <TextView
-                    android:id="@+id/textView9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/imageView9"
-                    android:layout_alignRight="@+id/imageView9"
-                    android:layout_below="@+id/imageView9" />
-            </RelativeLayout>
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="80dp"
+                android:layout_height="50dp"
+                android:layout_alignLeft="@+id/imageView9"
+                android:layout_alignRight="@+id/imageView9"
+                android:layout_below="@+id/imageView9"
+                android:layout_marginTop="-10dp"
+                android:gravity="center"
+                android:textColor="#ffffff" />
+        </RelativeLayout>
 
-            <RelativeLayout
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageView10"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content" />
 
-                <ImageView
-                    android:id="@+id/imageView10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="41dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:alpha="0.5"
+                android:background="#A9A9F5"
+                android:text="@string/add_to_favourite"
+                android:textAlignment="center"
+                android:textColor="#F7FE2E"
+                android:textSize="40dp" />
 
-                <TextView
-                    android:id="@+id/textView10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/imageView10"
-                    android:layout_alignRight="@+id/imageView10"
-                    android:layout_below="@+id/imageView10" />
-            </RelativeLayout>
-        </LinearLayout>
-    </HorizontalScrollView>
-</ScrollView>
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="80dp"
+                android:layout_height="50dp"
+                android:layout_alignLeft="@+id/imageView10"
+                android:layout_alignRight="@+id/imageView10"
+                android:layout_below="@+id/imageView10"
+                android:layout_marginTop="-10dp"
+                android:gravity="center"
+                android:textColor="#ffffff" />
+        </RelativeLayout>
+    </LinearLayout>
+</HorizontalScrollView>
 
 

@@ -12,9 +12,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/top_rated_movies"
-            android:textSize="40dp"
-            android:textStyle="bold"/>
+            android:text="TOP RATED MOVIES"
+            android:textSize="26dp"
+            android:textStyle="bold"
+            android:textColor="#ffffff"/>
 
         <FrameLayout
             android:layout_width="wrap_content"
@@ -24,8 +25,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/popular_movies"
-            android:textSize="40dp"
+            android:text="POPULAR MOVIES"
+            android:textSize="26dp"
+            android:textColor="#ffffff"
             android:textStyle="bold" />
 
         <FrameLayout

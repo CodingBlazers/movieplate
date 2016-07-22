@@ -2,47 +2,54 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Now Playing"
-            android:textSize="40dp"
-            android:textStyle="bold"/>
+            android:text="NOW PLAYING"
+            android:textSize="35dp"
+            android:textStyle="bold"
+            android:textColor="#f6f3f3" />
 
         <FrameLayout
+            android:id="@+id/frameLayoutnowplayingMovies"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/frameLayoutnowplayingMovies"></FrameLayout>
+            android:background="#4f5051"
+            android:layout_height="wrap_content"></FrameLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Upcoming Movies"
-            android:textSize="40dp"
-            android:textStyle="bold" />
+            android:text="UPCOMING MOVIES"
+            android:textSize="35dp"
+            android:textStyle="bold"
+            android:textColor="#f6f3f3" />
 
         <FrameLayout
+            android:id="@+id/frameLayoutupcomingmovies"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/frameLayoutupcomingmovies"></FrameLayout>
+            android:background="#4f5051"
+            android:layout_height="wrap_content"></FrameLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="On Air Tv Shows"
-            android:textSize="40dp"
-            android:textStyle="bold" />
+            android:text="ON AIR TV SHOWS"
+            android:textSize="35dp"
+            android:textStyle="bold"
+            android:textColor="#f6f3f3" />
 
         <FrameLayout
+            android:id="@+id/frameLayoutonairTvshows"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/frameLayoutonairTvshows"></FrameLayout>
+            android:background="#4f5051"
+            android:layout_height="wrap_content"></FrameLayout>
 
     </LinearLayout>
 </ScrollView>
