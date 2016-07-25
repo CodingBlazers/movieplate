@@ -10,7 +10,6 @@ import java.util.ArrayList;
  */
 public class TV implements Serializable {
     public int page;
-
     @SerializedName("results")
     public ArrayList<Results> TVShowresults;
 }

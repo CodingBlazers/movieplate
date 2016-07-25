@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ public class MovieFragment extends Fragment {
         view = inflater.inflate(R.layout.activity_movie_fragment, container, false);
         Bundle b = getArguments();
         String key = b.getString(Constants.MOVIE_URL_API_KEY);
+        //Log.i("Key",key);
         Call<Movie> topRatedMovies = ApiClientMoviedb.getInterface().getTopRatedMovie(key);
         topRatedMovies.enqueue(new Callback<Movie>() {
             @Override
@@ -36,6 +38,7 @@ public class MovieFragment extends Fragment {
                 if (response.isSuccessful()) {
                     Movie movie = response.body();
                     MovieLinearLayoutFragment mf = new MovieLinearLayoutFragment();
+                    //Log.i("Movie Object",movie.results.toString());
                     Bundle b = new Bundle();
                     b.putSerializable(Constants.MOVIE_TO_LINEAR_LAYOUT_FRAGMENT, movie);
                     mf.setArguments(b);

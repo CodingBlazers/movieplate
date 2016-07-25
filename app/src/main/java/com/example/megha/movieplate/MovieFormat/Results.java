@@ -13,8 +13,13 @@ public class Results implements Serializable{
     public String adult;
     public String overview;
     public String release_date;
-    public String id;
+    public int id;
     public String title;
+
+    public int getId() {
+        return id;
+    }
+
     public String original_language;
     public String popularity;
     public String vote_count;

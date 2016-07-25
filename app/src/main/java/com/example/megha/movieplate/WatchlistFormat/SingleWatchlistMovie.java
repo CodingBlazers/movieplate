@@ -13,4 +13,12 @@ public class SingleWatchlistMovie {
     String title;
     double vote_average;
     int vote_count;
+
+    public String getPoster_path() {
+        return poster_path;
+    }
+
+    public String getOriginal_title() {
+        return original_title;
+    }
 }

@@ -69,6 +69,7 @@ public class CelebrityDetailsActivity extends AppCompatActivity {
 
                             final TextView textView = (TextView) convertView;
                             textView.setText(list.get(position).toString());
+                            textView.setMinimumHeight(300);
                             textView.post(new Runnable() {
                                 @Override
                                 public void run() {

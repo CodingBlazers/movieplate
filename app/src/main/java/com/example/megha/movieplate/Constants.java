@@ -18,6 +18,7 @@ public class Constants {
     public static String WATCHLIST_URL_API_KEY = "WatchlistApiKey";
     public static String WATCHLIST_URL_SESSION_ID = "WatchlistSessionId";
     public static String WATCHLIST_URL_USER_ID = "WatchlistUserId";
+    public static String WATCHLIST_MOVIE_DETAILS="WatchListMovieDetails";
 
     // Passing arguments from fragment to child fragments
     public static String MOVIE_TO_LINEAR_LAYOUT_FRAGMENT = "Movies";
@@ -28,6 +29,7 @@ public class Constants {
 
     // name of file of shared preferences
     public static String SHARED_PREFERENCE = "MoviePlate";
+    public static String USER_NAME="UserName";
 
     // Represents value stored in SP corresponding to access token , session Id and user Id
     public static String SESSION_ID_SP = "SessionId";

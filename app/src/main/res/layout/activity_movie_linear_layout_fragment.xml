@@ -5,27 +5,26 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
             <ImageView
+                android:id="@+id/imageView1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView1"/>
-            <Button
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/id_ImgV1"
                 android:layout_width="50dp"
-                android:layout_height="41dp"
-                android:text="@string/add_to_favourite"
-                android:textSize="40dp"
-                android:textAlignment="center"
-                android:textColor="#F7FE2E"
-                android:background="#A9A9F5"
-                android:alpha="0.5"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
+<<<<<<< Updated upstream
                 android:layout_alignParentRight="true" />
         </RelativeLayout>
         <RelativeLayout
@@ -46,11 +45,35 @@
                 android:alpha="0.5"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true" />
+=======
+                android:alpha=".5"
+                android:src="@drawable/transition" />
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/id_ImgV2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:alpha=".5"
+                android:src="@drawable/transition" />
+>>>>>>> Stashed changes
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+<<<<<<< Updated upstream
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -66,11 +89,28 @@
                 android:alpha="0.5"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true" />
+=======
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/id_ImgV3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:alpha=".5"
+                android:src="@drawable/transition" />
+>>>>>>> Stashed changes
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+<<<<<<< Updated upstream
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -86,11 +126,28 @@
                 android:alpha="0.5"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true" />
+=======
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/id_ImgV4"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:alpha=".5"
+                android:src="@drawable/transition" />
+>>>>>>> Stashed changes
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+<<<<<<< Updated upstream
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -106,11 +163,28 @@
                 android:alpha="0.5"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true" />
+=======
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/id_ImgV5"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:alpha=".5"
+                android:src="@drawable/transition" />
+>>>>>>> Stashed changes
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+<<<<<<< Updated upstream
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -126,11 +200,28 @@
                 android:alpha="0.5"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true" />
+=======
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/id_ImgV6"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:alpha=".5"
+                android:src="@drawable/transition" />
+>>>>>>> Stashed changes
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+<<<<<<< Updated upstream
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -146,11 +237,28 @@
                 android:alpha="0.5"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true" />
+=======
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/id_ImgV7"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:alpha=".5"
+                android:src="@drawable/transition" />
+>>>>>>> Stashed changes
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+<<<<<<< Updated upstream
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -166,11 +274,28 @@
                 android:alpha="0.5"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true" />
+=======
+
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/id_ImgV8"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:alpha=".5"
+                android:src="@drawable/transition" />
+>>>>>>> Stashed changes
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+<<<<<<< Updated upstream
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -187,11 +312,29 @@
                 android:alpha="0.5"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true" />
+=======
+
+            <ImageView
+                android:id="@+id/imageView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY" />
+
+            <ImageView
+                android:id="@+id/id_ImgV9"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:alpha=".5"
+                android:src="@drawable/transition" />
+>>>>>>> Stashed changes
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+<<<<<<< Updated upstream
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -207,6 +350,22 @@
                 android:alpha="0.5"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true" />
+=======
+
+            <ImageView
+                android:id="@+id/imageView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/id_ImgV10"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:alpha=".5"
+                android:src="@drawable/transition" />
+>>>>>>> Stashed changes
         </RelativeLayout>
 
     </LinearLayout>

@@ -7,30 +7,32 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-
     tools:context=".SignInPackage.SignInScreen">
+
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:hint="User Name"
-        android:minHeight="50dp"
-        android:layout_alignParentTop="true" />
+        android:minHeight="50dp" />
+
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/password"
-        android:hint="Password"
-        android:password="true"
-        android:minHeight="10dp"
-        android:layout_below="@+id/username"/>
-    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/username"
+        android:hint="Password"
+        android:minHeight="10dp"
+        android:password="true" />
+
+    <Button
         android:id="@+id/login_button"
-        android:text="Log in"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/password"
         android:minHeight="10dp"
         android:onClick="onclick"
-        android:layout_below="@+id/password"/>
+        android:text="Log in" />
 
 </RelativeLayout>

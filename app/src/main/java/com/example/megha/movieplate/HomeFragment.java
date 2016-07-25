@@ -3,20 +3,18 @@ package com.example.megha.movieplate;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.megha.movieplate.MovieFormat.ApiClientMoviedb;
 import com.example.megha.movieplate.MovieFormat.Movie;
-import com.example.megha.movieplate.MovieFormat.MovieFragment;
 import com.example.megha.movieplate.MovieFormat.MovieLinearLayoutFragment;
 import com.example.megha.movieplate.TVFormat.ApiClientTVDb;
 import com.example.megha.movieplate.TVFormat.TV;
 import com.example.megha.movieplate.TVFormat.TVLinearlayoutFragment;
-import com.example.megha.movieplate.TVFormat.TVShowDetails;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,6 +34,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call<Movie> call, Response<Movie> response) {
                 Movie movie = response.body();
+                Log.i("Movie Object",movie.results.toString());
                 MovieLinearLayoutFragment mf = new MovieLinearLayoutFragment();
                 Bundle b = new Bundle();
                 b.putSerializable(Constants.MOVIE_TO_LINEAR_LAYOUT_FRAGMENT, movie);

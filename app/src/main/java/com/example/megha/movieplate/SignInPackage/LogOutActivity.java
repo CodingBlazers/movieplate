@@ -32,9 +32,13 @@ public class LogOutActivity extends AppCompatActivity{
                 SharedPreferences.Editor editor = sp.edit();
                 editor.putBoolean(Constants.BOOLEAN_SIGNED_IN, false);
                 editor.commit();
+                editor.putBoolean(Constants.BOOLEAN_ACCESS_TOKEN_TAKEN, false);
+                editor.commit();
+                editor.putBoolean(Constants.BOOLEAN_SESSION_ID_GRANTED,false);
+                editor.commit();
                 Intent i = new Intent(LogOutActivity.this, SignInScreen.class);
                 // set the new task and clear flags
-                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(i);
             }
         });

@@ -3,6 +3,7 @@ package com.example.megha.movieplate.TVFormat;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ public class TvFragment extends Fragment {
             public void onResponse(Call<TV> call, Response<TV> response) {
                 if (response.isSuccessful()) {
                     TV tv = response.body();
+                    Log.i("TV Object",tv.toString());
                     Bundle b = new Bundle();
                     TVLinearlayoutFragment tvf = new TVLinearlayoutFragment();
                     b.putSerializable(Constants.TV_TO_LINEAR_LAYOUT_FRAGMENT, tv);

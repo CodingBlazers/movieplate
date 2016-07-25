@@ -14,4 +14,7 @@ public class AccountDetails {
     public String getId() {
         return id;
     }
+    public String getUsername(){
+        return username;
+    }
 }

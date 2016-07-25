@@ -21,6 +21,10 @@ public class Results implements Serializable{
         return poster_path;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }

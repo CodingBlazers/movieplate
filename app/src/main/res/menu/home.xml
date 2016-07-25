@@ -21,6 +21,11 @@
         android:id="@+id/action_search"
         android:icon="@android:drawable/ic_menu_search"
         android:title="Search"
+<<<<<<< Updated upstream
         app:showAsAction="always"
+=======
+        android:icon="@drawable/search"
+        app:showAsAction="ifRoom|collapseActionView"
+>>>>>>> Stashed changes
         app:actionViewClass="android.support.v7.widget.SearchView" />
 </menu>

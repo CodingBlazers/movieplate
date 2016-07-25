@@ -13,4 +13,12 @@ public class SingleWatchlistTVShow {
     String name;
     double vote_average;
     int vote_count;
+
+    public String getPoster_path() {
+        return poster_path;
+    }
+
+    public String getOriginal_name() {
+        return original_name;
+    }
 }
