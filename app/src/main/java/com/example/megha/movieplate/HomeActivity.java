@@ -96,19 +96,10 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-<<<<<<< Updated upstream
-        // Inflate the menu; this adds items to the action bar if it is present.
-
-        getMenuInflater().inflate(R.menu.home, menu);
-
-
-        final android.support.v7.widget.SearchView searchView = (android.support.v7.widget.SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
-=======
         //Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.home, menu);
-        MenuItem searchItem = menu.findItem(R.id.searchBox);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
         final android.support.v7.widget.SearchView searchView = (android.support.v7.widget.SearchView) MenuItemCompat.getActionView(searchItem);
->>>>>>> Stashed changes
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -123,12 +114,8 @@ public class HomeActivity extends AppCompatActivity
                             SearchFragment sf = new SearchFragment();
                             b.putSerializable("SearchContent", s);
                             sf.setArguments(b);
-<<<<<<< Updated upstream
 
-                            getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, sf, "SEARCH_FRAGMENT").addToBackStack(null).commit();
-=======
                             getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, sf).commit();
->>>>>>> Stashed changes
                         } else {
                             Toast.makeText(HomeActivity.this, response.code() + response.message(), Toast.LENGTH_LONG).show();
                         }
@@ -257,14 +244,9 @@ public class HomeActivity extends AppCompatActivity
             Bundle b = new Bundle();
             b.putSerializable(Constants.WATCHLIST_URL_API_KEY, api_key);
             b.putSerializable(Constants.WATCHLIST_URL_SESSION_ID, sessionId);
-            b.putSerializable(Constants.WATCHLIST_URL_USER_ID, userId);
-<<<<<<< Updated upstream
-            watchlistFragment.setArguments(b);
-            getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, watchlistFragment, "Show Watchlist Fragment").commit();
-=======
+
             fragmentWatchList.setArguments(b);
             getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, fragmentWatchList).commit();
->>>>>>> Stashed changes
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

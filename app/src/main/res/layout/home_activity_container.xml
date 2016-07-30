@@ -4,8 +4,5 @@
     android:layout_height="match_parent"
     android:id="@+id/HomeActivityContainer"
     android:background="#4f5051">
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
 </FrameLayout>

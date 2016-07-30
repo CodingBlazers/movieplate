@@ -24,28 +24,6 @@
                 android:layout_height="50dp"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
-<<<<<<< Updated upstream
-                android:layout_alignParentRight="true" />
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView2"/>
-            <Button
-                android:layout_width="50dp"
-                android:layout_height="41dp"
-                android:text="@string/add_to_favourite"
-                android:textSize="40dp"
-                android:textAlignment="center"
-                android:textColor="#F7FE2E"
-                android:background="#A9A9F5"
-                android:alpha="0.5"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true" />
-=======
                 android:alpha=".5"
                 android:src="@drawable/transition" />
         </RelativeLayout>
@@ -67,30 +45,11 @@
                 android:layout_alignParentTop="true"
                 android:alpha=".5"
                 android:src="@drawable/transition" />
->>>>>>> Stashed changes
-        </RelativeLayout>
+    </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-<<<<<<< Updated upstream
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView3"/>
-            <Button
-                android:layout_width="50dp"
-                android:layout_height="41dp"
-                android:text="@string/add_to_favourite"
-                android:textSize="40dp"
-                android:textAlignment="center"
-                android:textColor="#F7FE2E"
-                android:background="#A9A9F5"
-                android:alpha="0.5"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true" />
-=======
-
             <ImageView
                 android:id="@+id/imageView3"
                 android:layout_width="wrap_content"
@@ -104,30 +63,11 @@
                 android:layout_alignParentTop="true"
                 android:alpha=".5"
                 android:src="@drawable/transition" />
->>>>>>> Stashed changes
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-<<<<<<< Updated upstream
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView4"/>
-            <Button
-                android:layout_width="50dp"
-                android:layout_height="41dp"
-                android:text="@string/add_to_favourite"
-                android:textSize="40dp"
-                android:textAlignment="center"
-                android:textColor="#F7FE2E"
-                android:background="#A9A9F5"
-                android:alpha="0.5"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true" />
-=======
-
             <ImageView
                 android:id="@+id/imageView4"
                 android:layout_width="wrap_content"
@@ -141,30 +81,11 @@
                 android:layout_alignParentTop="true"
                 android:alpha=".5"
                 android:src="@drawable/transition" />
->>>>>>> Stashed changes
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-<<<<<<< Updated upstream
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView5"/>
-            <Button
-                android:layout_width="50dp"
-                android:layout_height="41dp"
-                android:text="@string/add_to_favourite"
-                android:textSize="40dp"
-                android:textAlignment="center"
-                android:textColor="#F7FE2E"
-                android:background="#A9A9F5"
-                android:alpha="0.5"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true" />
-=======
-
             <ImageView
                 android:id="@+id/imageView5"
                 android:layout_width="wrap_content"
@@ -178,30 +99,11 @@
                 android:layout_alignParentTop="true"
                 android:alpha=".5"
                 android:src="@drawable/transition" />
->>>>>>> Stashed changes
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-<<<<<<< Updated upstream
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView6"/>
-            <Button
-                android:layout_width="50dp"
-                android:layout_height="41dp"
-                android:text="@string/add_to_favourite"
-                android:textSize="40dp"
-                android:textAlignment="center"
-                android:textColor="#F7FE2E"
-                android:background="#A9A9F5"
-                android:alpha="0.5"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true" />
-=======
-
             <ImageView
                 android:id="@+id/imageView6"
                 android:layout_width="wrap_content"
@@ -215,30 +117,11 @@
                 android:layout_alignParentTop="true"
                 android:alpha=".5"
                 android:src="@drawable/transition" />
->>>>>>> Stashed changes
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-<<<<<<< Updated upstream
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView7"/>
-            <Button
-                android:layout_width="50dp"
-                android:layout_height="41dp"
-                android:text="@string/add_to_favourite"
-                android:textSize="40dp"
-                android:textAlignment="center"
-                android:textColor="#F7FE2E"
-                android:background="#A9A9F5"
-                android:alpha="0.5"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true" />
-=======
-
             <ImageView
                 android:id="@+id/imageView7"
                 android:layout_width="wrap_content"
@@ -252,30 +135,11 @@
                 android:layout_alignParentTop="true"
                 android:alpha=".5"
                 android:src="@drawable/transition" />
->>>>>>> Stashed changes
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-<<<<<<< Updated upstream
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView8" />
-            <Button
-                android:layout_width="50dp"
-                android:layout_height="41dp"
-                android:text="@string/add_to_favourite"
-                android:textSize="40dp"
-                android:textAlignment="center"
-                android:textColor="#F7FE2E"
-                android:background="#A9A9F5"
-                android:alpha="0.5"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true" />
-=======
-
             <ImageView
                 android:id="@+id/imageView8"
                 android:layout_width="wrap_content"
@@ -289,31 +153,11 @@
                 android:layout_alignParentTop="true"
                 android:alpha=".5"
                 android:src="@drawable/transition" />
->>>>>>> Stashed changes
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-<<<<<<< Updated upstream
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView9"
-                android:scaleType="fitXY" />
-            <Button
-                android:layout_width="50dp"
-                android:layout_height="41dp"
-                android:text="@string/add_to_favourite"
-                android:textSize="40dp"
-                android:textAlignment="center"
-                android:textColor="#F7FE2E"
-                android:background="#A9A9F5"
-                android:alpha="0.5"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true" />
-=======
-
             <ImageView
                 android:id="@+id/imageView9"
                 android:layout_width="wrap_content"
@@ -328,30 +172,11 @@
                 android:layout_alignParentTop="true"
                 android:alpha=".5"
                 android:src="@drawable/transition" />
->>>>>>> Stashed changes
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-<<<<<<< Updated upstream
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView10"/>
-            <Button
-                android:layout_width="50dp"
-                android:layout_height="41dp"
-                android:text="@string/add_to_favourite"
-                android:textSize="40dp"
-                android:textAlignment="center"
-                android:textColor="#F7FE2E"
-                android:background="#A9A9F5"
-                android:alpha="0.5"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true" />
-=======
-
             <ImageView
                 android:id="@+id/imageView10"
                 android:layout_width="wrap_content"
@@ -365,7 +190,6 @@
                 android:layout_alignParentTop="true"
                 android:alpha=".5"
                 android:src="@drawable/transition" />
->>>>>>> Stashed changes
         </RelativeLayout>
 
     </LinearLayout>
