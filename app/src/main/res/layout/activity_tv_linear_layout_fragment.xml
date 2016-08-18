@@ -18,14 +18,16 @@
                 android:id="@+id/imageView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+
             <ImageView
+                android:id="@+id/id_Img1"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/transition"
-                android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
                 android:alpha=".5"
-                android:id="@+id/id_Img1" />
+                android:background="@drawable/transition" />
+
             <TextView
                 android:id="@+id/textView1"
                 android:layout_width="80dp"
@@ -46,14 +48,18 @@
                 android:id="@+id/imageView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-               <ImageView
+
+
+            <ImageView
+                android:id="@+id/id_Img2"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/plus_icon"
-                android:alpha=".5"
-                android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
-                android:id="@+id/id_Img2" />
+                android:layout_alignParentTop="true"
+                android:alpha=".5"
+                android:background="@drawable/plus_icon" />
+
+
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="80dp"
@@ -75,14 +81,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+
             <ImageView
+                android:id="@+id/id_Img3"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/plus_icon"
-                android:alpha=".5"
-                android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
-                android:id="@+id/id_Img3" />
+                android:layout_alignParentTop="true"
+                android:alpha=".5"
+                android:background="@drawable/plus_icon" />
 
             <TextView
                 android:id="@+id/textView3"
@@ -105,14 +112,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+
             <ImageView
+                android:id="@+id/id_Img4"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/plus_icon"
-                android:alpha=".5"
-                android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
-                android:id="@+id/id_Img4" />
+                android:layout_alignParentTop="true"
+                android:alpha=".5"
+                android:background="@drawable/plus_icon" />
+
 
             <TextView
                 android:id="@+id/textView4"
@@ -135,14 +144,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+
             <ImageView
+                android:id="@+id/id_Img5"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/plus_icon"
-                android:alpha=".5"
-                android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
-                android:id="@+id/id_Img5" />
+                android:layout_alignParentTop="true"
+                android:alpha=".5"
+                android:background="@drawable/plus_icon" />
+
 
             <TextView
                 android:id="@+id/textView5"
@@ -165,14 +176,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+
             <ImageView
+                android:id="@+id/id_Img6"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/plus_icon"
-                android:alpha=".5"
-                android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
-                android:id="@+id/id_Img6" />
+                android:layout_alignParentTop="true"
+                android:alpha=".5"
+                android:background="@drawable/plus_icon" />
+
 
             <TextView
                 android:id="@+id/textView6"
@@ -195,14 +208,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+
             <ImageView
+                android:id="@+id/id_Img7"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/plus_icon"
-                android:alpha=".5"
-                android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
-                android:id="@+id/id_Img7" />
+                android:layout_alignParentTop="true"
+                android:alpha=".5"
+                android:background="@drawable/plus_icon" />
+
 
             <TextView
                 android:id="@+id/textView7"
@@ -225,14 +240,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+
             <ImageView
+                android:id="@+id/id_Img8"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/plus_icon"
-                android:alpha=".5"
-                android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
-                android:id="@+id/id_Img8" />
+                android:layout_alignParentTop="true"
+                android:alpha=".5"
+                android:background="@drawable/plus_icon" />
+
 
             <TextView
                 android:id="@+id/textView8"
@@ -255,14 +272,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+
             <ImageView
+                android:id="@+id/id_Img9"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/plus_icon"
-                android:alpha=".5"
-                android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
-                android:id="@+id/id_Img9" />
+                android:layout_alignParentTop="true"
+                android:alpha=".5"
+                android:background="@drawable/plus_icon" />
+
             <TextView
                 android:id="@+id/textView9"
                 android:layout_width="80dp"
@@ -284,14 +303,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+
             <ImageView
+                android:id="@+id/id_Img10"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/plus_icon"
-                android:alpha=".5"
-                android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
-                android:id="@+id/id_Img10" />
+                android:layout_alignParentTop="true"
+                android:alpha=".5"
+                android:background="@drawable/plus_icon" />
+
 
             <TextView
                 android:id="@+id/textView10"
@@ -306,5 +327,3 @@
         </RelativeLayout>
     </LinearLayout>
 </HorizontalScrollView>
-
-

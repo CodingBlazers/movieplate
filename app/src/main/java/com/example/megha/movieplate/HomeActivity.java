@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.megha.movieplate.CelebsFormat.CelebsFragment;
 import com.example.megha.movieplate.MovieFormat.MovieFragment;
 import com.example.megha.movieplate.SignInPackage.LogOutActivity;
@@ -154,7 +155,6 @@ public class HomeActivity extends AppCompatActivity
 //        });*/
 
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -229,9 +229,7 @@ public class HomeActivity extends AppCompatActivity
             b.putSerializable(Constants.TV_URL_API_KEY, api_key);
             tvFragment.setArguments(b);
             getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, tvFragment).commit();
-        }
-
-        else if (id == R.id.nav_rating) {
+        } else if (id == R.id.nav_rating) {
 
         }
 
@@ -244,7 +242,7 @@ public class HomeActivity extends AppCompatActivity
             Bundle b = new Bundle();
             b.putSerializable(Constants.WATCHLIST_URL_API_KEY, api_key);
             b.putSerializable(Constants.WATCHLIST_URL_SESSION_ID, sessionId);
-
+            b.putSerializable(Constants.WATCHLIST_URL_USER_ID, userId);
             fragmentWatchList.setArguments(b);
             getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, fragmentWatchList).commit();
         }

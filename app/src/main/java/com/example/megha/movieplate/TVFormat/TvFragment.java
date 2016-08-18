@@ -1,5 +1,6 @@
 package com.example.megha.movieplate.TVFormat;
 
+import android.app.ProgressDialog;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,12 +22,18 @@ import retrofit2.Response;
  */
 public class TvFragment extends Fragment {
 
+    boolean b1, b2;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_tv_fragment, container, false);
         Bundle b = getArguments();
         String key = b.getString(Constants.TV_URL_API_KEY);
+        final ProgressDialog pDialog = new ProgressDialog(getActivity());
+        pDialog.setMessage("Loading...");
+        pDialog.show();
+        b1=false; b2=false;
         Call<TV> popularTvShows = ApiClientTVDb.getInterface().getPopularTvShows(key);
         popularTvShows.enqueue(new Callback<TV>() {
             @Override
@@ -42,11 +49,17 @@ public class TvFragment extends Fragment {
                 } else {
                     Toast.makeText(getActivity(), response.code() + response.message(), Toast.LENGTH_LONG).show();
                 }
+                b1=true;
+                if(b2)
+                    pDialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<TV> call, Throwable t) {
                 Toast.makeText(getActivity(), "You are not connected to Internet", Toast.LENGTH_LONG).show();
+                b1=true;
+                if(b2)
+                    pDialog.dismiss();
             }
         });
 
@@ -64,11 +77,17 @@ public class TvFragment extends Fragment {
                 } else {
                     Toast.makeText(getActivity(), response.code() + response.message(), Toast.LENGTH_LONG).show();
                 }
+                b2=true;
+                if(b1)
+                    pDialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<TV> call, Throwable t) {
                 Toast.makeText(getActivity(), "You are not connected to Internet", Toast.LENGTH_LONG).show();
+                b2=true;
+                if(b1)
+                    pDialog.dismiss();
             }
         });
 

@@ -1,5 +1,6 @@
 package com.example.megha.movieplate.MovieFormat;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -23,13 +24,17 @@ import retrofit2.Response;
 public class MovieFragment extends Fragment {
 
     View view;
-
+    boolean b1, b2;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_movie_fragment, container, false);
         Bundle b = getArguments();
         String key = b.getString(Constants.MOVIE_URL_API_KEY);
+        final ProgressDialog pDialog = new ProgressDialog(getActivity());
+        pDialog.setMessage("Loading...");
+        pDialog.show();
+        b1=false; b2=false;
         //Log.i("Key",key);
         Call<Movie> topRatedMovies = ApiClientMoviedb.getInterface().getTopRatedMovie(key);
         topRatedMovies.enqueue(new Callback<Movie>() {
@@ -46,11 +51,17 @@ public class MovieFragment extends Fragment {
                 } else {
                     Toast.makeText(getActivity(), response.code() + response.message(), Toast.LENGTH_LONG).show();
                 }
+                b1=true;
+                if(b2)
+                    pDialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<Movie> call, Throwable t) {
                 Toast.makeText(getActivity(), "You are not connected to Internet", Toast.LENGTH_LONG).show();
+                b1=true;
+                if(b2)
+                    pDialog.dismiss();
             }
         });
         Call<Movie> popularMovies = ApiClientMoviedb.getInterface().getPopularMovie(key);
@@ -67,11 +78,17 @@ public class MovieFragment extends Fragment {
                 } else {
                     Toast.makeText(getActivity(), response.code() + response.message(), Toast.LENGTH_LONG).show();
                 }
+                b2=true;
+                if(b1)
+                    pDialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<Movie> call, Throwable t) {
                 Toast.makeText(getActivity(), "You are not connected to Internet", Toast.LENGTH_LONG).show();
+                b2=true;
+                if(b1)
+                    pDialog.dismiss();
             }
         });
         return view;

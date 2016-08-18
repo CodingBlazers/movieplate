@@ -1,5 +1,6 @@
 package com.example.megha.movieplate.WatchlistFormat;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -39,6 +40,7 @@ public class FragmentWatchList extends Fragment {
     GridView MoviesWatchListGV, TvShowsWatchListGV;
     WatchlistMovieJSON moviesWatchList;
     WatchlistTVShowJSON TVShowWatchList;
+    boolean b1, b2;
 
     @Nullable
     @Override
@@ -48,6 +50,10 @@ public class FragmentWatchList extends Fragment {
         key = b.getString(Constants.WATCHLIST_URL_API_KEY);
         session_id = b.getString(Constants.WATCHLIST_URL_SESSION_ID);
         user_id = b.getString(Constants.WATCHLIST_URL_USER_ID);
+        final ProgressDialog pDialog = new ProgressDialog(getActivity());
+        pDialog.setMessage("Loading...");
+        pDialog.show();
+        b1=false; b2=false;
         Log.i("Credentials", key + "\n" + session_id + "\n" + user_id);
         MoviesWatchListGV = (GridView) view.findViewById(R.id.id_MoviesWatchList);
 
@@ -72,11 +78,17 @@ public class FragmentWatchList extends Fragment {
                 } else {
                     Toast.makeText(getActivity(), response.code() + response.message(), Toast.LENGTH_LONG).show();
                 }
+                b1 = true;
+                if(b2)
+                    pDialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<WatchlistMovieJSON> call, Throwable t) {
                 Toast.makeText(getActivity(), "You are not connected to internet", Toast.LENGTH_SHORT).show();
+                b1 = true;
+                if(b2)
+                    pDialog.dismiss();
             }
         });
 
@@ -120,7 +132,7 @@ public class FragmentWatchList extends Fragment {
                     String[] TvShowsposterPaths = new String[TVShowsArrayWatchlist.size()];
 
                     for (int i = 0; i < TVShowsArrayWatchlist.size(); i++) {
-                        TvShowsposterPaths[i] = "http://image.tmdb.org/t/p/w300/" + TVShowsArrayWatchlist.get(i).getPoster_path().toString();
+                        TvShowsposterPaths[i] = "http://image.tmdb.org/t/p/w300/" + TVShowsArrayWatchlist.get(i).getPoster_path() + "";
                     }
 
                     //TVShowsWatchListAdapter tvShowsWatchListAdapter = new TVShowsWatchListAdapter(getContext(), TvShowsposterPaths);
@@ -128,13 +140,18 @@ public class FragmentWatchList extends Fragment {
                 } else {
                     Toast.makeText(getActivity(), response.code() + response.message(), Toast.LENGTH_LONG).show();
                 }
+                b2 = true;
+                if(b1)
+                    pDialog.dismiss();
 
             }
 
             @Override
             public void onFailure(Call<WatchlistTVShowJSON> call, Throwable t) {
-
                 Toast.makeText(getActivity(), "You are not connected to internet", Toast.LENGTH_SHORT).show();
+                b2 = true;
+                if(b1)
+                    pDialog.dismiss();
             }
         });
 

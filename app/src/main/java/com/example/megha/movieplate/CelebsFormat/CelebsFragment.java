@@ -1,5 +1,6 @@
 package com.example.megha.movieplate.CelebsFormat;
 
+import android.app.ProgressDialog;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -26,6 +27,9 @@ public class CelebsFragment extends Fragment {
         View view = inflater.inflate(R.layout.activity_celebs_fragment, container, false);
         Bundle b = getArguments();
         final String key = b.getString(Constants.CELEBS_URL_API_KEY);
+        final ProgressDialog pDialog = new ProgressDialog(getActivity());
+        pDialog.setMessage("Loading...");
+        pDialog.show();
         Call<Celebs> PopularPeople = ApiClientCelebDb.getInterface().getPopularPerson(key);
         PopularPeople.enqueue(new Callback<Celebs>() {
             @Override
@@ -42,11 +46,13 @@ public class CelebsFragment extends Fragment {
                 else {
                     Toast.makeText(getActivity(), response.code() + response.message(), Toast.LENGTH_LONG).show();
                 }
+                pDialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<Celebs> call, Throwable t) {
                 Toast.makeText(getActivity(), "You Are Not Connected To Internet", Toast.LENGTH_LONG).show();
+                pDialog.dismiss();
             }
         });
         return view;
