@@ -1,5 +1,9 @@
-# movieplate
-It is an android app to let you browse popular, rated &amp; now playing movies &amp; TV shows. Also, it allows you to add TV shows or movies to your watchlist &amp; see your watchlist. This app is built using MovieDB &amp; OMDB APIs.
+# Movieplate
+It is a Entertainment based Android App that keeps you updated of movies and Television shows.This App is our first Android app built while learning Android Development. This app is built using MovieDB &amp; OMDB APIs.This app offers following features -
+<li> 1) Get all the information about any movie or TV show.(Search Functionality) </li>
+<li> 2) Maintain your own Watchlist. </li>
+<li> 3) Get updates about upcoming movies and Tv shows </li>
+<li> 4) Get latest news about any celebrity </li>
 <br>
 ###Screenshots:
 <p align="center">
