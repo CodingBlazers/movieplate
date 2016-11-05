@@ -5,6 +5,8 @@ It is a Entertainment based Android App that keeps you updated of movies and Tel
 <li> 3) Get updates about upcoming movies and Tv shows </li>
 <li> 4) Get latest news about any celebrity </li>
 <br>
+Libraries used - Retrofit,Picasso,Gson,Support Library.
+<br>
 ###Screenshots:
 <p align="center">
   <img src="images/movieplate1.jpg" width="250"/>&nbsp;
