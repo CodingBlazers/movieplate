@@ -2,6 +2,7 @@ package com.example.megha.movieplate;
 
 import android.app.SearchManager;
 import android.content.DialogInterface;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SearchView;
 import android.content.Context;
@@ -31,6 +32,8 @@ import com.example.megha.movieplate.SignInPackage.SignInScreen;
 import com.example.megha.movieplate.TVFormat.TvFragment;
 import com.example.megha.movieplate.WatchlistFormat.FragmentWatchList;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -53,8 +56,7 @@ public class HomeActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.home_drawer_layout);
 
         //This is To set name of the logged in person in the navigation drawer in navigation view.
         SharedPreferences sp = getSharedPreferences(Constants.SHARED_PREFERENCE, Context.MODE_PRIVATE);
@@ -85,7 +87,7 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.home_drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -278,7 +280,7 @@ public class HomeActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, fragmentWatchList).commit();
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.home_drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

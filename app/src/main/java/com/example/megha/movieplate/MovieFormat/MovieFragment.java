@@ -24,30 +24,40 @@ import retrofit2.Response;
 public class MovieFragment extends Fragment {
 
     View view;
-    boolean b1, b2;
+    boolean b1, b2, paused;
+    ProgressDialog pDialog;
+    Call<Movie> topRatedMovies, popularMovies;
+    Bundle b;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_movie_fragment, container, false);
-        Bundle b = getArguments();
-        String key = b.getString(Constants.MOVIE_URL_API_KEY);
-        final ProgressDialog pDialog = new ProgressDialog(getActivity());
+        b = getArguments();
+        paused = b1 = b2 = false;
+
+        pDialog = new ProgressDialog(getActivity());
         pDialog.setMessage("Loading...");
+
+        return view;
+    }
+    @Override
+    public void onResume() {
         pDialog.show();
-        b1=false; b2=false;
-        //Log.i("Key",key);
-        Call<Movie> topRatedMovies = ApiClientMoviedb.getInterface().getTopRatedMovie(key);
+        paused = false;
+        String key = b.getString(Constants.MOVIE_URL_API_KEY);
+        topRatedMovies = ApiClientMoviedb.getInterface().getTopRatedMovie(key);
         topRatedMovies.enqueue(new Callback<Movie>() {
             @Override
             public void onResponse(Call<Movie> call, Response<Movie> response) {
                 if (response.isSuccessful()) {
                     Movie movie = response.body();
                     MovieLinearLayoutFragment mf = new MovieLinearLayoutFragment();
-                    //Log.i("Movie Object",movie.results.toString());
                     Bundle b = new Bundle();
                     b.putSerializable(Constants.MOVIE_TO_LINEAR_LAYOUT_FRAGMENT, movie);
                     mf.setArguments(b);
-                    getFragmentManager().beginTransaction().replace(R.id.frameLayoutTopRatedMovies, mf).commit();
+                    if(paused == false)
+                        getFragmentManager().beginTransaction().replace(R.id.frameLayoutTopRatedMovies, mf).commit();
                 } else {
                     Toast.makeText(getActivity(), response.code() + response.message(), Toast.LENGTH_LONG).show();
                 }
@@ -58,13 +68,14 @@ public class MovieFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Movie> call, Throwable t) {
-                Toast.makeText(getActivity(), "You are not connected to Internet", Toast.LENGTH_LONG).show();
+                // Toast.makeText(getActivity(), "You are not connected to Internet", Toast.LENGTH_LONG).show();
                 b1=true;
                 if(b2)
                     pDialog.dismiss();
             }
         });
-        Call<Movie> popularMovies = ApiClientMoviedb.getInterface().getPopularMovie(key);
+
+        popularMovies = ApiClientMoviedb.getInterface().getPopularMovie(key);
         popularMovies.enqueue(new Callback<Movie>() {
             @Override
             public void onResponse(Call<Movie> call, Response<Movie> response) {
@@ -74,7 +85,8 @@ public class MovieFragment extends Fragment {
                     Bundle b = new Bundle();
                     b.putSerializable(Constants.MOVIE_TO_LINEAR_LAYOUT_FRAGMENT, movie);
                     mf.setArguments(b);
-                    getFragmentManager().beginTransaction().replace(R.id.frameLayoutPopularMovies, mf).commit();
+                    if(paused == false)
+                        getFragmentManager().beginTransaction().replace(R.id.frameLayoutPopularMovies, mf).commit();
                 } else {
                     Toast.makeText(getActivity(), response.code() + response.message(), Toast.LENGTH_LONG).show();
                 }
@@ -85,14 +97,22 @@ public class MovieFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Movie> call, Throwable t) {
-                Toast.makeText(getActivity(), "You are not connected to Internet", Toast.LENGTH_LONG).show();
+                // Toast.makeText(getActivity(), "You are not connected to Internet", Toast.LENGTH_LONG).show();
                 b2=true;
                 if(b1)
                     pDialog.dismiss();
             }
         });
-        return view;
+        super.onResume();
+    }
 
+    @Override
+    public void onPause() {
+        if(pDialog.isShowing())
+            pDialog.dismiss();
+        topRatedMovies.cancel();
+        popularMovies.cancel();
+        super.onPause();
     }
 
 }

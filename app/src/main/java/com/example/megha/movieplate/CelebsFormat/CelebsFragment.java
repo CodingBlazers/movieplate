@@ -21,17 +21,28 @@ import retrofit2.Response;
  */
 public class CelebsFragment extends Fragment {
 
+    ProgressDialog pDialog;
+    Bundle b;
+    boolean paused;
+    Call<Celebs> popularPeople;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_celebs_fragment, container, false);
-        Bundle b = getArguments();
-        final String key = b.getString(Constants.CELEBS_URL_API_KEY);
-        final ProgressDialog pDialog = new ProgressDialog(getActivity());
+        b = getArguments();
+        pDialog = new ProgressDialog(getActivity());
         pDialog.setMessage("Loading...");
+        return view;
+    }
+
+    @Override
+    public void onResume() {
         pDialog.show();
-        Call<Celebs> PopularPeople = ApiClientCelebDb.getInterface().getPopularPerson(key);
-        PopularPeople.enqueue(new Callback<Celebs>() {
+        paused = false;
+        final String key = b.getString(Constants.CELEBS_URL_API_KEY);
+        popularPeople = ApiClientCelebDb.getInterface().getPopularPerson(key);
+        popularPeople.enqueue(new Callback<Celebs>() {
             @Override
             public void onResponse(Call<Celebs> call, Response<Celebs> response) {
                 if (response.isSuccessful()) {
@@ -39,9 +50,10 @@ public class CelebsFragment extends Fragment {
                     Bundle b = new Bundle();
                     CelebsLinearLayoutFragment cf = new CelebsLinearLayoutFragment();
                     b.putSerializable(Constants.CELEBS_TO_LINEAR_LAYOUT_FRAGMENT, celebs);
-                    b.putSerializable(Constants.API_KEY,key);
+                    b.putSerializable(Constants.API_KEY, key);
                     cf.setArguments(b);
-                    getFragmentManager().beginTransaction().replace(R.id.CelebsFramelayout, cf).commit();
+                    if(!paused)
+                        getFragmentManager().beginTransaction().replace(R.id.CelebsFramelayout, cf).commit();
                 }
                 else {
                     Toast.makeText(getActivity(), response.code() + response.message(), Toast.LENGTH_LONG).show();
@@ -51,10 +63,18 @@ public class CelebsFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Celebs> call, Throwable t) {
-                Toast.makeText(getActivity(), "You Are Not Connected To Internet", Toast.LENGTH_LONG).show();
+                // Toast.makeText(getActivity(), "You Are Not Connected To Internet", Toast.LENGTH_LONG).show();
                 pDialog.dismiss();
             }
         });
-        return view;
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        if(pDialog.isShowing())
+            pDialog.dismiss();
+        popularPeople.cancel();
+        super.onPause();
     }
 }

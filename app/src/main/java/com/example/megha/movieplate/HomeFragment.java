@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.example.megha.movieplate.MovieFormat.ApiClientMoviedb;
@@ -23,19 +24,44 @@ import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
 
+    ProgressDialog pDialog;
+    Call<Movie> now_playing_movies;
+    Call<Movie> upcoming_movies;
+    Call<TV> on_air_tv_shows;
+    boolean paused;
     boolean b1, b2, b3;
+    Bundle b;
+
     @Nullable
     @Override
     //From onCreateview we get to know about what type of view we have to attach(landscape/portrait)
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_home_fragment, container, false);
-        Bundle b = getArguments();
-        final ProgressDialog pDialog = new ProgressDialog(getActivity());
+        b = getArguments();
+        paused = false;
+        b1 = b2 = b3 = false;
+
+        pDialog = new ProgressDialog(getActivity());
         pDialog.setMessage("Loading...");
+
+        ScrollView root = (ScrollView) view.findViewById(R.id.root_home_fragment);
+        root.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(pDialog.isShowing())
+                    pDialog.dismiss();
+            }
+        });
+
+        return view;
+    }
+
+    @Override
+    public void onResume() {
         pDialog.show();
+        paused = false;
         String key = b.getString(Constants.MOVIE_URL_API_KEY);
-        b1=false; b2=false; b3=false;
-        Call<Movie> now_playing_movies = ApiClientMoviedb.getInterface().getNowPlayingMovies(key);
+        now_playing_movies = ApiClientMoviedb.getInterface().getNowPlayingMovies(key);
         now_playing_movies.enqueue(new Callback<Movie>() {
             @Override
             public void onResponse(Call<Movie> call, Response<Movie> response) {
@@ -45,7 +71,8 @@ public class HomeFragment extends Fragment {
                 Bundle b = new Bundle();
                 b.putSerializable(Constants.MOVIE_TO_LINEAR_LAYOUT_FRAGMENT, movie);
                 mf.setArguments(b);
-                getFragmentManager().beginTransaction().replace(R.id.frameLayoutnowplayingMovies, mf).commit();
+                if(paused == false)
+                    getFragmentManager().beginTransaction().replace(R.id.frameLayoutnowplayingMovies, mf).commit();
                 b1 = true;
                 if(b3 && b2)
                     pDialog.dismiss();
@@ -53,13 +80,13 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Movie> call, Throwable t) {
-                Toast.makeText(getActivity(), "You are not connected to Internet", Toast.LENGTH_LONG).show();
+                //  Toast.makeText(getActivity(), "You are not connected to Internet", Toast.LENGTH_LONG).show();
                 b1 = true;
                 if(b3 && b2)
                     pDialog.dismiss();
             }
         });
-        Call<Movie> upcoming_movies=ApiClientMoviedb.getInterface().getUpcomingMovies(key);
+        upcoming_movies = ApiClientMoviedb.getInterface().getUpcomingMovies(key);
         upcoming_movies.enqueue(new Callback<Movie>() {
             @Override
             public void onResponse(Call<Movie> call, Response<Movie> response) {
@@ -68,7 +95,8 @@ public class HomeFragment extends Fragment {
                 Bundle b = new Bundle();
                 b.putSerializable(Constants.MOVIE_TO_LINEAR_LAYOUT_FRAGMENT, movie);
                 mf.setArguments(b);
-                getFragmentManager().beginTransaction().replace(R.id.frameLayoutupcomingmovies, mf).commit();
+                if(paused == false)
+                    getFragmentManager().beginTransaction().replace(R.id.frameLayoutupcomingmovies, mf).commit();
                 b2 = true;
                 if(b1 && b3)
                     pDialog.dismiss();
@@ -76,13 +104,13 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Movie> call, Throwable t) {
-                Toast.makeText(getActivity(), "You are not connected to Internet", Toast.LENGTH_LONG).show();
+                //    Toast.makeText(getActivity(), "You are not connected to Internet", Toast.LENGTH_LONG).show();
                 b2 = true;
                 if(b1 && b3)
                     pDialog.dismiss();
             }
         });
-        Call<TV> on_air_tv_shows= ApiClientTVDb.getInterface().getOnAirTVShows(key);
+        on_air_tv_shows = ApiClientTVDb.getInterface().getOnAirTVShows(key);
         on_air_tv_shows.enqueue(new Callback<TV>() {
             @Override
             public void onResponse(Call<TV> call, Response<TV> response) {
@@ -91,7 +119,8 @@ public class HomeFragment extends Fragment {
                 Bundle b = new Bundle();
                 b.putSerializable(Constants.TV_TO_LINEAR_LAYOUT_FRAGMENT, tv);
                 mf.setArguments(b);
-                getFragmentManager().beginTransaction().replace(R.id.frameLayoutonairTvshows, mf).commit();
+                if(paused == false)
+                    getFragmentManager().beginTransaction().replace(R.id.frameLayoutonairTvshows, mf).commit();
                 b3 = true;
                 if(b1 && b2)
                     pDialog.dismiss();
@@ -99,12 +128,22 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<TV> call, Throwable t) {
-                Toast.makeText(getActivity(), "You are not connected to Internet", Toast.LENGTH_LONG).show();
+                //    Toast.makeText(getActivity(), "You are not connected to Internet", Toast.LENGTH_LONG).show();
                 b3 = true;
                 if(b1 && b2)
                     pDialog.dismiss();
             }
         });
-        return view;
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        if(pDialog.isShowing())
+            pDialog.dismiss();
+        now_playing_movies.cancel();
+        upcoming_movies.cancel();
+        on_air_tv_shows.cancel();
+        super.onPause();
     }
 }

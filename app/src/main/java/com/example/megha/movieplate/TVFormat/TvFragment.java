@@ -22,30 +22,44 @@ import retrofit2.Response;
  */
 public class TvFragment extends Fragment {
 
-    boolean b1, b2;
+    Call<TV> popularTvShows, mostRatedTVShows;
+    boolean b1, b2, paused;
+    ProgressDialog pDialog;
+    Bundle b;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_tv_fragment, container, false);
-        Bundle b = getArguments();
-        String key = b.getString(Constants.TV_URL_API_KEY);
-        final ProgressDialog pDialog = new ProgressDialog(getActivity());
+        b = getArguments();
+
+        pDialog = new ProgressDialog(getActivity());
         pDialog.setMessage("Loading...");
+
+        paused = b1 = b2 = false;
+
+        return view;
+    }
+
+    @Override
+    public void onResume() {
         pDialog.show();
-        b1=false; b2=false;
-        Call<TV> popularTvShows = ApiClientTVDb.getInterface().getPopularTvShows(key);
+        paused = false;
+        String key = b.getString(Constants.TV_URL_API_KEY);
+
+        popularTvShows = ApiClientTVDb.getInterface().getPopularTvShows(key);
         popularTvShows.enqueue(new Callback<TV>() {
             @Override
             public void onResponse(Call<TV> call, Response<TV> response) {
                 if (response.isSuccessful()) {
                     TV tv = response.body();
-                    Log.i("TV Object",tv.toString());
+                    Log.i("TV Object", tv.toString());
                     Bundle b = new Bundle();
                     TVLinearlayoutFragment tvf = new TVLinearlayoutFragment();
                     b.putSerializable(Constants.TV_TO_LINEAR_LAYOUT_FRAGMENT, tv);
                     tvf.setArguments(b);
-                    getFragmentManager().beginTransaction().replace(R.id.id_PopularTvShows, tvf).commit();
+                    if(!paused)
+                        getFragmentManager().beginTransaction().replace(R.id.id_PopularTvShows, tvf).commit();
                 } else {
                     Toast.makeText(getActivity(), response.code() + response.message(), Toast.LENGTH_LONG).show();
                 }
@@ -56,15 +70,15 @@ public class TvFragment extends Fragment {
 
             @Override
             public void onFailure(Call<TV> call, Throwable t) {
-                Toast.makeText(getActivity(), "You are not connected to Internet", Toast.LENGTH_LONG).show();
+                // Toast.makeText(getActivity(), "You are not connected to Internet", Toast.LENGTH_LONG).show();
                 b1=true;
                 if(b2)
                     pDialog.dismiss();
             }
         });
 
-        Call<TV> MostratedTvShows = ApiClientTVDb.getInterface().getMostratedTvShows(key);
-        MostratedTvShows.enqueue(new Callback<TV>() {
+        mostRatedTVShows = ApiClientTVDb.getInterface().getMostratedTvShows(key);
+        mostRatedTVShows.enqueue(new Callback<TV>() {
             @Override
             public void onResponse(Call<TV> call, Response<TV> response) {
                 if (response.isSuccessful()) {
@@ -73,7 +87,8 @@ public class TvFragment extends Fragment {
                     Bundle b = new Bundle();
                     b.putSerializable(Constants.TV_TO_LINEAR_LAYOUT_FRAGMENT, tv);
                     tvf.setArguments(b);
-                    getFragmentManager().beginTransaction().replace(R.id.id_MostRatedTvShows, tvf).commit();
+                    if(!paused)
+                        getFragmentManager().beginTransaction().replace(R.id.id_MostRatedTvShows, tvf).commit();
                 } else {
                     Toast.makeText(getActivity(), response.code() + response.message(), Toast.LENGTH_LONG).show();
                 }
@@ -84,13 +99,20 @@ public class TvFragment extends Fragment {
 
             @Override
             public void onFailure(Call<TV> call, Throwable t) {
-                Toast.makeText(getActivity(), "You are not connected to Internet", Toast.LENGTH_LONG).show();
+                // Toast.makeText(getActivity(), "You are not connected to Internet", Toast.LENGTH_LONG).show();
                 b2=true;
                 if(b1)
                     pDialog.dismiss();
             }
         });
-
-        return view;
+        super.onResume();
+    }
+    @Override
+    public void onPause() {
+        if(pDialog.isShowing())
+            pDialog.dismiss();
+        popularTvShows.cancel();
+        mostRatedTVShows.cancel();
+        super.onPause();
     }
 }
