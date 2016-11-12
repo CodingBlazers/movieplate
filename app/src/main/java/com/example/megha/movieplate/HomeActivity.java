@@ -1,6 +1,8 @@
 package com.example.megha.movieplate;
 
 import android.app.SearchManager;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SearchView;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +11,7 @@ import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -24,6 +27,7 @@ import android.widget.Toast;
 import com.example.megha.movieplate.CelebsFormat.CelebsFragment;
 import com.example.megha.movieplate.MovieFormat.MovieFragment;
 import com.example.megha.movieplate.SignInPackage.LogOutActivity;
+import com.example.megha.movieplate.SignInPackage.SignInScreen;
 import com.example.megha.movieplate.TVFormat.TvFragment;
 import com.example.megha.movieplate.WatchlistFormat.FragmentWatchList;
 
@@ -163,7 +167,7 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        /*if (id == R.id.action_settings) {
 
         } else if (id == R.id.action_about) {
             Intent i = new Intent();
@@ -173,10 +177,37 @@ public class HomeActivity extends AppCompatActivity
             Intent i = new Intent();
             i.setClass(HomeActivity.this, ContactUsActivity.class);
             startActivity(i);
-        } else if (id == R.id.action_signOut) {
-            Intent i = new Intent();
-            i.setClass(HomeActivity.this, LogOutActivity.class);
-            startActivity(i);
+        } else*/
+        if (id == R.id.action_signOut) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+            builder.setTitle ("Confirm");
+            builder.setMessage ("Are you sure you want to logout?");
+            LayoutInflater inflater = getLayoutInflater();
+            View v = inflater.inflate(R.layout.dialog_confirm_layout, null);
+            builder.setView(v);
+            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    SharedPreferences sp = getSharedPreferences(Constants.SHARED_PREFERENCE, Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.putBoolean(Constants.BOOLEAN_SIGNED_IN, false);
+                    editor.commit();
+                    editor.putBoolean(Constants.BOOLEAN_ACCESS_TOKEN_TAKEN, false);
+                    editor.commit();
+                    editor.putBoolean(Constants.BOOLEAN_SESSION_ID_GRANTED,false);
+                    editor.commit();
+                    Intent i = new Intent(HomeActivity.this, SignInScreen.class);
+                    // set the new task and clear flags
+                    //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(i);
+                }
+            });
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+            builder.create().show();
         }
 
         return true;
@@ -229,9 +260,9 @@ public class HomeActivity extends AppCompatActivity
             b.putSerializable(Constants.TV_URL_API_KEY, api_key);
             tvFragment.setArguments(b);
             getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, tvFragment).commit();
-        } else if (id == R.id.nav_rating) {
+        } /*else if (id == R.id.nav_rating) {
 
-        }
+        }*/
 
         // launching watchlist fragment for click on watchlist in navigation button
         else if (id == R.id.nav_watchlist) {
