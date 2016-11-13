@@ -43,12 +43,19 @@ public class FragmentWatchList extends Fragment {
     WatchlistMovieJSON moviesWatchList;
     WatchlistTVShowJSON TVShowWatchList;
     boolean b1, b2;
+    ProgressDialog progressDialog;
+    boolean paused;
+    Bundle b;
+
+    Call<WatchlistMovieJSON> MoviesWatchListResponse;
+    Call<WatchlistTVShowJSON> TVWatchListResponse;
+    View view;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_watchlist, container, false);
-        Bundle b = getArguments();
+        view = inflater.inflate(R.layout.fragment_watchlist, container, false);
+        b = getArguments();
 
         ConnectionDetector cd = new ConnectionDetector(getActivity());
         if (!cd.isConnectingToInternet()) {
@@ -57,51 +64,6 @@ public class FragmentWatchList extends Fragment {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
-
-        key = b.getString(Constants.WATCHLIST_URL_API_KEY);
-        session_id = b.getString(Constants.WATCHLIST_URL_SESSION_ID);
-        user_id = b.getString(Constants.WATCHLIST_URL_USER_ID);
-        final ProgressDialog pDialog = new ProgressDialog(getActivity());
-        pDialog.setMessage("Loading...");
-        pDialog.show();
-        b1=false; b2=false;
-        Log.i("Credentials", key + "\n" + session_id + "\n" + user_id);
-        MoviesWatchListGV = (GridView) view.findViewById(R.id.id_MoviesWatchList);
-
-        //Call to fetch movies from the user WatchList
-        final Call<WatchlistMovieJSON> MoviesWatchListResponse = ApiClientWatchlist.getInterface().getUserMovieWatchlist(user_id, key, session_id);
-        MoviesWatchListResponse.enqueue(new Callback<WatchlistMovieJSON>() {
-            @Override
-            public void onResponse(Call<WatchlistMovieJSON> call, Response<WatchlistMovieJSON> response) {
-                if (response.isSuccessful()) {
-                    moviesWatchList = response.body();
-                    MoviesArrayWatchList = moviesWatchList.results;
-
-                    String[] MoviesposterPaths = new String[MoviesArrayWatchList.size()];
-
-                    for (int i = 0; i < MoviesArrayWatchList.size(); i++) {
-                        MoviesposterPaths[i] = "http://image.tmdb.org/t/p/w300/" + MoviesArrayWatchList.get(i).getPoster_path().toString();
-                    }
-
-                    //MoviesWatchListAdapter moviesWatchListAdapter = new MoviesWatchListAdapter(getContext(), MoviesposterPaths);
-                    MoviesWatchListGV.setAdapter(new MoviesWatchListAdapter(getContext(), MoviesposterPaths));
-
-                } else {
-                    Toast.makeText(getActivity(), response.code() + response.message(), Toast.LENGTH_LONG).show();
-                }
-                b1 = true;
-                if(b2)
-                    pDialog.dismiss();
-            }
-
-            @Override
-            public void onFailure(Call<WatchlistMovieJSON> call, Throwable t) {
-                Toast.makeText(getActivity(), "You are not connected to internet", Toast.LENGTH_SHORT).show();
-                b1 = true;
-                if(b2)
-                    pDialog.dismiss();
-            }
-        });
 
         MoviesWatchListGV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -131,41 +93,7 @@ public class FragmentWatchList extends Fragment {
             }
         });
         TvShowsWatchListGV = (GridView) view.findViewById(R.id.id_TVshowsWatchList);
-        Call<WatchlistTVShowJSON> TVWatchListResponse = ApiClientWatchlist.getInterface().getUserTVShowWatchlist(user_id, key, session_id);
-        TVWatchListResponse.enqueue(new Callback<WatchlistTVShowJSON>() {
-            @Override
-            public void onResponse(Call<WatchlistTVShowJSON> call, Response<WatchlistTVShowJSON> response) {
-
-                if (response.isSuccessful()) {
-                    TVShowWatchList = response.body();
-                    TVShowsArrayWatchlist = TVShowWatchList.results;
-
-                    String[] TvShowsposterPaths = new String[TVShowsArrayWatchlist.size()];
-
-                    for (int i = 0; i < TVShowsArrayWatchlist.size(); i++) {
-                        TvShowsposterPaths[i] = "http://image.tmdb.org/t/p/w300/" + TVShowsArrayWatchlist.get(i).getPoster_path() + "";
-                    }
-
-                    //TVShowsWatchListAdapter tvShowsWatchListAdapter = new TVShowsWatchListAdapter(getContext(), TvShowsposterPaths);
-                    TvShowsWatchListGV.setAdapter(new TVShowsWatchListAdapter(getContext(), TvShowsposterPaths));
-                } else {
-                    Toast.makeText(getActivity(), response.code() + response.message(), Toast.LENGTH_LONG).show();
-                }
-                b2 = true;
-                if(b1)
-                    pDialog.dismiss();
-
-            }
-
-            @Override
-            public void onFailure(Call<WatchlistTVShowJSON> call, Throwable t) {
-                Toast.makeText(getActivity(), "You are not connected to internet", Toast.LENGTH_SHORT).show();
-                b2 = true;
-                if(b1)
-                    pDialog.dismiss();
-            }
-        });
-
+        TVWatchListResponse = ApiClientWatchlist.getInterface().getUserTVShowWatchlist(user_id, key, session_id);
 
         TvShowsWatchListGV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -196,5 +124,97 @@ public class FragmentWatchList extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        key = b.getString(Constants.WATCHLIST_URL_API_KEY);
+        session_id = b.getString(Constants.WATCHLIST_URL_SESSION_ID);
+        user_id = b.getString(Constants.WATCHLIST_URL_USER_ID);
+        final ProgressDialog progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Loading...");
+
+        b1=false; b2=false;
+        Log.i("Credentials", key + "\n" + session_id + "\n" + user_id);
+        MoviesWatchListGV = (GridView) view.findViewById(R.id.id_MoviesWatchList);
+
+        //Call to fetch movies from the user WatchList
+        MoviesWatchListResponse = ApiClientWatchlist.getInterface().getUserMovieWatchlist(user_id, key, session_id);
+        MoviesWatchListResponse.enqueue(new Callback<WatchlistMovieJSON>() {
+            @Override
+            public void onResponse(Call<WatchlistMovieJSON> call, Response<WatchlistMovieJSON> response) {
+                if (response.isSuccessful()) {
+                    moviesWatchList = response.body();
+                    MoviesArrayWatchList = moviesWatchList.results;
+
+                    String[] MoviesposterPaths = new String[MoviesArrayWatchList.size()];
+
+                    for (int i = 0; i < MoviesArrayWatchList.size(); i++) {
+                        MoviesposterPaths[i] = "http://image.tmdb.org/t/p/w300/" + MoviesArrayWatchList.get(i).getPoster_path().toString();
+                    }
+
+                    //MoviesWatchListAdapter moviesWatchListAdapter = new MoviesWatchListAdapter(getContext(), MoviesposterPaths);
+                    MoviesWatchListGV.setAdapter(new MoviesWatchListAdapter(getContext(), MoviesposterPaths));
+
+                } else {
+                    Toast.makeText(getActivity(), response.code() + response.message(), Toast.LENGTH_LONG).show();
+                }
+                b1 = true;
+                if(b2)
+                    progressDialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<WatchlistMovieJSON> call, Throwable t) {
+                Toast.makeText(getActivity(), "You are not connected to internet", Toast.LENGTH_SHORT).show();
+                b1 = true;
+                if(b2)
+                    progressDialog.dismiss();
+            }
+        });
+        TVWatchListResponse.enqueue(new Callback<WatchlistTVShowJSON>() {
+            @Override
+            public void onResponse(Call<WatchlistTVShowJSON> call, Response<WatchlistTVShowJSON> response) {
+
+                if (response.isSuccessful()) {
+                    TVShowWatchList = response.body();
+                    TVShowsArrayWatchlist = TVShowWatchList.results;
+
+                    String[] TvShowsposterPaths = new String[TVShowsArrayWatchlist.size()];
+
+                    for (int i = 0; i < TVShowsArrayWatchlist.size(); i++) {
+                        TvShowsposterPaths[i] = "http://image.tmdb.org/t/p/w300/" + TVShowsArrayWatchlist.get(i).getPoster_path() + "";
+                    }
+
+                    //TVShowsWatchListAdapter tvShowsWatchListAdapter = new TVShowsWatchListAdapter(getContext(), TvShowsposterPaths);
+                    TvShowsWatchListGV.setAdapter(new TVShowsWatchListAdapter(getContext(), TvShowsposterPaths));
+                } else {
+                    Toast.makeText(getActivity(), response.code() + response.message(), Toast.LENGTH_LONG).show();
+                }
+                b2 = true;
+                if(b1)
+                    progressDialog.dismiss();
+
+            }
+
+            @Override
+            public void onFailure(Call<WatchlistTVShowJSON> call, Throwable t) {
+                Toast.makeText(getActivity(), "You are not connected to internet", Toast.LENGTH_SHORT).show();
+                b2 = true;
+                if(b1)
+                    progressDialog.dismiss();
+            }
+        });
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        paused = true;
+        if(progressDialog.isShowing())
+            progressDialog.dismiss();
+        MoviesWatchListResponse.cancel();
+        TVWatchListResponse.cancel();
+        super.onPause();
     }
 }

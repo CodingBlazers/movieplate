@@ -46,13 +46,6 @@ public class HomeFragment extends Fragment {
         pDialog = new ProgressDialog(getActivity());
         pDialog.setMessage("Loading...");
 
-        ConnectionDetector cd = new ConnectionDetector(getActivity());
-        if (!cd.isConnectingToInternet()) {
-            Intent intent = new Intent();
-            intent.setClass(getActivity(), NoInternetActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        }
         ScrollView root = (ScrollView) view.findViewById(R.id.root_home_fragment);
         root.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,8 +60,18 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onResume() {
+
+        ConnectionDetector cd = new ConnectionDetector(getActivity());
+        if (!cd.isConnectingToInternet()) {
+            Intent intent = new Intent();
+            intent.setClass(getActivity(), NoInternetActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
+
         pDialog.show();
         paused = false;
+
         String key = b.getString(Constants.MOVIE_URL_API_KEY);
         now_playing_movies = ApiClientMoviedb.getInterface().getNowPlayingMovies(key);
         now_playing_movies.enqueue(new Callback<Movie>() {

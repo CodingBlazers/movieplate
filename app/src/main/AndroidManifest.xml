@@ -26,10 +26,6 @@
             android:label="@string/title_activity_home"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ContactUsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".AboutUsActivity"
-            android:screenOrientation="portrait"/>
         <activity android:name=".TVFormat.TVShowDetails"
             android:screenOrientation="portrait"/>
         <activity android:name=".MovieFormat.SingleMovieActivity"

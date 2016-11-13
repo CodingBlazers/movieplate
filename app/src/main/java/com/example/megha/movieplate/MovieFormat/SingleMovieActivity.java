@@ -1,5 +1,6 @@
 package com.example.megha.movieplate.MovieFormat;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -29,25 +30,39 @@ public class SingleMovieActivity extends AppCompatActivity {
 
     ImageView iv;
     TextView adult, overview, release_date, original_language, title, vote_average, popularity, vote_count;
+    Call<Search> mySearch;
+    Results results;
+    boolean paused;
+    ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTitle("Movie Detail");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity_container);
         Intent i = getIntent();
-        Results results = (Results) i.getSerializableExtra(Constants.SINGLE_MOVIE_DETAILS);
-        String title=results.title;
-        Call<Search> mySearch= ApiClientOmdb.getInterface().getMySearch("",title);
+        results = (Results) i.getSerializableExtra(Constants.SINGLE_MOVIE_DETAILS);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loading...");
+    }
+
+    @Override
+    protected void onResume() {
+        paused = false;
+        String title = results.title;
+        mySearch = ApiClientOmdb.getInterface().getMySearch("",title);
         mySearch.enqueue(new Callback<Search>() {
             @Override
             public void onResponse(Call<Search> call, Response<Search> response) {
+                progressDialog.dismiss();
                 if(response.isSuccessful()) {
                     Search search = response.body();
                     SearchFragment searchFragment=new SearchFragment();
                     Bundle b=new Bundle();
                     b.putSerializable("SearchContent",search);
                     searchFragment.setArguments(b);
-                    getSupportFragmentManager().beginTransaction().replace(R.id.HomeActivityContainer, searchFragment).commit();
+                    if(!paused)
+                        getSupportFragmentManager().beginTransaction().replace(R.id.HomeActivityContainer, searchFragment).commit();
                 }
                 else{
                     Toast.makeText(SingleMovieActivity.this,response.code()+response.message(),Toast.LENGTH_LONG).show();
@@ -57,9 +72,19 @@ public class SingleMovieActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Search> call, Throwable t) {
+                progressDialog.dismiss();
                 Toast.makeText(SingleMovieActivity.this, "You are not connected to Internet" , Toast.LENGTH_LONG).show();
             }
         });
+        super.onResume();
+    }
 
+    @Override
+    protected void onPause() {
+        paused = true;
+        if(progressDialog.isShowing())
+            progressDialog.dismiss();
+        mySearch.cancel();
+        super.onPause();
     }
 }

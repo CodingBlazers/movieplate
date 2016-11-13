@@ -37,13 +37,7 @@ public class MovieFragment extends Fragment {
         view = inflater.inflate(R.layout.activity_movie_fragment, container, false);
         b = getArguments();
         paused = b1 = b2 = false;
-        ConnectionDetector cd = new ConnectionDetector(getActivity());
-        if (!cd.isConnectingToInternet()) {
-            Intent intent = new Intent();
-            intent.setClass(getActivity(), NoInternetActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        }
+
         pDialog = new ProgressDialog(getActivity());
         pDialog.setMessage("Loading...");
 
@@ -51,6 +45,13 @@ public class MovieFragment extends Fragment {
     }
     @Override
     public void onResume() {
+        ConnectionDetector cd = new ConnectionDetector(getActivity());
+        if (!cd.isConnectingToInternet()) {
+            Intent intent = new Intent();
+            intent.setClass(getActivity(), NoInternetActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
         pDialog.show();
         paused = false;
         String key = b.getString(Constants.MOVIE_URL_API_KEY);
