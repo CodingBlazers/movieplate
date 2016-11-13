@@ -1,6 +1,7 @@
 package com.example.megha.movieplate;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,6 +18,7 @@ import com.example.megha.movieplate.MovieFormat.MovieLinearLayoutFragment;
 import com.example.megha.movieplate.TVFormat.ApiClientTVDb;
 import com.example.megha.movieplate.TVFormat.TV;
 import com.example.megha.movieplate.TVFormat.TVLinearlayoutFragment;
+import com.example.megha.movieplate.utility.ConnectionDetector;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,6 +46,13 @@ public class HomeFragment extends Fragment {
         pDialog = new ProgressDialog(getActivity());
         pDialog.setMessage("Loading...");
 
+        ConnectionDetector cd = new ConnectionDetector(getActivity());
+        if (!cd.isConnectingToInternet()) {
+            Intent intent = new Intent();
+            intent.setClass(getActivity(), NoInternetActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
         ScrollView root = (ScrollView) view.findViewById(R.id.root_home_fragment);
         root.setOnClickListener(new View.OnClickListener() {
             @Override

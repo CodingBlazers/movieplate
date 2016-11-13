@@ -2,7 +2,6 @@ package com.example.megha.movieplate;
 
 import android.app.SearchManager;
 import android.content.DialogInterface;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SearchView;
 import android.content.Context;
@@ -10,7 +9,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,18 +25,13 @@ import android.widget.Toast;
 
 import com.example.megha.movieplate.CelebsFormat.CelebsFragment;
 import com.example.megha.movieplate.MovieFormat.MovieFragment;
-import com.example.megha.movieplate.SignInPackage.LogOutActivity;
 import com.example.megha.movieplate.SignInPackage.SignInScreen;
 import com.example.megha.movieplate.TVFormat.TvFragment;
 import com.example.megha.movieplate.WatchlistFormat.FragmentWatchList;
 
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static android.widget.SearchView.*;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

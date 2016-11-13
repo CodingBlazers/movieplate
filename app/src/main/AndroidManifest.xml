@@ -3,6 +3,7 @@
     package="com.example.megha.movieplate">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -27,8 +28,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ContactUsActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".SignInPackage.LogOutActivity"
-            android:screenOrientation="portrait"/>
         <activity android:name=".AboutUsActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".TVFormat.TVShowDetails"
@@ -36,6 +35,9 @@
         <activity android:name=".MovieFormat.SingleMovieActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".SignInPackage.SignInScreen"
+            android:noHistory="true"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".NoInternetActivity"
             android:noHistory="true"
             android:screenOrientation="portrait"/>
 

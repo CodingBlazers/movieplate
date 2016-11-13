@@ -1,6 +1,7 @@
 package com.example.megha.movieplate.CelebsFormat;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,7 +11,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.megha.movieplate.Constants;
+import com.example.megha.movieplate.NoInternetActivity;
 import com.example.megha.movieplate.R;
+import com.example.megha.movieplate.utility.ConnectionDetector;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,7 +33,13 @@ public class CelebsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_celebs_fragment, container, false);
-        b = getArguments();
+        b = getArguments();ConnectionDetector cd = new ConnectionDetector(getActivity());
+        if (!cd.isConnectingToInternet()) {
+            Intent intent = new Intent();
+            intent.setClass(getActivity(), NoInternetActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
         pDialog = new ProgressDialog(getActivity());
         pDialog.setMessage("Loading...");
         return view;

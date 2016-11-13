@@ -9,4 +9,5 @@
 
     <dimen name="margin">10dp</dimen>
     <dimen name="title_size">30dp</dimen>
+    <dimen name="text_size">20dp</dimen>
 </resources>

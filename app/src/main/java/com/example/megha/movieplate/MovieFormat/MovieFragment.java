@@ -12,7 +12,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.megha.movieplate.Constants;
+import com.example.megha.movieplate.NoInternetActivity;
 import com.example.megha.movieplate.R;
+import com.example.megha.movieplate.utility.ConnectionDetector;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,7 +37,13 @@ public class MovieFragment extends Fragment {
         view = inflater.inflate(R.layout.activity_movie_fragment, container, false);
         b = getArguments();
         paused = b1 = b2 = false;
-
+        ConnectionDetector cd = new ConnectionDetector(getActivity());
+        if (!cd.isConnectingToInternet()) {
+            Intent intent = new Intent();
+            intent.setClass(getActivity(), NoInternetActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
         pDialog = new ProgressDialog(getActivity());
         pDialog.setMessage("Loading...");
 

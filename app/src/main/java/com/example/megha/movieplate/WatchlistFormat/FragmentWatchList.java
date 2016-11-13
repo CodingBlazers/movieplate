@@ -17,9 +17,11 @@ import android.widget.Toast;
 import com.example.megha.movieplate.ApiClientOmdb;
 import com.example.megha.movieplate.Constants;
 import com.example.megha.movieplate.MovieFormat.SingleMovieActivity;
+import com.example.megha.movieplate.NoInternetActivity;
 import com.example.megha.movieplate.R;
 import com.example.megha.movieplate.Search;
 import com.example.megha.movieplate.SearchFragment;
+import com.example.megha.movieplate.utility.ConnectionDetector;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -47,6 +49,15 @@ public class FragmentWatchList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_watchlist, container, false);
         Bundle b = getArguments();
+
+        ConnectionDetector cd = new ConnectionDetector(getActivity());
+        if (!cd.isConnectingToInternet()) {
+            Intent intent = new Intent();
+            intent.setClass(getActivity(), NoInternetActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
+
         key = b.getString(Constants.WATCHLIST_URL_API_KEY);
         session_id = b.getString(Constants.WATCHLIST_URL_SESSION_ID);
         user_id = b.getString(Constants.WATCHLIST_URL_USER_ID);
