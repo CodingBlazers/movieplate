@@ -1,5 +1,6 @@
 package com.example.megha.movieplate.TVFormat;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,17 +23,29 @@ public class TVShowDetails extends AppCompatActivity {
 
     ImageView iv;
     TextView title, overview, releaseDate, language, popularity, voteCount, voteAverage;
+    ProgressDialog progressDialog;
+    Call<Search> tvShowResults;
+    Results results;
+    boolean paused = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTitle("TV Show Detail");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity_container);
-        Intent intent=getIntent();
-        Results results= (Results) intent.getSerializableExtra(Constants.SINGLE_TV_SHOW_DETAILS);
-        String tv_show_title=results.getName();
-        Call<Search> TvShowResults= ApiClientOmdb.getInterface().getMySearch("", tv_show_title);
-        TvShowResults.enqueue(new Callback<Search>() {
+
+        Intent intent = getIntent();
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loading...");
+        results = (Results) intent.getSerializableExtra(Constants.SINGLE_TV_SHOW_DETAILS);
+    }
+
+    @Override
+    protected void onResume() {
+        paused = false;
+        String tv_show_title = results.getName();
+        tvShowResults = ApiClientOmdb.getInterface().getMySearch("", tv_show_title);
+        tvShowResults.enqueue(new Callback<Search>() {
             @Override
             public void onResponse(Call<Search> call, Response<Search> response) {
                 if(response.isSuccessful()){
@@ -41,7 +54,8 @@ public class TVShowDetails extends AppCompatActivity {
                     Bundle b=new Bundle();
                     b.putSerializable("SearchContent",search);
                     searchFragment.setArguments(b);
-                    getSupportFragmentManager().beginTransaction().replace(R.id.HomeActivityContainer,searchFragment).commit();
+                    if(!paused)
+                        getSupportFragmentManager().beginTransaction().replace(R.id.HomeActivityContainer,searchFragment).commit();
                 }
                 else{
                     Toast.makeText(TVShowDetails.this, response.code() + response.message(), Toast.LENGTH_LONG).show();
@@ -53,5 +67,15 @@ public class TVShowDetails extends AppCompatActivity {
                 Toast.makeText(TVShowDetails.this, "You are not connected to Internet" , Toast.LENGTH_LONG).show();
             }
         });
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        paused = true;
+        if(progressDialog.isShowing())
+            progressDialog.dismiss();
+        tvShowResults.cancel();
+        super.onPause();
     }
 }

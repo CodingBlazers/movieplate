@@ -47,7 +47,7 @@ public class SingleMovieActivity extends AppCompatActivity {
                     Bundle b=new Bundle();
                     b.putSerializable("SearchContent",search);
                     searchFragment.setArguments(b);
-                    getSupportFragmentManager().beginTransaction().replace(R.id.HomeActivityContainer,searchFragment).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.HomeActivityContainer, searchFragment).commit();
                 }
                 else{
                     Toast.makeText(SingleMovieActivity.this,response.code()+response.message(),Toast.LENGTH_LONG).show();

@@ -39,6 +39,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".NoInternetActivity"
             android:noHistory="true"
+            android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"/>
 
         <receiver

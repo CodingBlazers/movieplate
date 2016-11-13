@@ -1,38 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".SignInPackage.SignInScreen">
+    android:orientation="vertical"
+    tools:context=".SignInPackage.SignInScreen"
+    android:fitsSystemWindows="true"
+    android:theme="@style/AppTheme.NoActionBar">
 
-    <EditText
-        android:id="@+id/username"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentTop="true"
-        android:hint="User Name"
-        android:minHeight="50dp" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
+        android:paddingLeft="@dimen/margin_sign_in_screen"
+        android:paddingRight="@dimen/margin_sign_in_screen"
+        android:orientation="vertical"
+        android:background="@color/colorPrimary">
 
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/username"
-        android:hint="Password"
-        android:minHeight="10dp"
-        android:password="true" />
+        <ImageView android:src="@drawable/movieplate_title"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/app_title_size"
+            android:layout_gravity="center_horizontal" />
 
-    <Button
-        android:id="@+id/login_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/password"
-        android:minHeight="10dp"
-        android:onClick="onclick"
-        android:text="Log in" />
+        <!-- Email Label -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:hintTextAppearance="@style/TextAppearance.AppCompat">
+            <EditText android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="User Name"
+                style="@style/TextColor"/>
+        </android.support.design.widget.TextInputLayout>
 
-</RelativeLayout>
+        <!-- Password Label -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:hintTextAppearance="@style/TextAppearance.AppCompat">
+            <EditText android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:hint="Password"
+                style="@style/TextColor"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- Login Button -->
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/login_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:textSize="@dimen/text_size"
+            android:textAllCaps="false"
+            android:padding="12dp"
+            android:text="Login"/>
+
+        <!--<TextView android:id="@+id/link_signup"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="No account yet? Create one"
+            android:gravity="center"
+            android:textSize="16dip"/>-->
+    </LinearLayout>
+
+
+</LinearLayout>

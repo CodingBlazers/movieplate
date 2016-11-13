@@ -80,7 +80,7 @@ public class HomeFragment extends Fragment {
                 Bundle b = new Bundle();
                 b.putSerializable(Constants.MOVIE_TO_LINEAR_LAYOUT_FRAGMENT, movie);
                 mf.setArguments(b);
-                if(paused == false)
+                if(!paused)
                     getFragmentManager().beginTransaction().replace(R.id.frameLayoutnowplayingMovies, mf).commit();
                 b1 = true;
                 if(b3 && b2)
@@ -104,7 +104,7 @@ public class HomeFragment extends Fragment {
                 Bundle b = new Bundle();
                 b.putSerializable(Constants.MOVIE_TO_LINEAR_LAYOUT_FRAGMENT, movie);
                 mf.setArguments(b);
-                if(paused == false)
+                if(!paused)
                     getFragmentManager().beginTransaction().replace(R.id.frameLayoutupcomingmovies, mf).commit();
                 b2 = true;
                 if(b1 && b3)
@@ -128,7 +128,7 @@ public class HomeFragment extends Fragment {
                 Bundle b = new Bundle();
                 b.putSerializable(Constants.TV_TO_LINEAR_LAYOUT_FRAGMENT, tv);
                 mf.setArguments(b);
-                if(paused == false)
+                if(!paused)
                     getFragmentManager().beginTransaction().replace(R.id.frameLayoutonairTvshows, mf).commit();
                 b3 = true;
                 if(b1 && b2)
@@ -148,6 +148,7 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onPause() {
+        paused = true;
         if(pDialog.isShowing())
             pDialog.dismiss();
         now_playing_movies.cancel();

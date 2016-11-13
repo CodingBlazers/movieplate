@@ -1,12 +1,15 @@
 package com.example.megha.movieplate.SignInPackage;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -14,7 +17,9 @@ import android.widget.Toast;
 import com.example.megha.movieplate.Constants;
 import com.example.megha.movieplate.HomeActivity;
 import com.example.megha.movieplate.MovieFormat.ApiClientMoviedb;
+import com.example.megha.movieplate.NoInternetActivity;
 import com.example.megha.movieplate.R;
+import com.example.megha.movieplate.utility.ConnectionDetector;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,22 +32,45 @@ public class SignInScreen extends AppCompatActivity {
     String UserName;
     EditText username_edit_text, password_edit_text;
     boolean requestTokenGrant = false;
-    boolean requestTokenVerify = false;
+    boolean requestTokenVerify = false, stopped = false;
     SharedPreferences sp;
+    ProgressDialog progressDialog;
+
+    Call<account_access> request_token;
+    Call<account_access> authenticate;
+    Call<session_id> session_idCall;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin_screen);
+
+        stopped = false;
+
+        ConnectionDetector cd = new ConnectionDetector(this);
+        if (!cd.isConnectingToInternet()) {
+            Intent intent = new Intent();
+            intent.setClass(this, NoInternetActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
+
         logInButton = (Button) findViewById(R.id.login_button);
         username_edit_text = (EditText) findViewById(R.id.username);
         password_edit_text = (EditText) findViewById(R.id.password);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Authenticating...");
 
         sp = getSharedPreferences(Constants.SHARED_PREFERENCE, Context.MODE_PRIVATE);
+
+    }
+
+    @Override
+    protected void onResume() {
+        stopped = false;
         final SharedPreferences.Editor editor = sp.edit();
         final String api_key = sp.getString(Constants.API_KEY, null);
-        //Log.i("Api Key",api_key);
-        final Call<account_access> request_token = ApiClientMoviedb.getInterface().getRequestToken(api_key);
+        request_token = ApiClientMoviedb.getInterface().getRequestToken(api_key);
         request_token.enqueue(new Callback<account_access>() {
             @Override
             public void onResponse(Call<account_access> call, Response<account_access> response) {
@@ -71,77 +99,90 @@ public class SignInScreen extends AppCompatActivity {
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressDialog.show();
                 final String username = username_edit_text.getText().toString();
                 final String password = password_edit_text.getText().toString();
-                if (requestTokenGrant) {
-                    Call<account_access> authenticate = ApiClientMoviedb.getInterface().getRequestAuthenticated(api_key, token, username, password);
-                    authenticate.enqueue(new Callback<account_access>() {
-                        @Override
-                        public void onResponse(Call<account_access> call, Response<account_access> response) {
-                            if (response.isSuccessful()) {
-                                requestTokenVerify = true;
-                                editor.putBoolean(Constants.BOOLEAN_ACCESS_TOKEN_VERIFIED, true);
-                                editor.commit();
-                                Toast.makeText(SignInScreen.this, "Request token Verfied", Toast.LENGTH_SHORT);
-                                Log.i("Request Token Verified", "Following request token is verified: " + response.body().request_token);
+                while (!requestTokenGrant){}
+                authenticate = ApiClientMoviedb.getInterface().getRequestAuthenticated(api_key, token, username, password);
+                authenticate.enqueue(new Callback<account_access>() {
+                    @Override
+                    public void onResponse(Call<account_access> call, Response<account_access> response) {
+                        if (response.isSuccessful()) {
+                            requestTokenVerify = true;
+                            editor.putBoolean(Constants.BOOLEAN_ACCESS_TOKEN_VERIFIED, true);
+                            editor.commit();
+                            Toast.makeText(SignInScreen.this, "Request token Verfied", Toast.LENGTH_SHORT);
+                            Log.i("Request Token Verified", "Following request token is verified: " + response.body().request_token);
 
-                                // Since request token has been verified. Call for session id:
-                                final Call<session_id> session_idCall = ApiClientMoviedb.getInterface().getSessionID(api_key, token);
-                                session_idCall.enqueue(new Callback<session_id>() {
-                                    @Override
-                                    public void onResponse(Call<session_id> call, Response<session_id> response) {
-                                        if (response.isSuccessful()) {
-                                            session_id session_idCall1 = response.body();
-                                            session_id = session_idCall1.session_id;
-                                            editor.putString(Constants.SESSION_ID_SP, session_id);
-                                            editor.commit();
-                                            editor.putBoolean(Constants.BOOLEAN_SESSION_ID_GRANTED, true);
-                                            editor.commit();
-                                            editor.putBoolean(Constants.BOOLEAN_SIGNED_IN, true);
-                                            editor.commit();
-                                            Toast.makeText(SignInScreen.this, "Signed In", Toast.LENGTH_SHORT);
-                                            Log.i("Session id: ", "verified" + session_id);
-                                            getAccountSignInDetails();
-                                            Intent i = new Intent();
-                                            i.setClass(SignInScreen.this, HomeActivity.class);
+                            // Since request token has been verified. Call for session id:
+                            session_idCall = ApiClientMoviedb.getInterface().getSessionID(api_key, token);
+                            session_idCall.enqueue(new Callback<session_id>() {
+                                @Override
+                                public void onResponse(Call<session_id> call, Response<session_id> response) {
+                                    if (response.isSuccessful()) {
+                                        progressDialog.dismiss();
+                                        session_id session_idCall1 = response.body();
+                                        session_id = session_idCall1.session_id;
+                                        editor.putString(Constants.SESSION_ID_SP, session_id);
+                                        editor.commit();
+                                        editor.putBoolean(Constants.BOOLEAN_SESSION_ID_GRANTED, true);
+                                        editor.commit();
+                                        editor.putBoolean(Constants.BOOLEAN_SIGNED_IN, true);
+                                        editor.commit();
+                                        Log.i("Session id: ", "verified" + session_id);
+                                        getAccountSignInDetails();
+                                        Intent i = new Intent();
+                                        i.setClass(SignInScreen.this, HomeActivity.class);
+                                        if(!stopped)
                                             startActivity(i);
-                                        } else {
-                                            Log.i("Session Id Request", "Session Id can't be granted " + response.errorBody());
-                                            editor.putBoolean(Constants.BOOLEAN_SESSION_ID_GRANTED, false);
-                                            editor.commit();
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onFailure(Call<session_id> call, Throwable t) {
-                                        Log.i("Session Id Request", "Session Id can't be granted ");
+                                    } else {
+                                        progressDialog.dismiss();
+                                        Log.i("Session Id Request", "Session Id can't be granted " + response.errorBody());
                                         editor.putBoolean(Constants.BOOLEAN_SESSION_ID_GRANTED, false);
                                         editor.commit();
                                     }
-                                });
-                            } else {
-                                Log.i("Request Token Vrfctn", "Request Token can't be verified " + response.errorBody());
-                                editor.putBoolean(Constants.BOOLEAN_ACCESS_TOKEN_VERIFIED, false);
-                                editor.commit();
-                                requestTokenVerify = false;
-                            }
-                        }
+                                }
 
-                        @Override
-                        public void onFailure(Call<account_access> call, Throwable t) {
-                            Log.i("Request Token Vrfctn", "Network Error: request token can't be verified");
+                                @Override
+                                public void onFailure(Call<session_id> call, Throwable t) {
+                                    progressDialog.dismiss();
+                                    Log.i("Session Id Request", "Session Id can't be granted ");
+                                    editor.putBoolean(Constants.BOOLEAN_SESSION_ID_GRANTED, false);
+                                    editor.commit();
+                                }
+                            });
+                        } else {
+                            progressDialog.dismiss();
+                            Log.i("Request Token Vrfctn", "Request Token can't be verified " + response.errorBody());
                             editor.putBoolean(Constants.BOOLEAN_ACCESS_TOKEN_VERIFIED, false);
                             editor.commit();
                             requestTokenVerify = false;
                         }
-                    });
-                } else {
-                    // case: Request Token must not have been granted
-                    // Handle the case here
-                    // Can't get session id on button click
-                }
+                    }
+
+                    @Override
+                    public void onFailure(Call<account_access> call, Throwable t) {
+                        progressDialog.dismiss();
+                        Log.i("Request Token Vrfctn", "Network Error: request token can't be verified");
+                        editor.putBoolean(Constants.BOOLEAN_ACCESS_TOKEN_VERIFIED, false);
+                        editor.commit();
+                        requestTokenVerify = false;
+                    }
+                });
             }
         });
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        stopped = true;
+        if(progressDialog.isShowing())
+            progressDialog.dismiss();
+        request_token.cancel();
+        authenticate.cancel();
+        session_idCall.cancel();
+        super.onPause();
     }
 
     public void getAccountSignInDetails() {
@@ -162,8 +203,8 @@ public class SignInScreen extends AppCompatActivity {
                     editor.putString(Constants.USER_NAME, accountDetails.getUsername());
                     editor.commit();
                     Log.i("Session id: ", "user id granted");
-                    Log.i("UserNameInSignInScreen",accountDetails.getUsername());
-                    Log.i("UserId",accountDetails.getId());
+                    Log.i("UserNameInSignInScreen", accountDetails.getUsername());
+                    Log.i("UserId", accountDetails.getId());
                 } else {
                     editor.putBoolean(Constants.BOOLEAN_GET_ACCOUNT_ID, false);
                     editor.commit();
