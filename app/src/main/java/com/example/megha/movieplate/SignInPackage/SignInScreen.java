@@ -29,11 +29,12 @@ public class SignInScreen extends AppCompatActivity {
     String token;
     String session_id;
     Button logInButton;
-    String UserName;
+    String UserName, api_key;
     EditText username_edit_text, password_edit_text;
     boolean requestTokenGrant = false;
     boolean requestTokenVerify = false, stopped = false;
     SharedPreferences sp;
+    SharedPreferences.Editor editor;
     ProgressDialog progressDialog;
 
     Call<account_access> request_token;
@@ -62,15 +63,15 @@ public class SignInScreen extends AppCompatActivity {
         progressDialog.setMessage("Authenticating...");
 
         sp = getSharedPreferences(Constants.SHARED_PREFERENCE, Context.MODE_PRIVATE);
+        editor = sp.edit();
+        api_key = sp.getString(Constants.API_KEY, null);
+        request_token = ApiClientMoviedb.getInterface().getRequestToken(api_key);
 
     }
 
     @Override
     protected void onResume() {
         stopped = false;
-        final SharedPreferences.Editor editor = sp.edit();
-        final String api_key = sp.getString(Constants.API_KEY, null);
-        request_token = ApiClientMoviedb.getInterface().getRequestToken(api_key);
         request_token.enqueue(new Callback<account_access>() {
             @Override
             public void onResponse(Call<account_access> call, Response<account_access> response) {
@@ -180,8 +181,8 @@ public class SignInScreen extends AppCompatActivity {
         if(progressDialog.isShowing())
             progressDialog.dismiss();
         request_token.cancel();
-        authenticate.cancel();
-        session_idCall.cancel();
+        if(authenticate != null)    authenticate.cancel();
+        if(session_idCall != null)  session_idCall.cancel();
         super.onPause();
     }
 

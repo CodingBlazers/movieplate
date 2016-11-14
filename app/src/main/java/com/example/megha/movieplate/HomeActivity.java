@@ -36,6 +36,15 @@ import retrofit2.Response;
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    TextView userNameTextView;
+    SharedPreferences sp;
+
+    @Override
+    protected void onResume() {
+        String user_name = sp.getString(Constants.USER_NAME, null);
+        userNameTextView.setText(user_name);
+        super.onResume();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +61,11 @@ public class HomeActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.home_drawer_layout);
 
         //This is To set name of the logged in person in the navigation drawer in navigation view.
-        SharedPreferences sp = getSharedPreferences(Constants.SHARED_PREFERENCE, Context.MODE_PRIVATE);
+        sp = getSharedPreferences(Constants.SHARED_PREFERENCE, Context.MODE_PRIVATE);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        String user_name = sp.getString(Constants.USER_NAME, null);
-        //Log.i("UserNameInHomeActivity", user_name);
+
         View v = navigationView.getHeaderView(0);
-        TextView userNameTextView = (TextView) v.findViewById(R.id.UserNameTextView);
-        userNameTextView.setText(user_name);
+        userNameTextView = (TextView) v.findViewById(R.id.UserNameTextView);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
