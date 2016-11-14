@@ -56,6 +56,9 @@ public class FragmentWatchList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_watchlist, container, false);
         b = getArguments();
+        key = b.getString(Constants.WATCHLIST_URL_API_KEY);
+        session_id = b.getString(Constants.WATCHLIST_URL_SESSION_ID);
+        user_id = b.getString(Constants.WATCHLIST_URL_USER_ID);
 
         ConnectionDetector cd = new ConnectionDetector(getActivity());
         if (!cd.isConnectingToInternet()) {
@@ -65,6 +68,7 @@ public class FragmentWatchList extends Fragment {
             startActivity(intent);
         }
 
+        MoviesWatchListGV = (GridView) view.findViewById(R.id.id_MoviesWatchList);
         MoviesWatchListGV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -92,9 +96,8 @@ public class FragmentWatchList extends Fragment {
                 });
             }
         });
-        TvShowsWatchListGV = (GridView) view.findViewById(R.id.id_TVshowsWatchList);
-        TVWatchListResponse = ApiClientWatchlist.getInterface().getUserTVShowWatchlist(user_id, key, session_id);
 
+        TvShowsWatchListGV = (GridView) view.findViewById(R.id.id_TVshowsWatchList);
         TvShowsWatchListGV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -128,15 +131,11 @@ public class FragmentWatchList extends Fragment {
 
     @Override
     public void onResume() {
-        key = b.getString(Constants.WATCHLIST_URL_API_KEY);
-        session_id = b.getString(Constants.WATCHLIST_URL_SESSION_ID);
-        user_id = b.getString(Constants.WATCHLIST_URL_USER_ID);
-        final ProgressDialog progressDialog = new ProgressDialog(getActivity());
+        progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Loading...");
 
         b1=false; b2=false;
         Log.i("Credentials", key + "\n" + session_id + "\n" + user_id);
-        MoviesWatchListGV = (GridView) view.findViewById(R.id.id_MoviesWatchList);
 
         //Call to fetch movies from the user WatchList
         MoviesWatchListResponse = ApiClientWatchlist.getInterface().getUserMovieWatchlist(user_id, key, session_id);
@@ -172,6 +171,8 @@ public class FragmentWatchList extends Fragment {
                     progressDialog.dismiss();
             }
         });
+
+        TVWatchListResponse = ApiClientWatchlist.getInterface().getUserTVShowWatchlist(user_id, key, session_id);
         TVWatchListResponse.enqueue(new Callback<WatchlistTVShowJSON>() {
             @Override
             public void onResponse(Call<WatchlistTVShowJSON> call, Response<WatchlistTVShowJSON> response) {

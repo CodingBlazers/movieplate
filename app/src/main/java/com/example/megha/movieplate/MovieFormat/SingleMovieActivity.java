@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,12 +35,15 @@ public class SingleMovieActivity extends AppCompatActivity {
     Results results;
     boolean paused;
     ProgressDialog progressDialog;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTitle("Movie Detail");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity_container);
+        toolbar = (Toolbar) findViewById(R.id.toolbar_details);
+
         Intent i = getIntent();
         results = (Results) i.getSerializableExtra(Constants.SINGLE_MOVIE_DETAILS);
         progressDialog = new ProgressDialog(this);
@@ -50,6 +54,7 @@ public class SingleMovieActivity extends AppCompatActivity {
     protected void onResume() {
         paused = false;
         String title = results.title;
+        toolbar.setTitle(title);
         mySearch = ApiClientOmdb.getInterface().getMySearch("",title);
         mySearch.enqueue(new Callback<Search>() {
             @Override

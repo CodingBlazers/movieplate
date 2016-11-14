@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,12 +30,15 @@ public class TVShowDetails extends AppCompatActivity {
     Call<Search> tvShowResults;
     Results results;
     boolean paused = false;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTitle("TV Show Detail");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity_container);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar_details);
 
         Intent intent = getIntent();
         progressDialog = new ProgressDialog(this);
@@ -56,6 +60,7 @@ public class TVShowDetails extends AppCompatActivity {
         paused = false;
         progressDialog.show();
         String tv_show_title = results.getName();
+        toolbar.setTitle(tv_show_title);
         tvShowResults = ApiClientOmdb.getInterface().getMySearch("", tv_show_title);
         tvShowResults.enqueue(new Callback<Search>() {
             @Override
