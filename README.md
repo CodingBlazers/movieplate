@@ -1,3 +1,5 @@
+Release Apk for the app can be found here - https://github.com/codeb1ooded/movieplate/blob/master/app/app-release.apk
+
 # Movieplate
 It is a Entertainment based Android App that keeps you updated of movies and Television shows.This App is our first Android app built while learning Android Development. This app is built using MovieDB &amp; OMDB APIs.This app offers following features -
 <li> 1) Get all the information about any movie or TV show.(Search Functionality) </li>
