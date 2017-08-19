@@ -1,4 +1,4 @@
-package com.example.megha.movieplate.MovieFormat;
+package com.example.megha.movieplate.TVFormat;
 
 import android.content.Context;
 import android.content.Intent;
@@ -37,14 +37,14 @@ import retrofit2.Response;
  * Created by megha on 14/08/17.
  */
 
-public class MovieLinearLayoutFragment extends Fragment implements Constants{
+public class TVLinearLayoutFragment extends Fragment implements Constants{
 
     Context mContext;
     View view;
 
     boolean state[];
 
-    ArrayList<MovieDetails> mData;
+    ArrayList<TVDetails> mData;
     String key, userID, sessionID;
 
     SharedPreferencesUtils spUtils;
@@ -52,7 +52,7 @@ public class MovieLinearLayoutFragment extends Fragment implements Constants{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         Bundle b = getArguments();
-        mData = (ArrayList<MovieDetails>) b.getSerializable(ALL_MOVIE_DETAILS);
+        mData = (ArrayList<TVDetails>) b.getSerializable(ALL_TV_SHOW_DETAILS);
         state = new boolean[10];
         mContext = getContext();
 
@@ -69,7 +69,7 @@ public class MovieLinearLayoutFragment extends Fragment implements Constants{
     private void initViews() {
 
         final Intent intent = new Intent();
-        intent.setClass(getActivity(), SingleMovieActivity.class);
+        intent.setClass(getActivity(), TVShowDetails.class);
 
         HorizontalScrollView scrollView = new HorizontalScrollView(mContext);
         scrollView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
@@ -111,7 +111,7 @@ public class MovieLinearLayoutFragment extends Fragment implements Constants{
             tvParams.addRule(RelativeLayout.BELOW, posterView.getId());
             tvParams.setMargins(0, UiUnitConverter.topxConverter(-10, TypedValue.COMPLEX_UNIT_DIP), 0, 0);
             titleTextView.setLayoutParams(tvParams);
-            titleTextView.setText(mData.get(i).getTitle());
+            titleTextView.setText(mData.get(i).getName());
             titleTextView.setGravity(View.TEXT_ALIGNMENT_CENTER);
             titleTextView.setTextColor(ContextCompat.getColor(mContext, R.color.white));
             relativeLayout.addView(titleTextView);
@@ -121,7 +121,7 @@ public class MovieLinearLayoutFragment extends Fragment implements Constants{
             posterView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    intent.putExtra(SINGLE_MOVIE_DETAILS, mData.get(i));
+                    intent.putExtra(SINGLE_TV_SHOW_DETAILS, mData.get(i).getName());
                     startActivity(intent);
                 }
             });
@@ -130,21 +130,20 @@ public class MovieLinearLayoutFragment extends Fragment implements Constants{
             addToWatchlist.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     int id = mData.get(i).getId();
                     posterView.setImageDrawable(getResources().getDrawable(R.drawable.transition));
                     TransitionDrawable drawable = (TransitionDrawable) posterView.getDrawable();
                     drawable.setCrossFadeEnabled(true);//To hide First view when second view is visible
                     if (!state[i]) {
                         drawable.startTransition(100);
-                        PostJsonInWatchList postJsonInWatchList = new PostJsonInWatchList("movie", id, true);
+                        PostJsonInWatchList postJsonInWatchList = new PostJsonInWatchList("tv", id, true);
                         Call<PostJsonInWatchList> call = MovieDBApiClient.getInterface().createJson(userID, key, sessionID, postJsonInWatchList);
                         call.enqueue(new Callback<PostJsonInWatchList>() {
                             @Override
                             public void onResponse(Call<PostJsonInWatchList> call, Response<PostJsonInWatchList> response) {
                                 if (response.isSuccessful()) {
                                     Log.i("Response Message", response.code() + response.message().toString());
-                                    Toast.makeText(getActivity(), "MovieList Added to WatchList Successfully", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity(), "TVList Show Added to WatchList Successfully", Toast.LENGTH_SHORT).show();
                                 }
                             }
 
@@ -162,7 +161,7 @@ public class MovieLinearLayoutFragment extends Fragment implements Constants{
                             public void onResponse(Call<PostJsonInWatchList> call, Response<PostJsonInWatchList> response) {
                                 if (response.isSuccessful()) {
                                     Log.i("Response Message", response.code() + response.message().toString());
-                                    Toast.makeText(getActivity(), "MovieList Removed from the WatchList", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity(), "TVList Show Removed from the WatchList", Toast.LENGTH_SHORT).show();
                                 }
                             }
 

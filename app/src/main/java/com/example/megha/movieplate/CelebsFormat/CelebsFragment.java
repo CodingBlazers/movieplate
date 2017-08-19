@@ -11,9 +11,11 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.megha.movieplate.Constants;
-import com.example.megha.movieplate.NoInternetActivity;
+import com.example.megha.movieplate.utility.NoInternetActivity;
 import com.example.megha.movieplate.R;
 import com.example.megha.movieplate.utility.ConnectionDetector;
+import com.example.megha.movieplate.utility.MovieDBApiClient;
+import com.example.megha.movieplate.utility.SharedPreferencesUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,32 +27,37 @@ import retrofit2.Response;
 public class CelebsFragment extends Fragment {
 
     ProgressDialog pDialog;
-    Bundle b;
     boolean paused;
     Call<Celebs> popularPeople;
+    SharedPreferencesUtils spUtils;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_celebs_fragment, container, false);
-        b = getArguments();ConnectionDetector cd = new ConnectionDetector(getActivity());
+        checkConnectivity();
+        spUtils = new SharedPreferencesUtils(getActivity());
+        pDialog = new ProgressDialog(getActivity());
+        pDialog.setMessage("Loading...");
+        return view;
+    }
+
+    private void checkConnectivity() {
+        ConnectionDetector cd = new ConnectionDetector(getActivity());
         if (!cd.isConnectingToInternet()) {
             Intent intent = new Intent();
             intent.setClass(getActivity(), NoInternetActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
-        pDialog = new ProgressDialog(getActivity());
-        pDialog.setMessage("Loading...");
-        return view;
     }
 
     @Override
     public void onResume() {
         pDialog.show();
         paused = false;
-        final String key = b.getString(Constants.CELEBS_URL_API_KEY);
-        popularPeople = ApiClientCelebDb.getInterface().getPopularPerson(key);
+        final String key = spUtils.getAPIKey();
+        popularPeople = MovieDBApiClient.getInterface().getPopularPerson(key);
         popularPeople.enqueue(new Callback<Celebs>() {
             @Override
             public void onResponse(Call<Celebs> call, Response<Celebs> response) {
@@ -72,7 +79,6 @@ public class CelebsFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Celebs> call, Throwable t) {
-                // Toast.makeText(getActivity(), "You Are Not Connected To Internet", Toast.LENGTH_LONG).show();
                 pDialog.dismiss();
             }
         });
@@ -86,4 +92,5 @@ public class CelebsFragment extends Fragment {
         popularPeople.cancel();
         super.onPause();
     }
+
 }

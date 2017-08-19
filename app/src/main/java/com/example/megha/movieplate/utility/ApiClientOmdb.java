@@ -1,9 +1,7 @@
-package com.example.megha.movieplate;
+package com.example.megha.movieplate.utility;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import java.lang.reflect.Modifier;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -17,8 +15,6 @@ public class ApiClientOmdb {
     public static ApiInterfaceOmdb getInterface() {
         if (mService == null) {
             Gson gson = new GsonBuilder().create();
-                    //.excludeFieldsWithModifiers(Modifier.TRANSIENT, Modifier.STATIC)
-                    //.create();
 
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl("http://www.omdbapi.com/")

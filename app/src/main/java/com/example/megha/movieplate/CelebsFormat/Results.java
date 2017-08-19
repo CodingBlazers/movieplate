@@ -14,7 +14,7 @@ public class Results implements Serializable {
     String id;
     String name;
     @SerializedName("known_for")
-    ArrayList<Popularity> MoviesList;
+    ArrayList<Popularity> moviesList;
 
     public String getProfile_path() {
         return profile_path;

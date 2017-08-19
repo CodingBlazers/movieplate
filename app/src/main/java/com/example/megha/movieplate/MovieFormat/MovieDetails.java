@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by Megha on 31-03-2016.
  */
 
-public class Results implements Serializable{
+public class MovieDetails implements Serializable{
 
     //Made the hierarchy. Will use that in future. For now, we only need link of posters stored in poster_path.
     String poster_path;
@@ -30,5 +30,9 @@ public class Results implements Serializable{
 
     public String getPoster_path(){
         return poster_path;
+    }
+
+    public String getTitle() {
+        return title;
     }
 }

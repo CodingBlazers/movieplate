@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by HIman$hu on 4/1/2016.
  */
-public class Results implements Serializable{
+public class TVDetails implements Serializable{
     String poster_path;
     String popularity;
     int id;

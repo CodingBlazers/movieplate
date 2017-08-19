@@ -10,36 +10,35 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
-import android.widget.Toast;
 
-import com.example.megha.movieplate.MovieFormat.ApiClientMoviedb;
-import com.example.megha.movieplate.MovieFormat.Movie;
+import com.example.megha.movieplate.MovieFormat.MovieList;
 import com.example.megha.movieplate.MovieFormat.MovieLinearLayoutFragment;
-import com.example.megha.movieplate.TVFormat.ApiClientTVDb;
-import com.example.megha.movieplate.TVFormat.TV;
-import com.example.megha.movieplate.TVFormat.TVLinearlayoutFragment;
+import com.example.megha.movieplate.TVFormat.TVList;
+import com.example.megha.movieplate.TVFormat.TVLinearLayoutFragment;
 import com.example.megha.movieplate.utility.ConnectionDetector;
+import com.example.megha.movieplate.utility.MovieDBApiClient;
+import com.example.megha.movieplate.utility.NoInternetActivity;
+import com.example.megha.movieplate.utility.SharedPreferencesUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements Constants{
 
     ProgressDialog pDialog;
-    Call<Movie> now_playing_movies;
-    Call<Movie> upcoming_movies;
-    Call<TV> on_air_tv_shows;
+    Call<MovieList> now_playing_movies;
+    Call<MovieList> upcoming_movies;
+    Call<TVList> on_air_tv_shows;
     boolean paused;
     boolean b1, b2, b3;
-    Bundle b;
+    SharedPreferencesUtils spUtils;
 
     @Nullable
     @Override
-    //From onCreateview we get to know about what type of view we have to attach(landscape/portrait)
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_home_fragment, container, false);
-        b = getArguments();
+        spUtils = new SharedPreferencesUtils(getActivity());
         paused = false;
         b1 = b2 = b3 = false;
 
@@ -72,16 +71,16 @@ public class HomeFragment extends Fragment {
         pDialog.show();
         paused = false;
 
-        String key = b.getString(Constants.MOVIE_URL_API_KEY);
-        now_playing_movies = ApiClientMoviedb.getInterface().getNowPlayingMovies(key);
-        now_playing_movies.enqueue(new Callback<Movie>() {
+        String key = spUtils.getAPIKey();
+        now_playing_movies = MovieDBApiClient.getInterface().getNowPlayingMovies(key);
+        now_playing_movies.enqueue(new Callback<MovieList>() {
             @Override
-            public void onResponse(Call<Movie> call, Response<Movie> response) {
-                Movie movie = response.body();
-                Log.i("Movie Object",movie.results.toString());
+            public void onResponse(Call<MovieList> call, Response<MovieList> response) {
+                MovieList movie = response.body();
+                Log.i("MovieList Object",movie.results.toString());
                 MovieLinearLayoutFragment mf = new MovieLinearLayoutFragment();
                 Bundle b = new Bundle();
-                b.putSerializable(Constants.MOVIE_TO_LINEAR_LAYOUT_FRAGMENT, movie);
+                b.putSerializable(ALL_MOVIE_DETAILS, movie.results);
                 mf.setArguments(b);
                 if(!paused)
                     getFragmentManager().beginTransaction().replace(R.id.frameLayoutnowplayingMovies, mf).commit();
@@ -91,21 +90,21 @@ public class HomeFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<Movie> call, Throwable t) {
+            public void onFailure(Call<MovieList> call, Throwable t) {
                 //  Toast.makeText(getActivity(), "You are not connected to Internet", Toast.LENGTH_LONG).show();
                 b1 = true;
                 if(b3 && b2)
                     pDialog.dismiss();
             }
         });
-        upcoming_movies = ApiClientMoviedb.getInterface().getUpcomingMovies(key);
-        upcoming_movies.enqueue(new Callback<Movie>() {
+        upcoming_movies = MovieDBApiClient.getInterface().getUpcomingMovies(key);
+        upcoming_movies.enqueue(new Callback<MovieList>() {
             @Override
-            public void onResponse(Call<Movie> call, Response<Movie> response) {
-                Movie movie = response.body();
+            public void onResponse(Call<MovieList> call, Response<MovieList> response) {
+                MovieList movie = response.body();
                 MovieLinearLayoutFragment mf = new MovieLinearLayoutFragment();
                 Bundle b = new Bundle();
-                b.putSerializable(Constants.MOVIE_TO_LINEAR_LAYOUT_FRAGMENT, movie);
+                b.putSerializable(ALL_MOVIE_DETAILS, movie.results);
                 mf.setArguments(b);
                 if(!paused)
                     getFragmentManager().beginTransaction().replace(R.id.frameLayoutupcomingmovies, mf).commit();
@@ -115,21 +114,21 @@ public class HomeFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<Movie> call, Throwable t) {
+            public void onFailure(Call<MovieList> call, Throwable t) {
                 //    Toast.makeText(getActivity(), "You are not connected to Internet", Toast.LENGTH_LONG).show();
                 b2 = true;
                 if(b1 && b3)
                     pDialog.dismiss();
             }
         });
-        on_air_tv_shows = ApiClientTVDb.getInterface().getOnAirTVShows(key);
-        on_air_tv_shows.enqueue(new Callback<TV>() {
+        on_air_tv_shows = MovieDBApiClient.getInterface().getOnAirTVShows(key);
+        on_air_tv_shows.enqueue(new Callback<TVList>() {
             @Override
-            public void onResponse(Call<TV> call, Response<TV> response) {
-                TV tv = response.body();
-                TVLinearlayoutFragment mf = new TVLinearlayoutFragment();
+            public void onResponse(Call<TVList> call, Response<TVList> response) {
+                TVList tvList = response.body();
+                TVLinearLayoutFragment mf = new TVLinearLayoutFragment();
                 Bundle b = new Bundle();
-                b.putSerializable(Constants.TV_TO_LINEAR_LAYOUT_FRAGMENT, tv);
+                b.putSerializable(ALL_TV_SHOW_DETAILS, tvList.results);
                 mf.setArguments(b);
                 if(!paused)
                     getFragmentManager().beginTransaction().replace(R.id.frameLayoutonairTvshows, mf).commit();
@@ -139,7 +138,7 @@ public class HomeFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<TV> call, Throwable t) {
+            public void onFailure(Call<TVList> call, Throwable t) {
                 //    Toast.makeText(getActivity(), "You are not connected to Internet", Toast.LENGTH_LONG).show();
                 b3 = true;
                 if(b1 && b2)

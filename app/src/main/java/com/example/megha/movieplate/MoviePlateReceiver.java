@@ -14,7 +14,7 @@ public class MoviePlateReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         // TODO: This method is called when the BroadcastReceiver is receiving
         // an Intent broadcast.
-        Log.i("BroadcastReceiverTag", "Movie Plate Receiver  : Broadcast Received");
-        Toast.makeText(context, "Movie Plate Receiver: Broadcast Received", Toast.LENGTH_SHORT).show();
+        Log.i("BroadcastReceiverTag", "MovieList Plate Receiver  : Broadcast Received");
+        Toast.makeText(context, "MovieList Plate Receiver: Broadcast Received", Toast.LENGTH_SHORT).show();
     }
 }

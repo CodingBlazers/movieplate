@@ -6,6 +6,7 @@ import java.io.Serializable;
  * Created by HIman$hu on 4/14/2016.
  */
 public class CelebsDetails  implements Serializable{
+
     String name;
     String biography;
     String birthday;

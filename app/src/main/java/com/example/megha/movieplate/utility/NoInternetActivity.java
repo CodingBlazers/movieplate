@@ -1,16 +1,17 @@
-package com.example.megha.movieplate;
+package com.example.megha.movieplate.utility;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.megha.movieplate.Constants;
+import com.example.megha.movieplate.HomeActivity;
+import com.example.megha.movieplate.R;
 import com.example.megha.movieplate.SignInPackage.SignInScreen;
-import com.example.megha.movieplate.utility.ConnectionDetector;
 
 /**
  * Created by megha on 13/11/16.
@@ -19,12 +20,14 @@ import com.example.megha.movieplate.utility.ConnectionDetector;
 public class NoInternetActivity extends AppCompatActivity {
 
     Button retryButton;
+    SharedPreferencesUtils spUtils;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_no_internet);
+        spUtils = new SharedPreferencesUtils(NoInternetActivity.this);
         retryButton = (Button) findViewById(R.id.retry_button);
-        final SharedPreferences sp = getSharedPreferences(Constants.SHARED_PREFERENCE, Context.MODE_PRIVATE);
         retryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -32,8 +35,7 @@ public class NoInternetActivity extends AppCompatActivity {
                 if (cd.isConnectingToInternet()) {
                     Intent intent = new Intent();
                     intent.setClass(NoInternetActivity.this, HomeActivity.class);
-                    boolean signedIn = sp.getBoolean(Constants.BOOLEAN_SIGNED_IN, false);
-                    if(signedIn){
+                    if(spUtils.isSignedIn()){
                         intent.setClass(NoInternetActivity.this, HomeActivity.class);
                     }
                     else{

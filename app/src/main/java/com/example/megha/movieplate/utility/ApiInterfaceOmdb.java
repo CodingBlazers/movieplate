@@ -1,4 +1,6 @@
-package com.example.megha.movieplate;
+package com.example.megha.movieplate.utility;
+
+import com.example.megha.movieplate.Search;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -13,7 +15,7 @@ public interface ApiInterfaceOmdb {
 
     // In query it will append ? than parameter than equal to by itself.
     // Url request to OMDB Api for searching movie
-    @GET
-    Call<Search> getMySearch(@Url String urlstring, @Query("t") String item);
+    @GET(".")
+    Call<Search> getMySearch(@Query("apikey") String apiKey, @Query("s") String item);
 
 }

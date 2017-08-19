@@ -11,19 +11,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.megha.movieplate.ApiClientOmdb;
+import com.example.megha.movieplate.utility.ApiClientOmdb;
 import com.example.megha.movieplate.Constants;
-import com.example.megha.movieplate.MovieFormat.SingleMovieActivity;
-import com.example.megha.movieplate.NoInternetActivity;
+import com.example.megha.movieplate.utility.NoInternetActivity;
 import com.example.megha.movieplate.R;
 import com.example.megha.movieplate.Search;
 import com.example.megha.movieplate.SearchFragment;
 import com.example.megha.movieplate.utility.ConnectionDetector;
+import com.example.megha.movieplate.utility.MovieDBApiClient;
+import com.example.megha.movieplate.utility.SharedPreferencesUtils;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -33,8 +32,7 @@ import retrofit2.Response;
 /**
  * Created by HIman$hu on 7/20/2016.
  */
-public class FragmentWatchList extends Fragment {
-
+public class FragmentWatchList extends Fragment implements Constants{
 
     String key, session_id, user_id;
     ArrayList<SingleWatchlistMovie> MoviesArrayWatchList;
@@ -45,7 +43,7 @@ public class FragmentWatchList extends Fragment {
     boolean b1, b2;
     ProgressDialog progressDialog;
     boolean paused;
-    Bundle b;
+    SharedPreferencesUtils spUtils;
 
     Call<WatchlistMovieJSON> MoviesWatchListResponse;
     Call<WatchlistTVShowJSON> TVWatchListResponse;
@@ -55,45 +53,23 @@ public class FragmentWatchList extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_watchlist, container, false);
-        b = getArguments();
-        key = b.getString(Constants.WATCHLIST_URL_API_KEY);
-        session_id = b.getString(Constants.WATCHLIST_URL_SESSION_ID);
-        user_id = b.getString(Constants.WATCHLIST_URL_USER_ID);
 
-        ConnectionDetector cd = new ConnectionDetector(getActivity());
-        if (!cd.isConnectingToInternet()) {
-            Intent intent = new Intent();
-            intent.setClass(getActivity(), NoInternetActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        }
+        spUtils = new SharedPreferencesUtils(getActivity());
+        key = spUtils.getAPIKey();
+        session_id = spUtils.getSessionIDKey();
+        user_id = spUtils.getIDKey();
+
+        checkConnectivity();
 
         MoviesWatchListGV = (GridView) view.findViewById(R.id.id_MoviesWatchList);
         MoviesWatchListGV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String title = moviesWatchList.results.get(position).getOriginal_title();
-                Call<Search> mySearch = ApiClientOmdb.getInterface().getMySearch("", title);
-                mySearch.enqueue(new Callback<Search>() {
-                    @Override
-                    public void onResponse(Call<Search> call, Response<Search> response) {
-                        if (response.isSuccessful()) {
-                            Search s = response.body();
-                            Bundle b = new Bundle();
-                            SearchFragment sf = new SearchFragment();
-                            b.putSerializable("SearchContent", s);
-                            sf.setArguments(b);
-                            getFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, sf).commit();
-                        } else {
-                            Toast.makeText(getActivity(), response.code() + response.message(), Toast.LENGTH_LONG).show();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Search> call, Throwable t) {
-                        Toast.makeText(getActivity(), "You are not connected to internet", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                Bundle b = new Bundle();
+                SearchFragment sf = new SearchFragment();
+                b.putSerializable(SEARCH_TITLE, moviesWatchList.results.get(position).getOriginal_title());
+                sf.setArguments(b);
+                getFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, sf).commit();
             }
         });
 
@@ -101,28 +77,11 @@ public class FragmentWatchList extends Fragment {
         TvShowsWatchListGV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String title = TVShowWatchList.results.get(position).getOriginal_name();
-                Call<Search> mySearch = ApiClientOmdb.getInterface().getMySearch("", title);
-                mySearch.enqueue(new Callback<Search>() {
-                    @Override
-                    public void onResponse(Call<Search> call, Response<Search> response) {
-                        if (response.isSuccessful()) {
-                            Search s = response.body();
-                            Bundle b = new Bundle();
-                            SearchFragment sf = new SearchFragment();
-                            b.putSerializable("SearchContent", s);
-                            sf.setArguments(b);
-                            getFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, sf).commit();
-                        } else {
-                            Toast.makeText(getActivity(), response.code() + response.message(), Toast.LENGTH_LONG).show();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Search> call, Throwable t) {
-                        Toast.makeText(getActivity(), "You are not connected to internet", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                Bundle b = new Bundle();
+                SearchFragment sf = new SearchFragment();
+                b.putSerializable(SEARCH_TITLE, TVShowWatchList.results.get(position).getOriginal_name());
+                sf.setArguments(b);
+                getFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, sf).commit();
             }
         });
 
@@ -138,7 +97,7 @@ public class FragmentWatchList extends Fragment {
         Log.i("Credentials", key + "\n" + session_id + "\n" + user_id);
 
         //Call to fetch movies from the user WatchList
-        MoviesWatchListResponse = ApiClientWatchlist.getInterface().getUserMovieWatchlist(user_id, key, session_id);
+        MoviesWatchListResponse = MovieDBApiClient.getInterface().getUserMovieWatchlist(user_id, key, session_id);
         MoviesWatchListResponse.enqueue(new Callback<WatchlistMovieJSON>() {
             @Override
             public void onResponse(Call<WatchlistMovieJSON> call, Response<WatchlistMovieJSON> response) {
@@ -152,7 +111,6 @@ public class FragmentWatchList extends Fragment {
                         MoviesposterPaths[i] = "http://image.tmdb.org/t/p/w300/" + MoviesArrayWatchList.get(i).getPoster_path().toString();
                     }
 
-                    //MoviesWatchListAdapter moviesWatchListAdapter = new MoviesWatchListAdapter(getContext(), MoviesposterPaths);
                     MoviesWatchListGV.setAdapter(new MoviesWatchListAdapter(getContext(), MoviesposterPaths));
 
                 } else {
@@ -172,7 +130,7 @@ public class FragmentWatchList extends Fragment {
             }
         });
 
-        TVWatchListResponse = ApiClientWatchlist.getInterface().getUserTVShowWatchlist(user_id, key, session_id);
+        TVWatchListResponse = MovieDBApiClient.getInterface().getUserTVShowWatchlist(user_id, key, session_id);
         TVWatchListResponse.enqueue(new Callback<WatchlistTVShowJSON>() {
             @Override
             public void onResponse(Call<WatchlistTVShowJSON> call, Response<WatchlistTVShowJSON> response) {
@@ -187,7 +145,6 @@ public class FragmentWatchList extends Fragment {
                         TvShowsposterPaths[i] = "http://image.tmdb.org/t/p/w300/" + TVShowsArrayWatchlist.get(i).getPoster_path() + "";
                     }
 
-                    //TVShowsWatchListAdapter tvShowsWatchListAdapter = new TVShowsWatchListAdapter(getContext(), TvShowsposterPaths);
                     TvShowsWatchListGV.setAdapter(new TVShowsWatchListAdapter(getContext(), TvShowsposterPaths));
                 } else {
                     Toast.makeText(getActivity(), response.code() + response.message(), Toast.LENGTH_LONG).show();
@@ -217,5 +174,15 @@ public class FragmentWatchList extends Fragment {
         MoviesWatchListResponse.cancel();
         TVWatchListResponse.cancel();
         super.onPause();
+    }
+
+    private void checkConnectivity() {
+        ConnectionDetector cd = new ConnectionDetector(getActivity());
+        if (!cd.isConnectingToInternet()) {
+            Intent intent = new Intent();
+            intent.setClass(getActivity(), NoInternetActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
     }
 }

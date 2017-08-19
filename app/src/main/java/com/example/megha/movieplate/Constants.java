@@ -1,46 +1,56 @@
 package com.example.megha.movieplate;
 
 /**
- * Created by Megha on 31-03-2016.
+ * Created by megha on 14/08/17.
  */
 
-// Class to store all strings used in app
-public class Constants {
-    public static String API_KEY = "ApiKey";
+public interface Constants {
+
+    String API_KEY = "ApiKey";
+
+    String OMDB_API_KEY = "73871e7";
 
     // Boolean to tell that Api key is present in SP or not
-    public static String BOOLEAN_API_KEY_PRESENT = "ApiKeyInSP";
+    String BOOLEAN_API_KEY_PRESENT = "ApiKeyInSP";
 
     // Passing arguments from home activity to various fragments
-    public static String MOVIE_URL_API_KEY = "MovieUrlApiKey";
-    public static String TV_URL_API_KEY = "TVUrlApiKey";
-    public static String CELEBS_URL_API_KEY = "CelebsApiKey";
-    public static String WATCHLIST_URL_API_KEY = "WatchlistApiKey";
-    public static String WATCHLIST_URL_SESSION_ID = "WatchlistSessionId";
-    public static String WATCHLIST_URL_USER_ID = "WatchlistUserId";
-    public static String WATCHLIST_MOVIE_DETAILS="WatchListMovieDetails";
+    String MOVIE_URL_API_KEY = "MovieUrlApiKey";
+    String TV_URL_API_KEY = "TVUrlApiKey";
+    String CELEBS_URL_API_KEY = "CelebsApiKey";
+    String WATCHLIST_URL_API_KEY = "WatchlistApiKey";
+    String WATCHLIST_URL_SESSION_ID = "WatchlistSessionId";
+    String WATCHLIST_URL_USER_ID = "WatchlistUserId";
+    String WATCHLIST_MOVIE_DETAILS="WatchListMovieDetails";
 
     // Passing arguments from fragment to child fragments
-    public static String MOVIE_TO_LINEAR_LAYOUT_FRAGMENT = "Movies";
-    public static String TV_TO_LINEAR_LAYOUT_FRAGMENT = "TV";
-    public static String CELEBS_TO_LINEAR_LAYOUT_FRAGMENT = "Celebs";
-    public static String SINGLE_MOVIE_DETAILS = "SingleMovieDetails";
-    public static String SINGLE_TV_SHOW_DETAILS = "SingleTvShowDetails";
+    String MOVIE_TO_LINEAR_LAYOUT_FRAGMENT = "Movies";
+    String TV_TO_LINEAR_LAYOUT_FRAGMENT = "TVList";
+    String CELEBS_TO_LINEAR_LAYOUT_FRAGMENT = "Celebs";
+    String SINGLE_MOVIE_DETAILS = "SingleMovieDetails";
+    String SINGLE_TV_SHOW_DETAILS = "SingleTvShowDetails";
+    String TO_LINEAR_LAYOUT_FRAGMENT = "LinearLayoutFragments";
+
+    String ALL_MOVIE_DETAILS = "AllMovieDetails";
+    String ALL_TV_SHOW_DETAILS = "AllTvShowDteails";
+
 
     // name of file of shared preferences
-    public static String SHARED_PREFERENCE = "MoviePlate";
-    public static String USER_NAME="UserName";
+    String SHARED_PREFERENCE = "MoviePlate";
+    String USER_NAME="UserName";
 
     // Represents value stored in SP corresponding to access token , session Id and user Id
-    public static String SESSION_ID_SP = "SessionId";
-    public static String ID_SP = "UserId";
-    public static String ACCESS_TOKEN_SP = "AccessToken";
+    String SESSION_ID_SP = "SessionId";
+    String ID_SP = "UserId";
+    String ACCESS_TOKEN_SP = "AccessToken";
 
     // These are constants for SP which checks what we have been granted and verified for sign in case (Booleans in SP)
-    public static String BOOLEAN_ACCESS_TOKEN_TAKEN = "AccessTokenTaken";
-    public static String BOOLEAN_ACCESS_TOKEN_VERIFIED = "AccessTokenVerified";
-    public static String BOOLEAN_SESSION_ID_GRANTED = "SessionIdGranted";
-    public static String BOOLEAN_SIGNED_IN = "SignedIn";
-    public static String BOOLEAN_GET_ACCOUNT_ID = "AccountId";
+    String BOOLEAN_ACCESS_TOKEN_TAKEN = "AccessTokenTaken";
+    String BOOLEAN_ACCESS_TOKEN_VERIFIED = "AccessTokenVerified";
+    String BOOLEAN_SESSION_ID_GRANTED = "SessionIdGranted";
+    String BOOLEAN_SIGNED_IN = "SignedIn";
+    String BOOLEAN_GET_ACCOUNT_ID = "AccountId";
+
+    String SEARCH_TITLE = "Title";
+    String DETAIL_ACTIVITY_TITLE = "Title";
 
 }

@@ -12,9 +12,11 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.megha.movieplate.Constants;
-import com.example.megha.movieplate.NoInternetActivity;
+import com.example.megha.movieplate.utility.NoInternetActivity;
 import com.example.megha.movieplate.R;
 import com.example.megha.movieplate.utility.ConnectionDetector;
+import com.example.megha.movieplate.utility.MovieDBApiClient;
+import com.example.megha.movieplate.utility.SharedPreferencesUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,17 +27,17 @@ import retrofit2.Response;
  */
 public class TvFragment extends Fragment {
 
-    Call<TV> popularTvShows, mostRatedTVShows;
+    Call<TVList> popularTvShows, mostRatedTVShows;
     boolean b1, b2, paused;
     ProgressDialog pDialog;
-    Bundle b;
+    SharedPreferencesUtils spUtils;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_tv_fragment, container, false);
-        b = getArguments();
 
+        spUtils = new SharedPreferencesUtils(getActivity());
         pDialog = new ProgressDialog(getActivity());
         pDialog.setMessage("Loading...");
         paused = b1 = b2 = false;
@@ -55,18 +57,18 @@ public class TvFragment extends Fragment {
 
         pDialog.show();
         paused = false;
-        String key = b.getString(Constants.TV_URL_API_KEY);
+        String key = spUtils.getAPIKey();
 
-        popularTvShows = ApiClientTVDb.getInterface().getPopularTvShows(key);
-        popularTvShows.enqueue(new Callback<TV>() {
+        popularTvShows = MovieDBApiClient.getInterface().getPopularTvShows(key);
+        popularTvShows.enqueue(new Callback<TVList>() {
             @Override
-            public void onResponse(Call<TV> call, Response<TV> response) {
+            public void onResponse(Call<TVList> call, Response<TVList> response) {
                 if (response.isSuccessful()) {
-                    TV tv = response.body();
-                    Log.i("TV Object", tv.toString());
+                    TVList tvList = response.body();
+                    Log.i("TVList Object", tvList.toString());
                     Bundle b = new Bundle();
-                    TVLinearlayoutFragment tvf = new TVLinearlayoutFragment();
-                    b.putSerializable(Constants.TV_TO_LINEAR_LAYOUT_FRAGMENT, tv);
+                    TVLinearLayoutFragment tvf = new TVLinearLayoutFragment();
+                    b.putSerializable(Constants.ALL_TV_SHOW_DETAILS, tvList.results);
                     tvf.setArguments(b);
                     if(!paused)
                         getFragmentManager().beginTransaction().replace(R.id.id_PopularTvShows, tvf).commit();
@@ -79,7 +81,7 @@ public class TvFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<TV> call, Throwable t) {
+            public void onFailure(Call<TVList> call, Throwable t) {
                 // Toast.makeText(getActivity(), "You are not connected to Internet", Toast.LENGTH_LONG).show();
                 b1=true;
                 if(b2)
@@ -87,15 +89,15 @@ public class TvFragment extends Fragment {
             }
         });
 
-        mostRatedTVShows = ApiClientTVDb.getInterface().getMostratedTvShows(key);
-        mostRatedTVShows.enqueue(new Callback<TV>() {
+        mostRatedTVShows = MovieDBApiClient.getInterface().getMostRatedTvShows(key);
+        mostRatedTVShows.enqueue(new Callback<TVList>() {
             @Override
-            public void onResponse(Call<TV> call, Response<TV> response) {
+            public void onResponse(Call<TVList> call, Response<TVList> response) {
                 if (response.isSuccessful()) {
-                    TV tv = response.body();
-                    TVLinearlayoutFragment tvf = new TVLinearlayoutFragment();
+                    TVList tvList = response.body();
+                    TVLinearLayoutFragment tvf = new TVLinearLayoutFragment();
                     Bundle b = new Bundle();
-                    b.putSerializable(Constants.TV_TO_LINEAR_LAYOUT_FRAGMENT, tv);
+                    b.putSerializable(Constants.ALL_TV_SHOW_DETAILS, tvList.results);
                     tvf.setArguments(b);
                     if(!paused)
                         getFragmentManager().beginTransaction().replace(R.id.id_MostRatedTvShows, tvf).commit();
@@ -108,7 +110,7 @@ public class TvFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<TV> call, Throwable t) {
+            public void onFailure(Call<TVList> call, Throwable t) {
                 // Toast.makeText(getActivity(), "You are not connected to Internet", Toast.LENGTH_LONG).show();
                 b2=true;
                 if(b1)

@@ -26,10 +26,6 @@
                 android:id="@+id/nav_watchlist"
                 android:icon="@drawable/watchlist"
                 android:title="Watchlist" />
-            <!--<item
-                android:id="@+id/nav_rating"
-                android:icon="@drawable/ratings"
-                android:title="Ratings" />-->
         </menu>
     </item>
 
