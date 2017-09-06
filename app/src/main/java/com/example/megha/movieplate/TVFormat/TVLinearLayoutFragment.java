@@ -44,6 +44,9 @@ public class TVLinearLayoutFragment extends Fragment implements Constants{
 
     boolean state[];
 
+    ImageView posterView[];
+    ImageView addToWatchlist[];
+
     ArrayList<TVDetails> mData;
     String key, userID, sessionID;
 
@@ -53,6 +56,8 @@ public class TVLinearLayoutFragment extends Fragment implements Constants{
 
         Bundle b = getArguments();
         mData = (ArrayList<TVDetails>) b.getSerializable(ALL_TV_SHOW_DETAILS);
+        posterView = new ImageView[10];
+        addToWatchlist = new ImageView[10];
         state = new boolean[10];
         mContext = getContext();
 
@@ -65,7 +70,6 @@ public class TVLinearLayoutFragment extends Fragment implements Constants{
         return view;
     }
 
-    int i;
     private void initViews() {
 
         final Intent intent = new Intent();
@@ -80,35 +84,35 @@ public class TVLinearLayoutFragment extends Fragment implements Constants{
                 ViewGroup.LayoutParams.WRAP_CONTENT));
         scrollView.addView(linearLayout);
 
-        for(i=0; i<10; i++){
+        for(int i=0; i<10; i++){
             RelativeLayout relativeLayout = new RelativeLayout(mContext);
             relativeLayout.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT));
 
-            final ImageView posterView = new ImageView(mContext);
-            posterView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+            posterView[i] = new ImageView(mContext);
+            posterView[i].setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT));
-            posterView.setId(ViewIdGenerator.generateViewId());
-            Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w300/" + mData.get(i).getPoster_path()).resize(400, 600).into(posterView);
-            relativeLayout.addView(posterView);
+            posterView[i].setId(ViewIdGenerator.generateViewId());
+            Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w300/" + mData.get(i).getPoster_path()).resize(400, 600).into(posterView[i]);
+            relativeLayout.addView(posterView[i]);
 
-            ImageView addToWatchlist = new ImageView(mContext);
+            addToWatchlist[i] = new ImageView(mContext);
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(UiUnitConverter.topxConverter(50, TypedValue.COMPLEX_UNIT_DIP),
                     UiUnitConverter.topxConverter(50, TypedValue.COMPLEX_UNIT_DIP));
             params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
             params.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
-            addToWatchlist.setLayoutParams(params);
-            addToWatchlist.setAlpha(0.5f);
-            addToWatchlist.setBackgroundResource(R.drawable.transition);
-            addToWatchlist.setId(ViewIdGenerator.generateViewId());
-            relativeLayout.addView(addToWatchlist);
+            addToWatchlist[i].setLayoutParams(params);
+            addToWatchlist[i].setAlpha(0.5f);
+            addToWatchlist[i].setBackgroundResource(R.drawable.transition);
+            addToWatchlist[i].setId(ViewIdGenerator.generateViewId());
+            relativeLayout.addView(addToWatchlist[i]);
 
             TextView titleTextView = new TextView(mContext);
             RelativeLayout.LayoutParams tvParams = new RelativeLayout.LayoutParams(UiUnitConverter.topxConverter(50, TypedValue.COMPLEX_UNIT_DIP),
                     UiUnitConverter.topxConverter(50, TypedValue.COMPLEX_UNIT_DIP));
-            tvParams.addRule(RelativeLayout.ALIGN_LEFT, posterView.getId());
-            tvParams.addRule(RelativeLayout.ALIGN_RIGHT, posterView.getId());
-            tvParams.addRule(RelativeLayout.BELOW, posterView.getId());
+            tvParams.addRule(RelativeLayout.ALIGN_LEFT, posterView[i].getId());
+            tvParams.addRule(RelativeLayout.ALIGN_RIGHT, posterView[i].getId());
+            tvParams.addRule(RelativeLayout.BELOW, posterView[i].getId());
             tvParams.setMargins(0, UiUnitConverter.topxConverter(-10, TypedValue.COMPLEX_UNIT_DIP), 0, 0);
             titleTextView.setLayoutParams(tvParams);
             titleTextView.setText(mData.get(i).getName());
@@ -118,23 +122,33 @@ public class TVLinearLayoutFragment extends Fragment implements Constants{
 
             linearLayout.addView(relativeLayout);
 
-            posterView.setOnClickListener(new View.OnClickListener() {
+            posterView[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    intent.putExtra(SINGLE_TV_SHOW_DETAILS, mData.get(i).getName());
+                    int j;
+                    for(j=0; j<9; j++){
+                        if(v.getId() == posterView[j].getId())
+                            break;
+                    }
+                    intent.putExtra(SINGLE_TV_SHOW_DETAILS, mData.get(j));
                     startActivity(intent);
                 }
             });
 
             state[i] = spUtils.getState("state" + (i + 1));
-            addToWatchlist.setOnClickListener(new View.OnClickListener() {
+            addToWatchlist[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int id = mData.get(i).getId();
-                    posterView.setImageDrawable(getResources().getDrawable(R.drawable.transition));
-                    TransitionDrawable drawable = (TransitionDrawable) posterView.getDrawable();
+                    int j;
+                    for(j=0; j<9; j++){
+                        if(v.getId() == addToWatchlist[j].getId())
+                            break;
+                    }
+                    int id = mData.get(j).getId();
+                    addToWatchlist[j].setImageDrawable(getResources().getDrawable(R.drawable.transition));
+                    TransitionDrawable drawable = (TransitionDrawable) addToWatchlist[j].getDrawable();
                     drawable.setCrossFadeEnabled(true);//To hide First view when second view is visible
-                    if (!state[i]) {
+                    if (!state[j]) {
                         drawable.startTransition(100);
                         PostJsonInWatchList postJsonInWatchList = new PostJsonInWatchList("tv", id, true);
                         Call<PostJsonInWatchList> call = MovieDBApiClient.getInterface().createJson(userID, key, sessionID, postJsonInWatchList);
@@ -171,8 +185,8 @@ public class TVLinearLayoutFragment extends Fragment implements Constants{
                             }
                         });
                     }
-                    state[i] = !state[i];
-                    spUtils.setState("state" + (i + 1), state[i]);
+                    state[j] = !state[j];
+                    spUtils.setState("state" + (j + 1), state[j]);
 
                 }
             });

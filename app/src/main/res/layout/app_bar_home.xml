@@ -8,20 +8,8 @@
     android:fitsSystemWindows="true"
     tools:context="com.example.megha.movieplate.HomeActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/darkgrey"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            android:clickable="false" />
-
-    </android.support.design.widget.AppBarLayout>
+    <include layout="@layout/toolbar" />
 
     <include layout="@layout/content_home" />
 

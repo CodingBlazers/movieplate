@@ -25,7 +25,7 @@ public class CelebsLinearLayoutFragment extends Fragment {
     View view;
     Bundle b;
 
-    String id;
+
 
     @Nullable
     @Override
@@ -51,11 +51,15 @@ public class CelebsLinearLayoutFragment extends Fragment {
                 nameTextView[i].setText(celebs.celebsList.get(i).getName());
                 moviesTextView[i].setText(celebs.celebsList.get(i).moviesList.get(0).getOriginal_title() + "," + celebs.celebsList.get(i).moviesList.get(1).getOriginal_title() + "," +
                         celebs.celebsList.get(i).moviesList.get(2).getOriginal_title());
-                id = celebs.celebsList.get(i).getId();
                 moviesTextView[i].setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        intent.putExtra("Profile_ID", id);
+                        int j;
+                        for(j=0; j<10; j++){
+                            if(v.getId() == imageView[j].getId())
+                                break;;
+                        }
+                        intent.putExtra("Profile_ID", celebs.celebsList.get(j).getId());
                         startActivity(intent);
                     }
                 });
