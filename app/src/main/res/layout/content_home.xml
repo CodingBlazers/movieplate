@@ -13,7 +13,7 @@
     tools:context="com.example.megha.movieplate.HomeActivity"
     android:id="@+id/homeFrameLayout"
     tools:showIn="@layout/app_bar_home"
-    android:background="#4f5051">
+    android:background="@color/colorBackground">
 </FrameLayout>
 
 

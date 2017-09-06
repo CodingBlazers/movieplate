@@ -10,6 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/homeActivityContainer"
-        android:background="#4f5051">
+        android:background="@color/colorBackground">
     </FrameLayout>
 </LinearLayout>

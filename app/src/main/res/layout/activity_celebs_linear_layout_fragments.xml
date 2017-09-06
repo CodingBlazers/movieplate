@@ -28,7 +28,7 @@
                     android:id="@+id/NameTextView1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#ffffff"
+                    android:textColor="@color/white"
                     android:textStyle="bold" />
 
                 <TextView
@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@+id/NameTextView1"
                     android:layout_below="@+id/NameTextView1"
-                    android:textColor="#ffffff"/>
+                    android:textColor="@color/white"/>
 
             </RelativeLayout>
 
@@ -63,7 +63,7 @@
                     android:id="@+id/NameTextView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#ffffff"
+                    android:textColor="@color/white"
                     android:textStyle="bold" />
 
                 <TextView
@@ -72,7 +72,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@+id/NameTextView2"
                     android:layout_below="@+id/NameTextView2"
-                    android:textColor="#ffffff"/>
+                    android:textColor="@color/white"/>
 
             </RelativeLayout>
 
@@ -99,7 +99,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    android:textColor="#ffffff"/>
+                    android:textColor="@color/white"/>
 
                 <TextView
                     android:id="@+id/MoviesListTextView3"
@@ -107,7 +107,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@+id/NameTextView3"
                     android:layout_below="@+id/NameTextView3"
-                    android:textColor="#ffffff"/>
+                    android:textColor="@color/white"/>
 
             </RelativeLayout>
 
@@ -134,7 +134,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    android:textColor="#ffffff"/>
+                    android:textColor="@color/white"/>
 
                 <TextView
                     android:id="@+id/MoviesListTextView4"
@@ -142,7 +142,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@+id/NameTextView4"
                     android:layout_below="@+id/NameTextView4"
-                    android:textColor="#ffffff"/>
+                    android:textColor="@color/white"/>
 
             </RelativeLayout>
 
@@ -168,7 +168,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    android:textColor="#ffffff"/>
+                    android:textColor="@color/white"/>
 
                 <TextView
                     android:id="@+id/MoviesListTextView5"
@@ -176,7 +176,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@+id/NameTextView5"
                     android:layout_below="@+id/NameTextView5"
-                    android:textColor="#ffffff"/>
+                    android:textColor="@color/white"/>
 
             </RelativeLayout>
 
@@ -203,7 +203,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    android:textColor="#ffffff"/>
+                    android:textColor="@color/white"/>
 
                 <TextView
                     android:id="@+id/MoviesListTextView6"
@@ -211,7 +211,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@+id/NameTextView6"
                     android:layout_below="@+id/NameTextView6"
-                    android:textColor="#ffffff"/>
+                    android:textColor="@color/white"/>
 
             </RelativeLayout>
 
@@ -238,7 +238,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    android:textColor="#ffffff"/>
+                    android:textColor="@color/white"/>
 
                 <TextView
                     android:id="@+id/MoviesListTextView7"
@@ -246,7 +246,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@+id/NameTextView7"
                     android:layout_below="@+id/NameTextView7"
-                    android:textColor="#ffffff"/>
+                    android:textColor="@color/white"/>
 
             </RelativeLayout>
 
@@ -273,7 +273,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    android:textColor="#ffffff"/>
+                    android:textColor="@color/white"/>
 
                 <TextView
                     android:id="@+id/MoviesListTextView8"
@@ -281,7 +281,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@+id/NameTextView8"
                     android:layout_below="@+id/NameTextView8"
-                    android:textColor="#ffffff"/>
+                    android:textColor="@color/white"/>
 
             </RelativeLayout>
 
@@ -308,7 +308,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    android:textColor="#ffffff"/>
+                    android:textColor="@color/white"/>
 
                 <TextView
                     android:id="@+id/MoviesListTextView9"
@@ -316,7 +316,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@+id/NameTextView9"
                     android:layout_below="@+id/NameTextView9"
-                    android:textColor="#ffffff"/>
+                    android:textColor="@color/white"/>
 
             </RelativeLayout>
 
@@ -343,7 +343,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    android:textColor="#ffffff"/>
+                    android:textColor="@color/white"/>
 
                 <TextView
                     android:id="@+id/MoviesListTextView10"
@@ -351,7 +351,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@+id/NameTextView10"
                     android:layout_below="@+id/NameTextView10"
-                    android:textColor="#ffffff"/>
+                    android:textColor="@color/white"/>
 
             </RelativeLayout>
         </LinearLayout>

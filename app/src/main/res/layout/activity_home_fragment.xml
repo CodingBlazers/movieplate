@@ -15,12 +15,11 @@
             android:text="NOW PLAYING"
             android:textSize="35dp"
             android:textStyle="bold"
-            android:textColor="#f6f3f3" />
+            android:textColor="@color/colorTitle" />
 
         <FrameLayout
             android:id="@+id/frameLayoutnowplayingMovies"
             android:layout_width="wrap_content"
-            android:background="#4f5051"
             android:layout_height="wrap_content"></FrameLayout>
 
         <TextView
@@ -29,12 +28,11 @@
             android:text="UPCOMING MOVIES"
             android:textSize="35dp"
             android:textStyle="bold"
-            android:textColor="#f6f3f3" />
+            android:textColor="@color/colorTitle" />
 
         <FrameLayout
             android:id="@+id/frameLayoutupcomingmovies"
             android:layout_width="wrap_content"
-            android:background="#4f5051"
             android:layout_height="wrap_content"></FrameLayout>
 
         <TextView
@@ -43,12 +41,11 @@
             android:text="ON AIR TV SHOWS"
             android:textSize="35dp"
             android:textStyle="bold"
-            android:textColor="#f6f3f3" />
+            android:textColor="@color/colorTitle" />
 
         <FrameLayout
             android:id="@+id/frameLayoutonairTvshows"
             android:layout_width="wrap_content"
-            android:background="#4f5051"
             android:layout_height="wrap_content"></FrameLayout>
 
     </LinearLayout>

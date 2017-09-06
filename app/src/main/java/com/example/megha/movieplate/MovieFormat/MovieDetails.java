@@ -24,9 +24,7 @@ public class MovieDetails implements Serializable{
     public String popularity;
     public String vote_count;
     public String vote_average;
-    /*public String original_title;
-    public String backdrop_path;
-    public String video;*/
+    private int rating;
 
     public String getPoster_path(){
         return poster_path;
@@ -34,5 +32,13 @@ public class MovieDetails implements Serializable{
 
     public String getTitle() {
         return title;
+    }
+
+    public String getRelease_date() {
+        return release_date;
+    }
+
+    public int getRating() {
+        return rating;
     }
 }

@@ -28,4 +28,8 @@ public class TVDetails implements Serializable{
     public String getName() {
         return name;
     }
+
+    public String getFirstAirDate() {
+        return first_air_date;
+    }
 }

@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.example.megha.movieplate.Constants;
 import com.example.megha.movieplate.R;
-import com.example.megha.movieplate.utility.MovieDBApiClient;
+import com.example.megha.movieplate.utility.API.MovieDBApiClient;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

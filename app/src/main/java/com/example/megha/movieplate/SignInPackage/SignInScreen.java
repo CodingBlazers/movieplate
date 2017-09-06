@@ -14,7 +14,7 @@ import com.example.megha.movieplate.HomeActivity;
 import com.example.megha.movieplate.utility.NoInternetActivity;
 import com.example.megha.movieplate.R;
 import com.example.megha.movieplate.utility.ConnectionDetector;
-import com.example.megha.movieplate.utility.MovieDBApiClient;
+import com.example.megha.movieplate.utility.API.MovieDBApiClient;
 import com.example.megha.movieplate.utility.SharedPreferencesUtils;
 
 import retrofit2.Call;

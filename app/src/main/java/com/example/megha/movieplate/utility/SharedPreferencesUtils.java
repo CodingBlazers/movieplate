@@ -15,6 +15,8 @@ public class SharedPreferencesUtils implements Constants{
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
+    String APIReadAccessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmYjNhYTdmNmU3NDNmYjNmNjU3YTUyMjMzMDk5ODE0NCIsInN1YiI6IjU2Zjc2NTMxYzNhMzY4NmE1YzAwNTZkZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.X5fo61mZyDAGIvPnokWsr2GPM3s0rE8IVEXqFtM5xoI";
+
     public SharedPreferencesUtils(Context context){
         mContext = context;
         sharedPreferences = mContext.getSharedPreferences(SHARED_PREFERENCE, Context.MODE_PRIVATE);

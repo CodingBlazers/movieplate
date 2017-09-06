@@ -1,4 +1,4 @@
-package com.example.megha.movieplate.utility;
+package com.example.megha.movieplate.utility.API;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

@@ -1,4 +1,4 @@
-package com.example.megha.movieplate.utility;
+package com.example.megha.movieplate.utility.UI;
 
 /**
  * Created by megha on 14/08/17.

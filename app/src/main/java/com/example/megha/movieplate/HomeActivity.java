@@ -20,19 +20,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.megha.movieplate.CelebsFormat.CelebsFragment;
 import com.example.megha.movieplate.MovieFormat.MovieFragment;
 import com.example.megha.movieplate.SignInPackage.SignInScreen;
 import com.example.megha.movieplate.TVFormat.TvFragment;
 import com.example.megha.movieplate.WatchlistFormat.FragmentWatchList;
-import com.example.megha.movieplate.utility.ApiClientOmdb;
 import com.example.megha.movieplate.utility.SharedPreferencesUtils;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, Constants {

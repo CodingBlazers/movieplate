@@ -16,7 +16,7 @@
             android:text="TOP RATED MOVIES"
             android:textSize="26dp"
             android:textStyle="bold"
-            android:textColor="#ffffff"/>
+            android:textColor="@color/white"/>
 
         <FrameLayout
             android:layout_width="wrap_content"
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:text="POPULAR MOVIES"
             android:textSize="26dp"
-            android:textColor="#ffffff"
+            android:textColor="@color/white"
             android:textStyle="bold" />
 
         <FrameLayout

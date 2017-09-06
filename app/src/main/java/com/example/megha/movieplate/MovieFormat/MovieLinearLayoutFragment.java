@@ -11,6 +11,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,10 +22,10 @@ import android.widget.Toast;
 import com.example.megha.movieplate.Constants;
 import com.example.megha.movieplate.R;
 import com.example.megha.movieplate.WatchlistFormat.PostJsonInWatchList;
-import com.example.megha.movieplate.utility.MovieDBApiClient;
+import com.example.megha.movieplate.utility.API.MovieDBApiClient;
 import com.example.megha.movieplate.utility.SharedPreferencesUtils;
-import com.example.megha.movieplate.utility.UiUnitConverter;
-import com.example.megha.movieplate.utility.ViewIdGenerator;
+import com.example.megha.movieplate.utility.UI.UiUnitConverter;
+import com.example.megha.movieplate.utility.UI.ViewIdGenerator;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -42,11 +43,6 @@ public class MovieLinearLayoutFragment extends Fragment implements Constants{
     Context mContext;
     View view;
 
-    boolean state[];
-
-    ImageView posterView[];
-    ImageView addToWatchlist[];
-
     ArrayList<MovieDetails> mData;
     String key, userID, sessionID;
 
@@ -56,10 +52,7 @@ public class MovieLinearLayoutFragment extends Fragment implements Constants{
 
         Bundle b = getArguments();
         mData = (ArrayList<MovieDetails>) b.getSerializable(ALL_MOVIE_DETAILS);
-        state = new boolean[10];
         mContext = getContext();
-        posterView = new ImageView[10];
-        addToWatchlist = new ImageView[10];
 
         spUtils = new SharedPreferencesUtils(getContext());
         key = spUtils.getAPIKey();
@@ -72,9 +65,6 @@ public class MovieLinearLayoutFragment extends Fragment implements Constants{
 
     private void initViews() {
 
-        final Intent intent = new Intent();
-        intent.setClass(getActivity(), SingleMovieActivity.class);
-
         HorizontalScrollView scrollView = new HorizontalScrollView(mContext);
         scrollView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -85,116 +75,17 @@ public class MovieLinearLayoutFragment extends Fragment implements Constants{
         scrollView.addView(linearLayout);
 
         for(int i=0; i<10; i++){
-            RelativeLayout relativeLayout = new RelativeLayout(mContext);
-            relativeLayout.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+            int id = ViewIdGenerator.generateViewId();
+            FrameLayout frameLayout = new FrameLayout(mContext);
+            frameLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT));
-
-            posterView[i] = new ImageView(mContext);
-            posterView[i].setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT));
-            posterView[i].setId(ViewIdGenerator.generateViewId());
-            Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w300/" + mData.get(i).getPoster_path()).resize(400, 600).into(posterView[i]);
-            relativeLayout.addView(posterView[i]);
-
-            addToWatchlist[i] = new ImageView(mContext);
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(UiUnitConverter.topxConverter(50, TypedValue.COMPLEX_UNIT_DIP),
-                    UiUnitConverter.topxConverter(50, TypedValue.COMPLEX_UNIT_DIP));
-            params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
-            params.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
-            addToWatchlist[i].setLayoutParams(params);
-            addToWatchlist[i].setAlpha(0.5f);
-            addToWatchlist[i].setBackgroundResource(R.drawable.transition);
-            addToWatchlist[i].setId(ViewIdGenerator.generateViewId());
-            relativeLayout.addView(addToWatchlist[i]);
-
-            TextView titleTextView = new TextView(mContext);
-            RelativeLayout.LayoutParams tvParams = new RelativeLayout.LayoutParams(UiUnitConverter.topxConverter(50, TypedValue.COMPLEX_UNIT_DIP),
-                    UiUnitConverter.topxConverter(50, TypedValue.COMPLEX_UNIT_DIP));
-            tvParams.addRule(RelativeLayout.ALIGN_LEFT, posterView[i].getId());
-            tvParams.addRule(RelativeLayout.ALIGN_RIGHT, posterView[i].getId());
-            tvParams.addRule(RelativeLayout.BELOW, posterView[i].getId());
-            tvParams.setMargins(0, UiUnitConverter.topxConverter(-10, TypedValue.COMPLEX_UNIT_DIP), 0, 0);
-            titleTextView.setLayoutParams(tvParams);
-            titleTextView.setText(mData.get(i).getTitle());
-            titleTextView.setGravity(View.TEXT_ALIGNMENT_CENTER);
-            titleTextView.setTextColor(ContextCompat.getColor(mContext, R.color.white));
-            relativeLayout.addView(titleTextView);
-
-            linearLayout.addView(relativeLayout);
-
-            posterView[i].setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    int j;
-                    for(j=0; j<9; j++){
-                        if(v.getId() == posterView[j].getId())
-                            break;
-                    }
-
-                    intent.putExtra(SINGLE_MOVIE_DETAILS, mData.get(j));
-                    startActivity(intent);
-                }
-            });
-
-            state[i] = spUtils.getState("state" + (i + 1));
-            addToWatchlist[i].setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    int j;
-                    for(j=0; j<9; j++){
-                        if(v.getId() == addToWatchlist[j].getId())
-                            break;
-                    }
-
-                    int id = mData.get(j).getId();
-                    addToWatchlist[j].setImageDrawable(getResources().getDrawable(R.drawable.transition));
-                    TransitionDrawable drawable = (TransitionDrawable) addToWatchlist[j].getDrawable();
-                    drawable.setCrossFadeEnabled(true);//To hide First view when second view is visible
-                    if (!state[j]) {
-                        drawable.startTransition(100);
-                        PostJsonInWatchList postJsonInWatchList = new PostJsonInWatchList("movie", id, true);
-                        Call<PostJsonInWatchList> call = MovieDBApiClient.getInterface().createJson(userID, key, sessionID, postJsonInWatchList);
-                        call.enqueue(new Callback<PostJsonInWatchList>() {
-                            @Override
-                            public void onResponse(Call<PostJsonInWatchList> call, Response<PostJsonInWatchList> response) {
-                                if (response.isSuccessful()) {
-                                    Log.i("Response Message", response.code() + response.message().toString());
-                                    Toast.makeText(getActivity(), "MovieList Added to WatchList Successfully", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<PostJsonInWatchList> call, Throwable t) {
-                                Toast.makeText(getActivity(), "You are not connected to internet", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    } else {
-                        drawable.resetTransition();
-                        PostJsonInWatchList postJsonInWatchList = new PostJsonInWatchList("tv", id, false);
-                        Call<PostJsonInWatchList> call = MovieDBApiClient.getInterface().createJson(userID, key, sessionID, postJsonInWatchList);
-                        call.enqueue(new Callback<PostJsonInWatchList>() {
-                            @Override
-                            public void onResponse(Call<PostJsonInWatchList> call, Response<PostJsonInWatchList> response) {
-                                if (response.isSuccessful()) {
-                                    Log.i("Response Message", response.code() + response.message().toString());
-                                    Toast.makeText(getActivity(), "MovieList Removed from the WatchList", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<PostJsonInWatchList> call, Throwable t) {
-                                Toast.makeText(getActivity(), "You are not connected to internet", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                    state[j] = !state[j];
-                    spUtils.setState("state" + (j + 1), state[j]);
-
-                }
-            });
-
+            frameLayout.setId(id);
+            linearLayout.addView(frameLayout);
+            SingleMovieCardViewFragment fragment = new SingleMovieCardViewFragment();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(SINGLE_MOVIE_DETAILS, mData.get(i));
+            fragment.setArguments(bundle);
+            getFragmentManager().beginTransaction().replace(id, fragment).commit();
         }
 
         view = scrollView;

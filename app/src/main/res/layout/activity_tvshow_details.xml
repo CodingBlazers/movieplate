@@ -1,111 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackground">
 
-    <LinearLayout
+    <include layout="@layout/toolbar" />
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:padding="@dimen/activity_horizontal_margin">
 
         <LinearLayout
-
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/TVShowPosterSearch"
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:hint="image view" />
+            <LinearLayout
 
-            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:background="#a40f20">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/TVShowPosterSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:hint="image view" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+
+                    <TextView
+                        android:id="@+id/id_TVShowTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="TV title"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
 
                 <TextView
-                    android:id="@+id/id_TVShowTitle"
+                    android:id="@+id/TvShowOverview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Overview" />
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="TV title"
-                    android:textColor="#ffffff"
+                    android:text="Release Date"
+                    android:textSize="20dp"
                     android:textStyle="bold" />
 
-            </RelativeLayout>
+                <TextView
+                    android:id="@+id/TvShowReleaseDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Release Date" />
 
-            <TextView
-                android:id="@+id/TvShowOverview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Overview" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Language"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Release Date"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/TvShowLanguage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Language" />
 
-            <TextView
-                android:id="@+id/TvShowReleaseDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Release Date" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Popularity"
+                    android:textSize="20dp"
+                    android:textStyle="bold"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Language"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/TvShowPopularity"
+                    android:hint="Popularity"/>
 
-            <TextView
-                android:id="@+id/TvShowLanguage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Language" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Vote Count"
+                    android:textSize="20dp"
+                    android:textStyle="bold"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Popularity"
-                android:textSize="20dp"
-                android:textStyle="bold"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/TvShowVoteCount"
+                    android:hint="Vote Count"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/TvShowPopularity"
-                android:hint="Popularity"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Vote Average"
+                    android:textSize="20dp"
+                    android:textStyle="bold"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Vote Count"
-                android:textSize="20dp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/TvShowVoteCount"
-                android:hint="Vote Count"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Vote Average"
-                android:textSize="20dp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/TvShowVoteAverage"
-                android:hint="Vote Average"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/TvShowVoteAverage"
+                    android:hint="Vote Average"/>
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
+</LinearLayout>

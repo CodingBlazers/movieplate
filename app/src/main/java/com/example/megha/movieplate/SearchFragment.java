@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.megha.movieplate.utility.ApiClientOmdb;
+import com.example.megha.movieplate.utility.API.ApiClientOmdb;
 import com.example.megha.movieplate.utility.ConnectionDetector;
 import com.example.megha.movieplate.utility.NoInternetActivity;
 import com.squareup.picasso.Picasso;

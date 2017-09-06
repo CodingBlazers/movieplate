@@ -43,7 +43,10 @@ public interface Constants {
     String ID_SP = "UserId";
     String ACCESS_TOKEN_SP = "AccessToken";
 
+    String V4_ACCESS_TOKEN_SP = "AccessToken_V4";
+
     // These are constants for SP which checks what we have been granted and verified for sign in case (Booleans in SP)
+    String BOOLEAN_ACCESS_TOKEN_TAKEN_V4 = "AccessTokenTaken_V4";
     String BOOLEAN_ACCESS_TOKEN_TAKEN = "AccessTokenTaken";
     String BOOLEAN_ACCESS_TOKEN_VERIFIED = "AccessTokenVerified";
     String BOOLEAN_SESSION_ID_GRANTED = "SessionIdGranted";

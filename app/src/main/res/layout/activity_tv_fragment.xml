@@ -14,7 +14,7 @@
             android:text="MOST POPULAR TV SHOWS"
             android:textSize="26dp"
             android:textStyle="bold"
-            android:textColor="#ffffff"/>
+            android:textColor="@color/white"/>
 
         <FrameLayout
             android:id="@+id/id_PopularTvShows"
@@ -27,7 +27,7 @@
             android:text="MOST RATED TV SHOWS"
             android:textSize="26dp"
             android:textStyle="bold"
-            android:textColor="#ffffff"/>
+            android:textColor="@color/white"/>
 
         <FrameLayout
             android:id="@+id/id_MostRatedTvShows"

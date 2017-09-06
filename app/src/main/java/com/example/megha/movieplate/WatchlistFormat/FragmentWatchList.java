@@ -13,14 +13,12 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
-import com.example.megha.movieplate.utility.ApiClientOmdb;
 import com.example.megha.movieplate.Constants;
 import com.example.megha.movieplate.utility.NoInternetActivity;
 import com.example.megha.movieplate.R;
-import com.example.megha.movieplate.Search;
 import com.example.megha.movieplate.SearchFragment;
 import com.example.megha.movieplate.utility.ConnectionDetector;
-import com.example.megha.movieplate.utility.MovieDBApiClient;
+import com.example.megha.movieplate.utility.API.MovieDBApiClient;
 import com.example.megha.movieplate.utility.SharedPreferencesUtils;
 
 import java.util.ArrayList;

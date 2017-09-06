@@ -1,4 +1,4 @@
-package com.example.megha.movieplate.utility;
+package com.example.megha.movieplate.utility.API;
 
 import com.example.megha.movieplate.CelebsFormat.Celebs;
 import com.example.megha.movieplate.CelebsFormat.CelebsDetails;
@@ -26,6 +26,12 @@ public interface MovieDBApiInterface {
 
     @GET("/3/account")
     Call<AccountDetails> getAccountDetails(@Query("api_key") String key, @Query("session_id") String session_id);
+
+    @POST("/auth/request_token")
+    Call<AccountDetails> createV4RequestToken();
+
+    @POST("/auth/access_token")
+    Call<AccountDetails> createV4AccessToken(String requestToken);
 
     @GET("/3/movie/top_rated")
     Call<MovieList> getTopRatedMovie(@Query("api_key") String key);

@@ -16,7 +16,7 @@ import com.example.megha.movieplate.MovieFormat.MovieLinearLayoutFragment;
 import com.example.megha.movieplate.TVFormat.TVList;
 import com.example.megha.movieplate.TVFormat.TVLinearLayoutFragment;
 import com.example.megha.movieplate.utility.ConnectionDetector;
-import com.example.megha.movieplate.utility.MovieDBApiClient;
+import com.example.megha.movieplate.utility.API.MovieDBApiClient;
 import com.example.megha.movieplate.utility.NoInternetActivity;
 import com.example.megha.movieplate.utility.SharedPreferencesUtils;
 

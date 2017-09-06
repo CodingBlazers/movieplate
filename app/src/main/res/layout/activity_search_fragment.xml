@@ -31,7 +31,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="Movie title"
-                    android:textColor="#ffffff"
+                    android:textColor="@color/white"
                     android:textStyle="bold" />
 
                 <TextView
@@ -40,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/movieTitleSearch"
                     android:hint="Movie Year"
-                    android:textColor="#ffffff"
+                    android:textColor="@color/white"
                     android:textStyle="bold" />
 
             </RelativeLayout>
@@ -57,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="Genre"
-                    android:textColor="#ffffff"
+                    android:textColor="@color/white"
                     android:textSize="20dp" />
 
                 <TextView
@@ -66,7 +66,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="Duration"
-                    android:textColor="#ffffff"
+                    android:textColor="@color/white"
                     android:textSize="20dp" />
             </LinearLayout>
 
@@ -74,14 +74,14 @@
                 android:id="@+id/plotSearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#ffffff"
+                android:textColor="@color/white"
                 android:hint="Plot" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Release Date"
-                android:textColor="#ffffff"
+                android:textColor="@color/white"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -90,7 +90,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Release Date"
-                android:textColor="#ffffff"/>
+                android:textColor="@color/white"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -98,14 +98,14 @@
                 android:text="Imdb rating"
                 android:textSize="20dp"
                 android:textStyle="bold"
-                android:textColor="#ffffff"/>
+                android:textColor="@color/white"/>
 
             <TextView
                 android:id="@+id/imdbRatingSearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="IMDB Rating"
-                android:textColor="#ffffff"/>
+                android:textColor="@color/white"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -113,14 +113,14 @@
                 android:text="Top Billed Cast"
                 android:textSize="20dp"
                 android:textStyle="bold"
-                android:textColor="#ffffff"/>
+                android:textColor="@color/white"/>
 
             <TextView
                 android:id="@+id/actorsSearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Actors"
-                android:textColor="#ffffff"/>
+                android:textColor="@color/white"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -128,14 +128,14 @@
                 android:text="Director"
                 android:textSize="20dp"
                 android:textStyle="bold"
-                android:textColor="#ffffff"/>
+                android:textColor="@color/white"/>
 
             <TextView
                 android:id="@+id/directorSearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Director"
-                android:textColor="#ffffff"/>
+                android:textColor="@color/white"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -143,14 +143,14 @@
                 android:text="Writer"
                 android:textSize="20dp"
                 android:textStyle="bold"
-                android:textColor="#ffffff"/>
+                android:textColor="@color/white"/>
 
             <TextView
                 android:id="@+id/writerSearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="Writer"
-                android:textColor="#ffffff"/>
+                android:textColor="@color/white"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -158,14 +158,14 @@
                 android:text="Language"
                 android:textSize="20dp"
                 android:textStyle="bold"
-                android:textColor="#ffffff"/>
+                android:textColor="@color/white"/>
 
             <TextView
                 android:id="@+id/languageSearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Language"
-                android:textColor="#ffffff"/>
+                android:textColor="@color/white"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -173,14 +173,14 @@
                 android:text="Metascore"
                 android:textSize="20dp"
                 android:textStyle="bold"
-                android:textColor="#ffffff"/>
+                android:textColor="@color/white"/>
 
             <TextView
                 android:id="@+id/metaScoreSearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Meta score"
-                android:textColor="#ffffff"/>
+                android:textColor="@color/white"/>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
