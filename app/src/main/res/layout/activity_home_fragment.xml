@@ -12,8 +12,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="NOW PLAYING"
-            android:textSize="35dp"
+            android:text="Now Playing"
+            android:layout_marginTop="16dp"
+            android:textSize="25dp"
             android:textStyle="bold"
             android:textColor="@color/colorTitle" />
 
@@ -25,8 +26,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="UPCOMING MOVIES"
-            android:textSize="35dp"
+            android:text="Upcoming Movies"
+            android:layout_marginTop="16dp"
+            android:textSize="25dp"
             android:textStyle="bold"
             android:textColor="@color/colorTitle" />
 
@@ -38,8 +40,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ON AIR TV SHOWS"
-            android:textSize="35dp"
+            android:text="On Air TV Shows"
+            android:layout_marginTop="16dp"
+            android:textSize="25dp"
             android:textStyle="bold"
             android:textColor="@color/colorTitle" />
 

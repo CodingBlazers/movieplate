@@ -12,7 +12,7 @@ import com.squareup.picasso.Picasso;
 
 public class TVShowDetails extends AppCompatActivity {
 
-    ImageView iv;
+    ImageView poster, backdropImage;
     TextView title, overview, releaseDate, language, popularity, voteCount, voteAverage;
 
     @Override
@@ -20,19 +20,21 @@ public class TVShowDetails extends AppCompatActivity {
         setTitle("TVList Show Detail");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tvshow_details);
-        iv = (ImageView) findViewById(R.id.TVShowPosterSearch);
-        title = (TextView) findViewById(R.id.id_TVShowTitle);
-        overview = (TextView) findViewById(R.id.TvShowOverview);
-        releaseDate = (TextView) findViewById(R.id.TvShowReleaseDate);
-        language = (TextView) findViewById(R.id.TvShowLanguage);
-        popularity = (TextView) findViewById(R.id.TvShowPopularity);
-        voteCount = (TextView) findViewById(R.id.TvShowVoteCount);
-        voteAverage = (TextView) findViewById(R.id.TvShowVoteAverage);
+        poster = (ImageView) findViewById(R.id.poster_image_view);
+        backdropImage = (ImageView) findViewById(R.id.backdrop_image_view);
+        title = (TextView) findViewById(R.id.movie_title);
+        overview = (TextView) findViewById(R.id.overview);
+        releaseDate = (TextView) findViewById(R.id.release_date);
+        language = (TextView) findViewById(R.id.language);
+        popularity = (TextView) findViewById(R.id.popularity);
+        voteCount = (TextView) findViewById(R.id.vote_count);
+        voteAverage = (TextView) findViewById(R.id.vote_average);
 
         Intent intent = getIntent();
         TVDetails result = (TVDetails) intent.getSerializableExtra(Constants.SINGLE_TV_SHOW_DETAILS);
 
-        Picasso.with(this).load("http://image.tmdb.org/t/p/w300/"+result.getPoster_path()).into(iv);
+        Picasso.with(this).load("http://image.tmdb.org/t/p/w300/"+result.getPosterPath()).into(poster);
+        Picasso.with(this).load("http://image.tmdb.org/t/p/w300/"+result.getBackdropPath()).into(backdropImage);
         title.setText(result.name);
         overview.setText(result.overview);
         releaseDate.setText(result.first_air_date);

@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.megha.movieplate.BuildConfig;
 import com.example.megha.movieplate.HomeActivity;
 import com.example.megha.movieplate.utility.NoInternetActivity;
 import com.example.megha.movieplate.R;
@@ -28,7 +29,6 @@ public class SignInScreen extends AppCompatActivity {
     String token;
     String session_id;
     Button logInButton;
-    String UserName, api_key;
     EditText username_edit_text, password_edit_text;
     boolean requestTokenGrant = false;
     boolean requestTokenVerify = false, stopped = false;
@@ -51,8 +51,7 @@ public class SignInScreen extends AppCompatActivity {
         checkConnectivity();
         initViews();
 
-        api_key = spUtils.getAPIKey();
-        request_token = MovieDBApiClient.getInterface().getRequestToken(api_key);
+        request_token = MovieDBApiClient.getInterface().getRequestToken(BuildConfig.MOVIE_DB_API_KEY);
 
     }
 
@@ -96,7 +95,7 @@ public class SignInScreen extends AppCompatActivity {
                 final String username = username_edit_text.getText().toString();
                 final String password = password_edit_text.getText().toString();
                 while (!requestTokenGrant){}
-                authenticate = MovieDBApiClient.getInterface().getRequestAuthenticated(api_key, token, username, password);
+                authenticate = MovieDBApiClient.getInterface().getRequestAuthenticated(BuildConfig.MOVIE_DB_API_KEY, token, username, password);
                 authenticate.enqueue(new Callback<account_access>() {
                     @Override
                     public void onResponse(Call<account_access> call, Response<account_access> response) {
@@ -107,7 +106,7 @@ public class SignInScreen extends AppCompatActivity {
                             Log.i(TAG, "Following request token is verified: " + response.body().request_token);
 
                             // Since request token has been verified. Call for session id:
-                            session_idCall = MovieDBApiClient.getInterface().getSessionID(api_key, token);
+                            session_idCall = MovieDBApiClient.getInterface().getSessionID(BuildConfig.MOVIE_DB_API_KEY, token);
                             session_idCall.enqueue(new Callback<session_id>() {
                                 @Override
                                 public void onResponse(Call<session_id> call, Response<session_id> response) {
@@ -169,9 +168,8 @@ public class SignInScreen extends AppCompatActivity {
     }
 
     public void getAccountSignInDetails() {
-        String key = spUtils.getAPIKey();
         String sessionId = spUtils.getSessionIDKey();
-        Call<AccountDetails> details = MovieDBApiClient.getInterface().getAccountDetails(key, sessionId);
+        Call<AccountDetails> details = MovieDBApiClient.getInterface().getAccountDetails(BuildConfig.MOVIE_DB_API_KEY, sessionId);
         details.enqueue(new Callback<AccountDetails>() {
             @Override
             public void onResponse(Call<AccountDetails> call, Response<AccountDetails> response) {

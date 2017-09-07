@@ -12,8 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.megha.movieplate.BuildConfig;
 import com.example.megha.movieplate.Constants;
-import com.example.megha.movieplate.MovieFormat.SingleMovieActivity;
 import com.example.megha.movieplate.R;
 import com.example.megha.movieplate.WatchlistFormat.PostJsonInWatchList;
 import com.example.megha.movieplate.utility.API.MovieDBApiClient;
@@ -35,7 +35,7 @@ public class SingleTVShowCardView   extends Fragment implements Constants {
     ImageView addToWatchList, poster;
 
     SharedPreferencesUtils spUtils;
-    String key, userID, sessionID;
+    String userID, sessionID;
 
     boolean added;
 
@@ -45,7 +45,6 @@ public class SingleTVShowCardView   extends Fragment implements Constants {
 
         rootView = inflater.inflate(R.layout.single_entity_in_list, container, false);
         spUtils = new SharedPreferencesUtils(getContext());
-        key = spUtils.getAPIKey();
         userID = spUtils.getIDKey();
         sessionID = spUtils.getSessionIDKey();
         initializeViews();
@@ -71,7 +70,7 @@ public class SingleTVShowCardView   extends Fragment implements Constants {
                 if (!added) {
                     drawable.startTransition(100);
                     PostJsonInWatchList postJsonInWatchList = new PostJsonInWatchList("tv", mTvDetails.getId(), true);
-                    Call<PostJsonInWatchList> call = MovieDBApiClient.getInterface().createJson(userID, key, sessionID, postJsonInWatchList);
+                    Call<PostJsonInWatchList> call = MovieDBApiClient.getInterface().createJson(userID, BuildConfig.MOVIE_DB_API_KEY, sessionID, postJsonInWatchList);
                     call.enqueue(new Callback<PostJsonInWatchList>() {
                         @Override
                         public void onResponse(Call<PostJsonInWatchList> call, Response<PostJsonInWatchList> response) {
@@ -89,7 +88,7 @@ public class SingleTVShowCardView   extends Fragment implements Constants {
                 } else {
                     drawable.resetTransition();
                     PostJsonInWatchList postJsonInWatchList = new PostJsonInWatchList("tv", mTvDetails.getId(), false);
-                    Call<PostJsonInWatchList> call = MovieDBApiClient.getInterface().createJson(userID, key, sessionID, postJsonInWatchList);
+                    Call<PostJsonInWatchList> call = MovieDBApiClient.getInterface().createJson(userID, BuildConfig.MOVIE_DB_API_KEY, sessionID, postJsonInWatchList);
                     call.enqueue(new Callback<PostJsonInWatchList>() {
                         @Override
                         public void onResponse(Call<PostJsonInWatchList> call, Response<PostJsonInWatchList> response) {
@@ -114,7 +113,7 @@ public class SingleTVShowCardView   extends Fragment implements Constants {
         title.setText(mTvDetails.getName());
         releaseDate.setText(mTvDetails.getFirstAirDate());
         // rating.setText(movieDetails.getRating());
-        Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w300/" + mTvDetails.getPoster_path()).into(poster);
+        Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w300/" + mTvDetails.getPosterPath()).into(poster);
         poster.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

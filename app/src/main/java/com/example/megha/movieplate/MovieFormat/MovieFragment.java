@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.megha.movieplate.BuildConfig;
 import com.example.megha.movieplate.Constants;
 import com.example.megha.movieplate.utility.NoInternetActivity;
 import com.example.megha.movieplate.R;
@@ -49,8 +50,7 @@ public class MovieFragment extends Fragment implements Constants{
         checkConnectivity();
         pDialog.show();
         paused = false;
-        String key = spUtils.getAPIKey();
-        topRatedMovies = MovieDBApiClient.getInterface().getTopRatedMovie(key);
+        topRatedMovies = MovieDBApiClient.getInterface().getTopRatedMovie(BuildConfig.MOVIE_DB_API_KEY);
         topRatedMovies.enqueue(new Callback<MovieList>() {
             @Override
             public void onResponse(Call<MovieList> call, Response<MovieList> response) {
@@ -78,7 +78,7 @@ public class MovieFragment extends Fragment implements Constants{
             }
         });
 
-        popularMovies = MovieDBApiClient.getInterface().getPopularMovie(key);
+        popularMovies = MovieDBApiClient.getInterface().getPopularMovie(BuildConfig.MOVIE_DB_API_KEY);
         popularMovies.enqueue(new Callback<MovieList>() {
             @Override
             public void onResponse(Call<MovieList> call, Response<MovieList> response) {

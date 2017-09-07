@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         spUtils = new SharedPreferencesUtils(MainActivity.this);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);//This is to hide notification bar from the splash screen
-        spUtils.setAPIKey();
 
         //In manifest hide the action bar from the main activity so that splash screen appears properly
         final int SPLASH_TIME_OUT=3000;

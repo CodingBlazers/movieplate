@@ -32,7 +32,6 @@ public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, Constants {
 
     TextView userNameTextView;
-    String api_key;
     SharedPreferencesUtils spUtils;
 
     @Override
@@ -59,7 +58,6 @@ public class HomeActivity extends AppCompatActivity
 
         //This is To set name of the logged in person in the navigation drawer in navigation view.
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        api_key = spUtils.getAPIKey();
 
         View v = navigationView.getHeaderView(0);
         userNameTextView = (TextView) v.findViewById(R.id.UserNameTextView);
@@ -73,7 +71,6 @@ public class HomeActivity extends AppCompatActivity
 
         HomeFragment hf = new HomeFragment();
         Bundle b = new Bundle();
-        b.putSerializable(Constants.MOVIE_URL_API_KEY, api_key);
         hf.setArguments(b);
         setTitle("Home");
 

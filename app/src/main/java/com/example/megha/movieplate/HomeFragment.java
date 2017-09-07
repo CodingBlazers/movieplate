@@ -71,8 +71,7 @@ public class HomeFragment extends Fragment implements Constants{
         pDialog.show();
         paused = false;
 
-        String key = spUtils.getAPIKey();
-        now_playing_movies = MovieDBApiClient.getInterface().getNowPlayingMovies(key);
+        now_playing_movies = MovieDBApiClient.getInterface().getNowPlayingMovies(BuildConfig.MOVIE_DB_API_KEY);
         now_playing_movies.enqueue(new Callback<MovieList>() {
             @Override
             public void onResponse(Call<MovieList> call, Response<MovieList> response) {
@@ -97,7 +96,7 @@ public class HomeFragment extends Fragment implements Constants{
                     pDialog.dismiss();
             }
         });
-        upcoming_movies = MovieDBApiClient.getInterface().getUpcomingMovies(key);
+        upcoming_movies = MovieDBApiClient.getInterface().getUpcomingMovies(BuildConfig.MOVIE_DB_API_KEY);
         upcoming_movies.enqueue(new Callback<MovieList>() {
             @Override
             public void onResponse(Call<MovieList> call, Response<MovieList> response) {
@@ -121,7 +120,7 @@ public class HomeFragment extends Fragment implements Constants{
                     pDialog.dismiss();
             }
         });
-        on_air_tv_shows = MovieDBApiClient.getInterface().getOnAirTVShows(key);
+        on_air_tv_shows = MovieDBApiClient.getInterface().getOnAirTVShows(BuildConfig.MOVIE_DB_API_KEY);
         on_air_tv_shows.enqueue(new Callback<TVList>() {
             @Override
             public void onResponse(Call<TVList> call, Response<TVList> response) {

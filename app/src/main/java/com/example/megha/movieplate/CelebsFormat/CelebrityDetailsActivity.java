@@ -1,8 +1,10 @@
 package com.example.megha.movieplate.CelebsFormat;
 
 import android.content.Intent;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +15,7 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.megha.movieplate.Constants;
+import com.example.megha.movieplate.BuildConfig;
 import com.example.megha.movieplate.R;
 import com.example.megha.movieplate.utility.API.MovieDBApiClient;
 import com.squareup.picasso.Picasso;
@@ -29,27 +31,30 @@ public class CelebrityDetailsActivity extends AppCompatActivity {
 
     public static final String TAG = "CelebrityDetailActivity";
 
-    ImageView imageView;
     TextView celebName, birthDate, birthPlace;
     Spinner spinner;
-    SpinnerAdapter spinnerAdapter;
+
+    Toolbar mToolbar;
+    private CollapsingToolbarLayout collapsingToolbarLayout;
 
     Call<CelebsDetails> celebsDetailsCall;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_celebrity_details);
+        setContentView(R.layout.activity_celebrity);
+
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent i = getIntent();
-        String key = (String) i.getSerializableExtra(Constants.CELEBS_URL_API_KEY);
         String id = (String) i.getSerializableExtra("Profile_ID");
-        Log.i(TAG, "Api key: " + key);
         Log.i(TAG, "UserId: " + String.valueOf(id));
 
         initFields();
 
-        celebsDetailsCall = MovieDBApiClient.getInterface().getPersonDetails(id, key);
+        celebsDetailsCall = MovieDBApiClient.getInterface().getPersonDetails(id, BuildConfig.MOVIE_DB_API_KEY);
         celebsDetailsCall.enqueue(new Callback<CelebsDetails>() {
             @Override
             public void onResponse(Call<CelebsDetails> call, Response<CelebsDetails> response) {
@@ -69,10 +74,14 @@ public class CelebrityDetailsActivity extends AppCompatActivity {
 
     private void responseSuccessful(CelebsDetails celebsDetails) {
 
-        Picasso.with(getBaseContext()).load("http://image.tmdb.org/t/p/w300/" + celebsDetails.getProfile_path()).into(imageView);
+        final ImageView image = (ImageView) findViewById(R.id.image);
+        Picasso.with(getBaseContext()).load("http://image.tmdb.org/t/p/w300/" + celebsDetails.getProfile_path()).into(image);
+
         celebName.setText(celebsDetails.getName());
         birthDate.setText(celebsDetails.getBirthday());
         birthPlace.setText(celebsDetails.getPlace_of_birth());
+
+        collapsingToolbarLayout.setTitle(celebsDetails.getName());
 
         final List<String> list = new ArrayList<String>();
         list.add(celebsDetails.getBiography());
@@ -100,10 +109,11 @@ public class CelebrityDetailsActivity extends AppCompatActivity {
 
 
     private void initFields(){
-        imageView = (ImageView) findViewById(R.id.Celeb_Poster);
-        celebName = (TextView) findViewById(R.id.Celeb_Name);
-        birthDate = (TextView) findViewById(R.id.Born_date);
-        birthPlace = (TextView) findViewById(R.id.Birth_Place);
+        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
+        celebName = (TextView) findViewById(R.id.celeb_name);
+        birthDate = (TextView) findViewById(R.id.born_date);
+        birthPlace = (TextView) findViewById(R.id.birth_place);
         spinner = (Spinner) findViewById(R.id.spinner);
     }
 

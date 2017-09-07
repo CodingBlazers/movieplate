@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="5dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/celeb_poster"
+            android:layout_width="wrap_content"
+            android:layout_height="250dp"
+            android:padding="10dp"
+            android:scaleType="fitXY" />
+
+        <TextView
+            android:id="@+id/name_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textSize="25sp"
+            android:layout_toRightOf="@id/celeb_poster"
+            android:hint="Celeb Name"/>
+
+        <TextView
+            android:id="@+id/movies_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:inputType="textMultiLine"
+            android:layout_toRightOf="@id/celeb_poster"
+            android:layout_below="@+id/name_text_view"/>
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

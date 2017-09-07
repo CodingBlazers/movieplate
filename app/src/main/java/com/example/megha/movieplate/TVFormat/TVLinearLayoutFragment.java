@@ -45,20 +45,12 @@ public class TVLinearLayoutFragment extends Fragment implements Constants{
     View view;
 
     ArrayList<TVDetails> mData;
-    String key, userID, sessionID;
-
-    SharedPreferencesUtils spUtils;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         Bundle b = getArguments();
         mData = (ArrayList<TVDetails>) b.getSerializable(ALL_TV_SHOW_DETAILS);
         mContext = getContext();
-
-        spUtils = new SharedPreferencesUtils(getContext());
-        key = spUtils.getAPIKey();
-        userID = spUtils.getIDKey();
-        sessionID = spUtils.getSessionIDKey();
 
         initViews();
         return view;

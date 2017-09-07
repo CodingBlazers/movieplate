@@ -12,6 +12,9 @@ public class Celebs implements Serializable{
 
     int page;
     @SerializedName("results")
-    ArrayList<Results> celebsList;
+    private ArrayList<CelebrityResults> celebsList;
 
+    public ArrayList<CelebrityResults> getCelebsList() {
+        return celebsList;
+    }
 }

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.megha.movieplate.BuildConfig;
 import com.example.megha.movieplate.Constants;
 import com.example.megha.movieplate.utility.NoInternetActivity;
 import com.example.megha.movieplate.R;
@@ -57,9 +58,8 @@ public class TvFragment extends Fragment {
 
         pDialog.show();
         paused = false;
-        String key = spUtils.getAPIKey();
 
-        popularTvShows = MovieDBApiClient.getInterface().getPopularTvShows(key);
+        popularTvShows = MovieDBApiClient.getInterface().getPopularTvShows(BuildConfig.MOVIE_DB_API_KEY);
         popularTvShows.enqueue(new Callback<TVList>() {
             @Override
             public void onResponse(Call<TVList> call, Response<TVList> response) {
@@ -89,7 +89,7 @@ public class TvFragment extends Fragment {
             }
         });
 
-        mostRatedTVShows = MovieDBApiClient.getInterface().getMostRatedTvShows(key);
+        mostRatedTVShows = MovieDBApiClient.getInterface().getMostRatedTvShows(BuildConfig.MOVIE_DB_API_KEY);
         mostRatedTVShows.enqueue(new Callback<TVList>() {
             @Override
             public void onResponse(Call<TVList> call, Response<TVList> response) {

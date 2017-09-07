@@ -6,21 +6,10 @@ package com.example.megha.movieplate;
 
 public interface Constants {
 
-    String API_KEY = "ApiKey";
-
     String OMDB_API_KEY = "73871e7";
 
     // Boolean to tell that Api key is present in SP or not
     String BOOLEAN_API_KEY_PRESENT = "ApiKeyInSP";
-
-    // Passing arguments from home activity to various fragments
-    String MOVIE_URL_API_KEY = "MovieUrlApiKey";
-    String TV_URL_API_KEY = "TVUrlApiKey";
-    String CELEBS_URL_API_KEY = "CelebsApiKey";
-    String WATCHLIST_URL_API_KEY = "WatchlistApiKey";
-    String WATCHLIST_URL_SESSION_ID = "WatchlistSessionId";
-    String WATCHLIST_URL_USER_ID = "WatchlistUserId";
-    String WATCHLIST_MOVIE_DETAILS="WatchListMovieDetails";
 
     // Passing arguments from fragment to child fragments
     String MOVIE_TO_LINEAR_LAYOUT_FRAGMENT = "Movies";

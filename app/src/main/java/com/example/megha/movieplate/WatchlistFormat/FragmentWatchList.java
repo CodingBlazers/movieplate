@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import com.example.megha.movieplate.BuildConfig;
 import com.example.megha.movieplate.Constants;
 import com.example.megha.movieplate.utility.NoInternetActivity;
 import com.example.megha.movieplate.R;
@@ -32,7 +33,7 @@ import retrofit2.Response;
  */
 public class FragmentWatchList extends Fragment implements Constants{
 
-    String key, session_id, user_id;
+    String session_id, user_id;
     ArrayList<SingleWatchlistMovie> MoviesArrayWatchList;
     ArrayList<SingleWatchlistTVShow> TVShowsArrayWatchlist;
     GridView MoviesWatchListGV, TvShowsWatchListGV;
@@ -53,7 +54,6 @@ public class FragmentWatchList extends Fragment implements Constants{
         view = inflater.inflate(R.layout.fragment_watchlist, container, false);
 
         spUtils = new SharedPreferencesUtils(getActivity());
-        key = spUtils.getAPIKey();
         session_id = spUtils.getSessionIDKey();
         user_id = spUtils.getIDKey();
 
@@ -92,10 +92,10 @@ public class FragmentWatchList extends Fragment implements Constants{
         progressDialog.setMessage("Loading...");
 
         b1=false; b2=false;
-        Log.i("Credentials", key + "\n" + session_id + "\n" + user_id);
+        Log.i("Credentials", session_id + "\n" + user_id);
 
         //Call to fetch movies from the user WatchList
-        MoviesWatchListResponse = MovieDBApiClient.getInterface().getUserMovieWatchlist(user_id, key, session_id);
+        MoviesWatchListResponse = MovieDBApiClient.getInterface().getUserMovieWatchlist(user_id, BuildConfig.MOVIE_DB_API_KEY, session_id);
         MoviesWatchListResponse.enqueue(new Callback<WatchlistMovieJSON>() {
             @Override
             public void onResponse(Call<WatchlistMovieJSON> call, Response<WatchlistMovieJSON> response) {
@@ -128,7 +128,7 @@ public class FragmentWatchList extends Fragment implements Constants{
             }
         });
 
-        TVWatchListResponse = MovieDBApiClient.getInterface().getUserTVShowWatchlist(user_id, key, session_id);
+        TVWatchListResponse = MovieDBApiClient.getInterface().getUserTVShowWatchlist(user_id, BuildConfig.MOVIE_DB_API_KEY, session_id);
         TVWatchListResponse.enqueue(new Callback<WatchlistTVShowJSON>() {
             @Override
             public void onResponse(Call<WatchlistTVShowJSON> call, Response<WatchlistTVShowJSON> response) {

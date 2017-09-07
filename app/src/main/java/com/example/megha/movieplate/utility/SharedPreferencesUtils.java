@@ -15,16 +15,10 @@ public class SharedPreferencesUtils implements Constants{
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
-    String APIReadAccessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmYjNhYTdmNmU3NDNmYjNmNjU3YTUyMjMzMDk5ODE0NCIsInN1YiI6IjU2Zjc2NTMxYzNhMzY4NmE1YzAwNTZkZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.X5fo61mZyDAGIvPnokWsr2GPM3s0rE8IVEXqFtM5xoI";
-
     public SharedPreferencesUtils(Context context){
         mContext = context;
         sharedPreferences = mContext.getSharedPreferences(SHARED_PREFERENCE, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
-    }
-
-    public String getAPIKey(){
-        return sharedPreferences.getString(API_KEY, null);
     }
 
     public String getIDKey(){
@@ -105,14 +99,6 @@ public class SharedPreferencesUtils implements Constants{
         editor.commit();
         editor.putBoolean(BOOLEAN_SESSION_ID_GRANTED,false);
         editor.commit();
-    }
-
-    public void setAPIKey(){
-        boolean api_key_present = sharedPreferences.getBoolean(BOOLEAN_API_KEY_PRESENT, false);
-        if (! api_key_present){
-            editor.putString(API_KEY, "4b21312cf568464ee6b05097ebc6f824");
-            editor.commit();
-        }
     }
 
     public boolean isSignedIn(){

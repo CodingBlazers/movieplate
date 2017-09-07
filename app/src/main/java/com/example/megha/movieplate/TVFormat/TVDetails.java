@@ -6,9 +6,10 @@ import java.io.Serializable;
  * Created by HIman$hu on 4/1/2016.
  */
 public class TVDetails implements Serializable{
+
+    int id;
     String poster_path;
     String popularity;
-    int id;
     String backdrop_path;
     String vote_average;
     String overview;
@@ -17,8 +18,12 @@ public class TVDetails implements Serializable{
     String vote_count;
     String name;
 
-    public String getPoster_path() {
+    public String getPosterPath() {
         return poster_path;
+    }
+
+    public String getBackdropPath() {
+        return backdrop_path;
     }
 
     public int getId() {

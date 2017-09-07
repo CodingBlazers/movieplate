@@ -27,14 +27,11 @@ public interface MovieDBApiInterface {
     @GET("/3/account")
     Call<AccountDetails> getAccountDetails(@Query("api_key") String key, @Query("session_id") String session_id);
 
-    @POST("/auth/request_token")
-    Call<AccountDetails> createV4RequestToken();
-
-    @POST("/auth/access_token")
-    Call<AccountDetails> createV4AccessToken(String requestToken);
-
     @GET("/3/movie/top_rated")
     Call<MovieList> getTopRatedMovie(@Query("api_key") String key);
+
+    @GET("/3/movie/{collection}")
+    Call<MovieList> getListedMovies(@Path("collection") String type, @Query("api_key") String key);
 
     @GET("/3/movie/popular")
     Call<MovieList> getPopularMovie(@Query("api_key") String key);

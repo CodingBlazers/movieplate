@@ -1,120 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/colorBackground">
 
-    <include layout="@layout/toolbar" />
-
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/activity_horizontal_margin">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/backdrop_image_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="250dp"
+            android:scaleType="fitXY" />
 
-            <LinearLayout
+        <ImageView
+            android:id="@+id/poster_image_view"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="150dp"
+            android:layout_centerHorizontal="true"
+            android:hint="image view" />
 
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+        <TextView
+            android:id="@+id/movie_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:hint="TV title"
+            android:layout_below="@id/poster_image_view"/>
 
-                <ImageView
-                    android:id="@+id/TVShowPosterSearch"
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:hint="image view" />
+        <TextView
+            android:id="@+id/overview_heading"
+            style="@style/title_style"
+            android:layout_below="@id/movie_title"
+            android:text="Overview" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp">
+        <TextView
+            android:id="@+id/overview"
+            style="@style/value_style"
+            android:textColor="@color/white"
+            android:layout_below="@id/overview_heading"
+            android:hint="Overview" />
 
-                    <TextView
-                        android:id="@+id/id_TVShowTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:hint="TV title"
-                        android:textColor="@color/white"
-                        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/release_date_heading"
+            style="@style/title_style"
+            android:text="Release Date"
+            android:layout_below="@id/overview"/>
 
-                </RelativeLayout>
+        <TextView
+            android:id="@+id/release_date"
+            style="@style/value_style"
+            android:hint="Release Date"
+            android:layout_below="@id/release_date_heading"/>
 
-                <TextView
-                    android:id="@+id/TvShowOverview"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Overview" />
+        <TextView
+            android:id="@+id/language_heading"
+            style="@style/title_style"
+            android:text="Language"
+            android:layout_below="@id/release_date"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Release Date"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
+        <TextView
+            android:id="@+id/language"
+            style="@style/value_style"
+            android:hint="Language"
+            android:layout_below="@id/language_heading"/>
 
-                <TextView
-                    android:id="@+id/TvShowReleaseDate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Release Date" />
+        <TextView
+            android:id="@+id/popularity_heading"
+            style="@style/title_style"
+            android:text="Popularity"
+            android:layout_below="@id/language"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Language"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
+        <TextView
+            android:id="@+id/popularity"
+            style="@style/value_style"
+            android:hint="Popularity"
+            android:layout_below="@id/popularity_heading"/>
 
-                <TextView
-                    android:id="@+id/TvShowLanguage"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Language" />
+        <TextView
+            android:id="@+id/vote_count_heading"
+            style="@style/title_style"
+            android:text="Vote Count"
+            android:layout_below="@id/popularity"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Popularity"
-                    android:textSize="20dp"
-                    android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/vote_count"
+            style="@style/value_style"
+            android:hint="Vote Count"
+            android:layout_below="@id/vote_count_heading"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/TvShowPopularity"
-                    android:hint="Popularity"/>
+        <TextView
+            android:id="@+id/vote_average_heading"
+            style="@style/title_style"
+            android:text="Vote Average"
+            android:layout_below="@id/vote_count"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Vote Count"
-                    android:textSize="20dp"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/TvShowVoteCount"
-                    android:hint="Vote Count"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Vote Average"
-                    android:textSize="20dp"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/TvShowVoteAverage"
-                    android:hint="Vote Average"/>
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+        <TextView
+            android:id="@+id/vote_average"
+            style="@style/value_style"
+            android:hint="Vote Average"
+            android:layout_below="@id/vote_average_heading"/>
+    </RelativeLayout>
+</ScrollView>

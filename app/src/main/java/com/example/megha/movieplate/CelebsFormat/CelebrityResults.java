@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * Created by HIman$hu on 4/1/2016.
  */
-public class Results implements Serializable {
+public class CelebrityResults implements Serializable {
 
     String profile_path;
     String id;
@@ -16,7 +16,7 @@ public class Results implements Serializable {
     @SerializedName("known_for")
     ArrayList<Popularity> moviesList;
 
-    public String getProfile_path() {
+    public String getProfilePath() {
         return profile_path;
     }
 
@@ -26,5 +26,10 @@ public class Results implements Serializable {
 
     public String getName() {
         return name;
+    }
+
+    public String getMovies(){
+        return moviesList.get(0).getOriginal_title() + "," + moviesList.get(1).getOriginal_title() + "," +
+                moviesList.get(2).getOriginal_title();
     }
 }

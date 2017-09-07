@@ -44,20 +44,12 @@ public class MovieLinearLayoutFragment extends Fragment implements Constants{
     View view;
 
     ArrayList<MovieDetails> mData;
-    String key, userID, sessionID;
-
-    SharedPreferencesUtils spUtils;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         Bundle b = getArguments();
         mData = (ArrayList<MovieDetails>) b.getSerializable(ALL_MOVIE_DETAILS);
         mContext = getContext();
-
-        spUtils = new SharedPreferencesUtils(getContext());
-        key = spUtils.getAPIKey();
-        userID = spUtils.getIDKey();
-        sessionID = spUtils.getSessionIDKey();
 
         initViews();
         return view;

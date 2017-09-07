@@ -47,7 +47,11 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".CelebsFormat.CelebrityDetailsActivity"></activity>
+        <activity android:name=".CelebsFormat.CelebrityDetailsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".HomeActivity"/>
+        </activity>
     </application>
 
 </manifest>

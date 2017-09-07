@@ -1,85 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@color/colorBackground">
+    android:layout_height="wrap_content">
 
-    <include layout="@layout/toolbar" />
-
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/celeb_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:hint="Celeb Name" />
+
+        <TextView
+            android:id="@+id/born_date_heading"
+            style="@style/title_style"
+            android:text="Born Date"
+            android:layout_below="@id/celeb_name"/>
+
+        <TextView
+            android:id="@+id/born_date"
+            style="@style/value_style"
+            android:hint="Born Date"
+            android:layout_below="@id/born_date_heading"/>
+
+        <TextView
+            android:id="@+id/birth_place_heading"
+            style="@style/title_style"
+            android:text="Birth Place"
+            android:layout_below="@id/born_date"/>
+
+        <TextView
+            android:id="@+id/birth_place"
+            style="@style/value_style"
+            android:hint="Birth place"
+            android:layout_below="@id/birth_place_heading"/>
+
+        <TextView
+            android:id="@+id/biography_heading"
+            style="@style/title_style"
+            android:text="Biography"
+            android:layout_below="@id/birth_place"/>
+
+        <Spinner
+            android:id="@+id/spinner"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <LinearLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/Celeb_Poster"
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:hint="image view" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp">
-
-                    <TextView
-                        android:id="@+id/Celeb_Name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:hint="Celeb Name"
-                        android:textColor="@color/white"
-                        android:textStyle="bold" />
-
-                </RelativeLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Born Date"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/Born_date"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Born Date" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Birth Place"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/Birth_Place"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Birth place" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Biography"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
-
-                <Spinner
-                    android:id="@+id/spinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_below="@id/biography_heading"/>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
