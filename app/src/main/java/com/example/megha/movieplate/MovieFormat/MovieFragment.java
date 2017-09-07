@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.megha.movieplate.BuildConfig;
 import com.example.megha.movieplate.Constants;
+import com.example.megha.movieplate.utility.API.APICalls;
 import com.example.megha.movieplate.utility.NoInternetActivity;
 import com.example.megha.movieplate.R;
 import com.example.megha.movieplate.utility.ConnectionDetector;
@@ -30,7 +31,6 @@ public class MovieFragment extends Fragment implements Constants{
     View view;
     boolean b1, b2, paused;
     ProgressDialog pDialog;
-    Call<MovieList> topRatedMovies, popularMovies;
     SharedPreferencesUtils spUtils;
 
     @Nullable
@@ -50,60 +50,32 @@ public class MovieFragment extends Fragment implements Constants{
         checkConnectivity();
         pDialog.show();
         paused = false;
-        topRatedMovies = MovieDBApiClient.getInterface().getTopRatedMovie(BuildConfig.MOVIE_DB_API_KEY);
-        topRatedMovies.enqueue(new Callback<MovieList>() {
-            @Override
-            public void onResponse(Call<MovieList> call, Response<MovieList> response) {
-                if (response.isSuccessful()) {
-                    MovieList movie = response.body();
-                    MovieLinearLayoutFragment mf = new MovieLinearLayoutFragment();
-                    Bundle b = new Bundle();
-                    b.putSerializable(ALL_MOVIE_DETAILS, movie.results);
-                    mf.setArguments(b);
-                    if(paused == false)
-                        getFragmentManager().beginTransaction().replace(R.id.frameLayoutTopRatedMovies, mf).commit();
-                } else {
-                    Toast.makeText(getActivity(), response.code() + response.message(), Toast.LENGTH_LONG).show();
-                }
-                b1=true;
-                if(b2)
-                    pDialog.dismiss();
-            }
 
+        APICalls.getMovies("top_rated", getContext(), pDialog, new APICalls.MovieCallbackListener() {
             @Override
-            public void onFailure(Call<MovieList> call, Throwable t) {
-                b1=true;
-                if(b2)
-                    pDialog.dismiss();
+            public void onSuccessfulMovie(MovieList movie) {
+                MovieLinearLayoutFragment mf = new MovieLinearLayoutFragment();
+                Bundle b = new Bundle();
+                b.putSerializable(ALL_MOVIE_DETAILS, movie.results);
+                mf.setArguments(b);
+                if(paused == false)
+                    getFragmentManager().beginTransaction().replace(R.id.frameLayoutTopRatedMovies, mf).commit();
+                b1 = true;
+                if(b2) pDialog.dismiss();
             }
         });
 
-        popularMovies = MovieDBApiClient.getInterface().getPopularMovie(BuildConfig.MOVIE_DB_API_KEY);
-        popularMovies.enqueue(new Callback<MovieList>() {
+        APICalls.getMovies("popular", getContext(), pDialog, new APICalls.MovieCallbackListener() {
             @Override
-            public void onResponse(Call<MovieList> call, Response<MovieList> response) {
-                if (response.isSuccessful()) {
-                    MovieList movie = response.body();
-                    MovieLinearLayoutFragment mf = new MovieLinearLayoutFragment();
-                    Bundle b = new Bundle();
-                    b.putSerializable(ALL_MOVIE_DETAILS, movie.results);
-                    mf.setArguments(b);
-                    if(paused == false)
-                        getFragmentManager().beginTransaction().replace(R.id.frameLayoutPopularMovies, mf).commit();
-                } else {
-                    Toast.makeText(getActivity(), response.code() + response.message(), Toast.LENGTH_LONG).show();
-                }
-                b2=true;
-                if(b1)
-                    pDialog.dismiss();
-            }
-
-            @Override
-            public void onFailure(Call<MovieList> call, Throwable t) {
-                // Toast.makeText(getActivity(), "You are not connected to Internet", Toast.LENGTH_LONG).show();
-                b2=true;
-                if(b1)
-                    pDialog.dismiss();
+            public void onSuccessfulMovie(MovieList movie) {
+                MovieLinearLayoutFragment mf = new MovieLinearLayoutFragment();
+                Bundle b = new Bundle();
+                b.putSerializable(ALL_MOVIE_DETAILS, movie.results);
+                mf.setArguments(b);
+                if(paused == false)
+                    getFragmentManager().beginTransaction().replace(R.id.frameLayoutPopularMovies, mf).commit();
+                b2 = true;
+                if(b1) pDialog.dismiss();
             }
         });
         super.onResume();
@@ -113,8 +85,6 @@ public class MovieFragment extends Fragment implements Constants{
     public void onPause() {
         if(pDialog.isShowing())
             pDialog.dismiss();
-        topRatedMovies.cancel();
-        popularMovies.cancel();
         super.onPause();
     }
 

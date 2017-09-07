@@ -17,16 +17,24 @@ import java.util.ArrayList;
 /**
  * Created by HIman$hu on 7/20/2016.
  */
-public class TVShowsWatchListAdapter extends BaseAdapter implements View.OnClickListener {
+public class TVShowsGridViewAdapter extends BaseAdapter implements View.OnClickListener {
 
     Context mContext;
     private OnItemClickListener onItemClickListener;
 
     private ArrayList<TVDetails> mTVList;
+    private int numOfItems;
 
-    public TVShowsWatchListAdapter(Context context, ArrayList<TVDetails> tvList) {
+    public TVShowsGridViewAdapter(Context context, ArrayList<TVDetails> tvList) {
         mContext = context;
         mTVList = tvList;
+        numOfItems = tvList.size();
+    }
+
+    public TVShowsGridViewAdapter(Context context, ArrayList<TVDetails> tvList, int numOfItems) {
+        mContext = context;
+        mTVList = tvList;
+        this.numOfItems = numOfItems;
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
@@ -55,7 +63,7 @@ public class TVShowsWatchListAdapter extends BaseAdapter implements View.OnClick
 
     @Override
     public int getCount() {
-        return mTVList.size();
+        return numOfItems;
     }
 
     @Override

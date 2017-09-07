@@ -18,16 +18,24 @@ import java.util.ArrayList;
 /**
  * Created by HIman$hu on 7/20/2016.
  */
-public class MoviesWatchListAdapter extends BaseAdapter implements View.OnClickListener {
+public class MoviesGridViewAdapter extends BaseAdapter implements View.OnClickListener {
 
     Context mContext;
     private OnItemClickListener onItemClickListener;
 
     private ArrayList<MovieDetails> mMoviesList;
+    private int numOfItems;
 
-    public MoviesWatchListAdapter(Context context, ArrayList<MovieDetails> moviesList) {
+    public MoviesGridViewAdapter(Context context, ArrayList<MovieDetails> moviesList) {
         mContext = context;
         mMoviesList = moviesList;
+        numOfItems = moviesList.size();
+    }
+
+    public MoviesGridViewAdapter(Context context, ArrayList<MovieDetails> moviesList, int numOfItems) {
+        mContext = context;
+        mMoviesList = moviesList;
+        this.numOfItems = numOfItems;
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
@@ -56,7 +64,7 @@ public class MoviesWatchListAdapter extends BaseAdapter implements View.OnClickL
 
     @Override
     public int getCount() {
-        return mMoviesList.size();
+        return numOfItems;
     }
 
     @Override

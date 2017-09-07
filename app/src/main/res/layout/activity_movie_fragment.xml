@@ -13,10 +13,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TOP RATED MOVIES"
-            android:textSize="26dp"
+            android:text="Top Rated Movies"
+            android:layout_marginTop="16dp"
+            android:textSize="25dp"
             android:textStyle="bold"
-            android:textColor="@color/white"/>
+            android:textColor="@color/colorTitle"/>
 
         <FrameLayout
             android:layout_width="wrap_content"
@@ -26,10 +27,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="POPULAR MOVIES"
-            android:textSize="26dp"
-            android:textColor="@color/white"
-            android:textStyle="bold" />
+            android:text="Popular Movies"
+            android:layout_marginTop="16dp"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorTitle" />
 
         <FrameLayout
             android:layout_width="wrap_content"

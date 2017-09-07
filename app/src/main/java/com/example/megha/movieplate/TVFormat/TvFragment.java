@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.megha.movieplate.BuildConfig;
 import com.example.megha.movieplate.Constants;
+import com.example.megha.movieplate.utility.API.APICalls;
 import com.example.megha.movieplate.utility.NoInternetActivity;
 import com.example.megha.movieplate.R;
 import com.example.megha.movieplate.utility.ConnectionDetector;
@@ -26,9 +27,8 @@ import retrofit2.Response;
 /**
  * Created by HIman$hu on 3/31/2016.
  */
-public class TvFragment extends Fragment {
+public class TvFragment extends Fragment implements Constants{
 
-    Call<TVList> popularTvShows, mostRatedTVShows;
     boolean b1, b2, paused;
     ProgressDialog pDialog;
     SharedPreferencesUtils spUtils;
@@ -59,72 +59,41 @@ public class TvFragment extends Fragment {
         pDialog.show();
         paused = false;
 
-        popularTvShows = MovieDBApiClient.getInterface().getPopularTvShows(BuildConfig.MOVIE_DB_API_KEY);
-        popularTvShows.enqueue(new Callback<TVList>() {
+        APICalls.getTVShows("popular", getContext(), pDialog, new APICalls.TVShowsCallbackListener() {
             @Override
-            public void onResponse(Call<TVList> call, Response<TVList> response) {
-                if (response.isSuccessful()) {
-                    TVList tvList = response.body();
-                    Log.i("TVList Object", tvList.toString());
-                    Bundle b = new Bundle();
-                    TVLinearLayoutFragment tvf = new TVLinearLayoutFragment();
-                    b.putSerializable(Constants.ALL_TV_SHOW_DETAILS, tvList.results);
-                    tvf.setArguments(b);
-                    if(!paused)
-                        getFragmentManager().beginTransaction().replace(R.id.id_PopularTvShows, tvf).commit();
-                } else {
-                    Toast.makeText(getActivity(), response.code() + response.message(), Toast.LENGTH_LONG).show();
-                }
-                b1=true;
-                if(b2)
-                    pDialog.dismiss();
-            }
-
-            @Override
-            public void onFailure(Call<TVList> call, Throwable t) {
-                // Toast.makeText(getActivity(), "You are not connected to Internet", Toast.LENGTH_LONG).show();
-                b1=true;
-                if(b2)
-                    pDialog.dismiss();
+            public void onSuccessfulTVShow(TVList tvList) {
+                Bundle b = new Bundle();
+                TVLinearLayoutFragment tvf = new TVLinearLayoutFragment();
+                b.putSerializable(Constants.ALL_TV_SHOW_DETAILS, tvList.results);
+                tvf.setArguments(b);
+                if(!paused)
+                    getFragmentManager().beginTransaction().replace(R.id.id_PopularTvShows, tvf).commit();
+                b1 = true;
+                if(b2) pDialog.dismiss();
             }
         });
 
-        mostRatedTVShows = MovieDBApiClient.getInterface().getMostRatedTvShows(BuildConfig.MOVIE_DB_API_KEY);
-        mostRatedTVShows.enqueue(new Callback<TVList>() {
+        APICalls.getTVShows("top_rated", getContext(), pDialog, new APICalls.TVShowsCallbackListener() {
             @Override
-            public void onResponse(Call<TVList> call, Response<TVList> response) {
-                if (response.isSuccessful()) {
-                    TVList tvList = response.body();
-                    TVLinearLayoutFragment tvf = new TVLinearLayoutFragment();
-                    Bundle b = new Bundle();
-                    b.putSerializable(Constants.ALL_TV_SHOW_DETAILS, tvList.results);
-                    tvf.setArguments(b);
-                    if(!paused)
-                        getFragmentManager().beginTransaction().replace(R.id.id_MostRatedTvShows, tvf).commit();
-                } else {
-                    Toast.makeText(getActivity(), response.code() + response.message(), Toast.LENGTH_LONG).show();
-                }
-                b2=true;
-                if(b1)
-                    pDialog.dismiss();
-            }
-
-            @Override
-            public void onFailure(Call<TVList> call, Throwable t) {
-                // Toast.makeText(getActivity(), "You are not connected to Internet", Toast.LENGTH_LONG).show();
-                b2=true;
+            public void onSuccessfulTVShow(TVList tvList) {
+                TVLinearLayoutFragment tvf = new TVLinearLayoutFragment();
+                Bundle b = new Bundle();
+                b.putSerializable(Constants.ALL_TV_SHOW_DETAILS, tvList.results);
+                tvf.setArguments(b);
+                if(!paused)
+                    getFragmentManager().beginTransaction().replace(R.id.id_MostRatedTvShows, tvf).commit();
+                b2 = true;
                 if(b1)
                     pDialog.dismiss();
             }
         });
+
         super.onResume();
     }
     @Override
     public void onPause() {
         if(pDialog.isShowing())
             pDialog.dismiss();
-        popularTvShows.cancel();
-        mostRatedTVShows.cancel();
         super.onPause();
     }
 }

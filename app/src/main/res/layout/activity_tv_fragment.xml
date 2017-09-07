@@ -11,10 +11,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="MOST POPULAR TV SHOWS"
-            android:textSize="26dp"
+            android:text="Most Popular TV Shows"
+            android:layout_marginTop="16dp"
+            android:textSize="25dp"
             android:textStyle="bold"
-            android:textColor="@color/white"/>
+            android:textColor="@color/colorTitle"/>
 
         <FrameLayout
             android:id="@+id/id_PopularTvShows"
@@ -24,10 +25,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="MOST RATED TV SHOWS"
-            android:textSize="26dp"
+            android:text="Most Rated TV Shows"
+            android:layout_marginTop="16dp"
+            android:textSize="25dp"
             android:textStyle="bold"
-            android:textColor="@color/white"/>
+            android:textColor="@color/colorTitle"/>
 
         <FrameLayout
             android:id="@+id/id_MostRatedTvShows"

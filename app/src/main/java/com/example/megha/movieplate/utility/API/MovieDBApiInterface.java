@@ -6,7 +6,6 @@ import com.example.megha.movieplate.MovieFormat.MovieList;
 import com.example.megha.movieplate.SignInPackage.AccountDetails;
 import com.example.megha.movieplate.SignInPackage.account_access;
 import com.example.megha.movieplate.SignInPackage.session_id;
-import com.example.megha.movieplate.TVFormat.TVDetails;
 import com.example.megha.movieplate.TVFormat.TVList;
 import com.example.megha.movieplate.WatchlistFormat.PostJsonInWatchList;
 
@@ -23,33 +22,6 @@ import retrofit2.http.Query;
 
 public interface MovieDBApiInterface {
 
-    @GET("/3/account")
-    Call<AccountDetails> getAccountDetails(@Query("api_key") String key, @Query("session_id") String session_id);
-
-    @GET("/3/movie/top_rated")
-    Call<MovieList> getTopRatedMovie(@Query("api_key") String key);
-
-    @GET("/3/movie/{collection}")
-    Call<MovieList> getListedMovies(@Path("collection") String type, @Query("api_key") String key);
-
-    @GET("/3/movie/popular")
-    Call<MovieList> getPopularMovie(@Query("api_key") String key);
-
-    @GET("/3/movie/upcoming")
-    Call<MovieList> getUpcomingMovies(@Query("api_key") String key);
-
-    @GET("/3/movie/now_playing")
-    Call<MovieList> getNowPlayingMovies(@Query("api_key") String key);
-
-    @GET("/3/tv/popular")
-    Call<TVList> getPopularTvShows(@Query("api_key") String key);
-
-    @GET("/3/tv/top_rated")
-    Call<TVList> getMostRatedTvShows(@Query("api_key") String key);
-
-    @GET("/3/tv/airing_today")
-    Call<TVList> getOnAirTVShows(@Query("api_key") String key);
-
     @GET("/3/authentication/token/new")
     Call<account_access> getRequestToken(@Query("api_key") String key);
 
@@ -58,6 +30,15 @@ public interface MovieDBApiInterface {
 
     @GET("/3/authentication/session/new")
     Call<session_id> getSessionID(@Query("api_key") String key, @Query("request_token") String request_token);
+
+    @GET("/3/account")
+    Call<AccountDetails> getAccountDetails(@Query("api_key") String key, @Query("session_id") String session_id);
+
+    @GET("/3/movie/{type}")
+    Call<MovieList> getMovies(@Path("type") String type, @Query("api_key") String key);
+
+    @GET("/3/tv/{type}")
+    Call<TVList> getTVShows(@Path("type") String type, @Query("api_key") String key);
 
     @GET("/3/person/popular")
     Call<Celebs> getPopularPerson(@Query("api_key") String key);

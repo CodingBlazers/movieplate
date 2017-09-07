@@ -40,8 +40,8 @@ public class FragmentWatchList extends Fragment implements Constants {
     ProgressDialog progressDialog;
 
     SharedPreferencesUtils spUtils;
-    MoviesWatchListAdapter mMovieAdapter;
-    TVShowsWatchListAdapter mTVAdapter;
+    MoviesGridViewAdapter mMovieAdapter;
+    TVShowsGridViewAdapter mTVAdapter;
 
     ArrayList<MovieDetails> mMovieData;
     ArrayList<TVDetails> mTVShowData;
@@ -81,8 +81,8 @@ public class FragmentWatchList extends Fragment implements Constants {
             public void onResponse(Call<MovieList> call, Response<MovieList> response) {
                 if (response.isSuccessful()) {
                     mMovieData = response.body().results;
-                    mMovieAdapter = new MoviesWatchListAdapter(getContext(), mMovieData);
-                    mMovieAdapter.setOnItemClickListener(new MoviesWatchListAdapter.OnItemClickListener() {
+                    mMovieAdapter = new MoviesGridViewAdapter(getContext(), mMovieData);
+                    mMovieAdapter.setOnItemClickListener(new MoviesGridViewAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(View view, MovieDetails movieDetails) {
                             Intent intent = new Intent();
@@ -113,8 +113,8 @@ public class FragmentWatchList extends Fragment implements Constants {
             public void onResponse(Call<TVList> call, Response<TVList> response) {
                 if (response.isSuccessful()) {
                     mTVShowData = response.body().results;
-                    mTVAdapter = new TVShowsWatchListAdapter(getContext(), mTVShowData);
-                    mTVAdapter.setOnItemClickListener(new TVShowsWatchListAdapter.OnItemClickListener() {
+                    mTVAdapter = new TVShowsGridViewAdapter(getContext(), mTVShowData);
+                    mTVAdapter.setOnItemClickListener(new TVShowsGridViewAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(View view, TVDetails tvDetails) {
                             Intent intent = new Intent();

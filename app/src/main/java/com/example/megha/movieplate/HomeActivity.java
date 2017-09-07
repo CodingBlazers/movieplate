@@ -47,17 +47,10 @@ public class HomeActivity extends AppCompatActivity
         setContentView(R.layout.activity_home);
         spUtils = new SharedPreferencesUtils(HomeActivity.this);
 
-        //Here we use toolbar(coordinate layout) in case of action bar and add a line .NoActionBar in manifests.
-        //-->android.support.design.widget.CoordinatorLayout in xml file which will also support the previous android version.
-
-        //Toolbar tells that three lines of drawer is clicked and it will opens the drawer.
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.home_drawer_layout);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.home_drawer_layout);
-
-        //This is To set name of the logged in person in the navigation drawer in navigation view.
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
         View v = navigationView.getHeaderView(0);
         userNameTextView = (TextView) v.findViewById(R.id.UserNameTextView);
@@ -161,49 +154,39 @@ public class HomeActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        // launching home fragment for click on home in navigation button
-        if (id == R.id.nav_home) {
-            setTitle("Home");
-            getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, new HomeFragment()).commit();
-        }
-
-        // launching movie fragment for click on maovie in navigation button
-        else if (id == R.id.nav_movie) {
-            setTitle("Movies");
-            getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, new MovieFragment()).commit();
-        }
-
-        // launching celebs fragment for click on celebs in navigation button
-        else if (id == R.id.nav_celebs) {
-            setTitle("Most Popular Celebs");
-            getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, new CelebsFragment()).commit();
-        }
-
-        // launching TVList fragment for click on TVList shows in navigation button
-        else if (id == R.id.nav_tv) {
-            setTitle("TVList");
-            getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, new TvFragment()).commit();
-        }
-
-        // launching watchlist fragment for click on watchlist in navigation button
-        else if (id == R.id.nav_watchlist_movie) {
-            setTitle("Watchlist");
-            FragmentWatchList fragment = new FragmentWatchList();
-            Bundle b = new Bundle();
-            b.putString(TYPE, MOVIE);
-            fragment.setArguments(b);
-            getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, fragment).commit();
-        }
-        else if (id == R.id.nav_watchlist_tv_show) {
-            setTitle("Watchlist");
-            FragmentWatchList fragment = new FragmentWatchList();
-            Bundle b = new Bundle();
-            b.putString(TYPE, TV_SHOWS);
-            fragment.setArguments(b);
-            getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, fragment).commit();
+        switch (item.getItemId()){
+            case R.id.nav_home:
+                setTitle("Home");
+                getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, new HomeFragment()).commit();
+                break;
+            case R.id.nav_movie:
+                setTitle("Movies");
+                getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, new MovieFragment()).commit();
+                break;
+            case R.id.nav_celebs:
+                setTitle("Most Popular Celebs");
+                getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, new CelebsFragment()).commit();
+                break;
+            case  R.id.nav_tv:
+                setTitle("TVList");
+                getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, new TvFragment()).commit();
+                break;
+            case R.id.nav_watchlist_movie:
+                setTitle("Watchlist");
+                FragmentWatchList fragmentWatchList = new FragmentWatchList();
+                Bundle bundle = new Bundle();
+                bundle.putString(TYPE, MOVIE);
+                fragmentWatchList.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, fragmentWatchList).commit();
+                break;
+            case R.id.nav_watchlist_tv_show:
+                setTitle("Watchlist");
+                FragmentWatchList fragment = new FragmentWatchList();
+                Bundle b = new Bundle();
+                b.putString(TYPE, TV_SHOWS);
+                fragment.setArguments(b);
+                getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, fragment).commit();
+            break;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.home_drawer_layout);
