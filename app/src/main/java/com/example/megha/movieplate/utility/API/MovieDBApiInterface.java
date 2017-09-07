@@ -6,10 +6,9 @@ import com.example.megha.movieplate.MovieFormat.MovieList;
 import com.example.megha.movieplate.SignInPackage.AccountDetails;
 import com.example.megha.movieplate.SignInPackage.account_access;
 import com.example.megha.movieplate.SignInPackage.session_id;
+import com.example.megha.movieplate.TVFormat.TVDetails;
 import com.example.megha.movieplate.TVFormat.TVList;
 import com.example.megha.movieplate.WatchlistFormat.PostJsonInWatchList;
-import com.example.megha.movieplate.WatchlistFormat.WatchlistMovieJSON;
-import com.example.megha.movieplate.WatchlistFormat.WatchlistTVShowJSON;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -67,10 +66,10 @@ public interface MovieDBApiInterface {
     Call<CelebsDetails> getPersonDetails(@Path("id") String userId, @Query("api_key") String key);
 
     @GET("/3/account/{id}/watchlist/movies")
-    Call<WatchlistMovieJSON> getUserMovieWatchlist(@Path("id") String user_id, @Query("api_key") String key, @Query("session_id") String session_id);
+    Call<MovieList> getUserMovieWatchlist(@Path("id") String user_id, @Query("api_key") String key, @Query("session_id") String session_id);
 
     @GET("/3/account/{id}/watchlist/tv")
-    Call<WatchlistTVShowJSON> getUserTVShowWatchlist(@Path("id") String user_id, @Query("api_key") String key, @Query("session_id") String session_id);
+    Call<TVList> getUserTVShowWatchlist(@Path("id") String user_id, @Query("api_key") String key, @Query("session_id") String session_id);
 
     @POST("/3/account/{id}/watchlist")
     Call<PostJsonInWatchList> createJson(@Path("id") String user_id, @Query("api_key") String key, @Query("session_id") String session_id, @Body PostJsonInWatchList postJsonInWatchList);

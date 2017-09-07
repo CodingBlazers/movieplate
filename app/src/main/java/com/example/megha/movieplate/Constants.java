@@ -8,6 +8,10 @@ public interface Constants {
 
     String OMDB_API_KEY = "73871e7";
 
+    String TYPE = "type";
+    String MOVIE = "movie";
+    String TV_SHOWS = "tv";
+
     // Boolean to tell that Api key is present in SP or not
     String BOOLEAN_API_KEY_PRESENT = "ApiKeyInSP";
 

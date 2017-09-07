@@ -28,7 +28,7 @@ import retrofit2.Response;
  * Created by megha on 06/09/17.
  */
 
-public class SingleMovieCardViewFragment  extends Fragment implements Constants {
+public class SingleMovieCardViewFragment extends Fragment implements Constants {
 
     View rootView;
     TextView title, releaseDate, rating;

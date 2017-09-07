@@ -5,20 +5,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
 import com.example.megha.movieplate.BuildConfig;
 import com.example.megha.movieplate.Constants;
-import com.example.megha.movieplate.utility.NoInternetActivity;
+import com.example.megha.movieplate.MovieFormat.MovieDetails;
+import com.example.megha.movieplate.MovieFormat.MovieList;
+import com.example.megha.movieplate.MovieFormat.SingleMovieActivity;
 import com.example.megha.movieplate.R;
-import com.example.megha.movieplate.SearchFragment;
-import com.example.megha.movieplate.utility.ConnectionDetector;
+import com.example.megha.movieplate.TVFormat.TVDetails;
+import com.example.megha.movieplate.TVFormat.TVList;
+import com.example.megha.movieplate.TVFormat.TVShowDetails;
 import com.example.megha.movieplate.utility.API.MovieDBApiClient;
 import com.example.megha.movieplate.utility.SharedPreferencesUtils;
 
@@ -29,158 +30,113 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Created by HIman$hu on 7/20/2016.
+ * Created by megha on 07/09/17.
  */
-public class FragmentWatchList extends Fragment implements Constants{
 
-    String session_id, user_id;
-    ArrayList<SingleWatchlistMovie> MoviesArrayWatchList;
-    ArrayList<SingleWatchlistTVShow> TVShowsArrayWatchlist;
-    GridView MoviesWatchListGV, TvShowsWatchListGV;
-    WatchlistMovieJSON moviesWatchList;
-    WatchlistTVShowJSON TVShowWatchList;
-    boolean b1, b2;
+public class FragmentWatchList extends Fragment implements Constants {
+
+    View rootView;
+    GridView mGridView;
     ProgressDialog progressDialog;
-    boolean paused;
-    SharedPreferencesUtils spUtils;
 
-    Call<WatchlistMovieJSON> MoviesWatchListResponse;
-    Call<WatchlistTVShowJSON> TVWatchListResponse;
-    View view;
+    SharedPreferencesUtils spUtils;
+    MoviesWatchListAdapter mMovieAdapter;
+    TVShowsWatchListAdapter mTVAdapter;
+
+    ArrayList<MovieDetails> mMovieData;
+    ArrayList<TVDetails> mTVShowData;
+
+    Call<MovieList> watchlistMovieJSONCall;
+    Call<TVList> watchlistTVShowJSONCall;
+
+    String callType;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_watchlist, container, false);
-
-        spUtils = new SharedPreferencesUtils(getActivity());
-        session_id = spUtils.getSessionIDKey();
-        user_id = spUtils.getIDKey();
-
-        checkConnectivity();
-
-        MoviesWatchListGV = (GridView) view.findViewById(R.id.id_MoviesWatchList);
-        MoviesWatchListGV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Bundle b = new Bundle();
-                SearchFragment sf = new SearchFragment();
-                b.putSerializable(SEARCH_TITLE, moviesWatchList.results.get(position).getOriginal_title());
-                sf.setArguments(b);
-                getFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, sf).commit();
-            }
-        });
-
-        TvShowsWatchListGV = (GridView) view.findViewById(R.id.id_TVshowsWatchList);
-        TvShowsWatchListGV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Bundle b = new Bundle();
-                SearchFragment sf = new SearchFragment();
-                b.putSerializable(SEARCH_TITLE, TVShowWatchList.results.get(position).getOriginal_name());
-                sf.setArguments(b);
-                getFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, sf).commit();
-            }
-        });
-
-        return view;
-    }
-
-    @Override
-    public void onResume() {
+        rootView = inflater.inflate(R.layout.fragment_watchlist, container, false);
+        mGridView = (GridView) rootView.findViewById(R.id.watchlist_grid_view);
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Loading...");
 
-        b1=false; b2=false;
-        Log.i("Credentials", session_id + "\n" + user_id);
+        spUtils = new SharedPreferencesUtils(getActivity());
 
-        //Call to fetch movies from the user WatchList
-        MoviesWatchListResponse = MovieDBApiClient.getInterface().getUserMovieWatchlist(user_id, BuildConfig.MOVIE_DB_API_KEY, session_id);
-        MoviesWatchListResponse.enqueue(new Callback<WatchlistMovieJSON>() {
+        watchlistMovieJSONCall = MovieDBApiClient.getInterface().getUserMovieWatchlist(spUtils.getIDKey(),
+                BuildConfig.MOVIE_DB_API_KEY, spUtils.getSessionIDKey());
+        watchlistTVShowJSONCall = MovieDBApiClient.getInterface().getUserTVShowWatchlist(spUtils.getIDKey(),
+                BuildConfig.MOVIE_DB_API_KEY, spUtils.getSessionIDKey());
+
+        callType = getArguments().getString(TYPE);
+
+        if(callType.equals(MOVIE))
+            makeMovieWatchListCall();
+        else
+            makeTVShowWatchListCall();
+        return rootView;
+    }
+
+    private void makeMovieWatchListCall(){
+        watchlistMovieJSONCall.enqueue(new Callback<MovieList>() {
             @Override
-            public void onResponse(Call<WatchlistMovieJSON> call, Response<WatchlistMovieJSON> response) {
+            public void onResponse(Call<MovieList> call, Response<MovieList> response) {
                 if (response.isSuccessful()) {
-                    moviesWatchList = response.body();
-                    MoviesArrayWatchList = moviesWatchList.results;
-
-                    String[] MoviesposterPaths = new String[MoviesArrayWatchList.size()];
-
-                    for (int i = 0; i < MoviesArrayWatchList.size(); i++) {
-                        MoviesposterPaths[i] = "http://image.tmdb.org/t/p/w300/" + MoviesArrayWatchList.get(i).getPoster_path().toString();
-                    }
-
-                    MoviesWatchListGV.setAdapter(new MoviesWatchListAdapter(getContext(), MoviesposterPaths));
+                    mMovieData = response.body().results;
+                    mMovieAdapter = new MoviesWatchListAdapter(getContext(), mMovieData);
+                    mMovieAdapter.setOnItemClickListener(new MoviesWatchListAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(View view, MovieDetails movieDetails) {
+                            Intent intent = new Intent();
+                            intent.setClass(getActivity(), SingleMovieActivity.class);
+                            intent.putExtra(SINGLE_MOVIE_DETAILS, movieDetails);
+                            startActivity(intent);
+                        }
+                    });
+                    mGridView.setAdapter(mMovieAdapter);
 
                 } else {
                     Toast.makeText(getActivity(), response.code() + response.message(), Toast.LENGTH_LONG).show();
                 }
-                b1 = true;
-                if(b2)
-                    progressDialog.dismiss();
+                progressDialog.dismiss();
             }
 
             @Override
-            public void onFailure(Call<WatchlistMovieJSON> call, Throwable t) {
+            public void onFailure(Call<MovieList> call, Throwable t) {
                 Toast.makeText(getActivity(), "You are not connected to internet", Toast.LENGTH_SHORT).show();
-                b1 = true;
-                if(b2)
-                    progressDialog.dismiss();
+                progressDialog.dismiss();
             }
         });
+    }
 
-        TVWatchListResponse = MovieDBApiClient.getInterface().getUserTVShowWatchlist(user_id, BuildConfig.MOVIE_DB_API_KEY, session_id);
-        TVWatchListResponse.enqueue(new Callback<WatchlistTVShowJSON>() {
+    private void makeTVShowWatchListCall(){
+        watchlistTVShowJSONCall.enqueue(new Callback<TVList>() {
             @Override
-            public void onResponse(Call<WatchlistTVShowJSON> call, Response<WatchlistTVShowJSON> response) {
-
+            public void onResponse(Call<TVList> call, Response<TVList> response) {
                 if (response.isSuccessful()) {
-                    TVShowWatchList = response.body();
-                    TVShowsArrayWatchlist = TVShowWatchList.results;
+                    mTVShowData = response.body().results;
+                    mTVAdapter = new TVShowsWatchListAdapter(getContext(), mTVShowData);
+                    mTVAdapter.setOnItemClickListener(new TVShowsWatchListAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(View view, TVDetails tvDetails) {
+                            Intent intent = new Intent();
+                            intent.setClass(getActivity(), TVShowDetails.class);
+                            intent.putExtra(SINGLE_TV_SHOW_DETAILS, tvDetails);
+                            startActivity(intent);
+                        }
+                    });
+                    mGridView.setAdapter(mTVAdapter);
 
-                    String[] TvShowsposterPaths = new String[TVShowsArrayWatchlist.size()];
-
-                    for (int i = 0; i < TVShowsArrayWatchlist.size(); i++) {
-                        TvShowsposterPaths[i] = "http://image.tmdb.org/t/p/w300/" + TVShowsArrayWatchlist.get(i).getPoster_path() + "";
-                    }
-
-                    TvShowsWatchListGV.setAdapter(new TVShowsWatchListAdapter(getContext(), TvShowsposterPaths));
                 } else {
                     Toast.makeText(getActivity(), response.code() + response.message(), Toast.LENGTH_LONG).show();
                 }
-                b2 = true;
-                if(b1)
-                    progressDialog.dismiss();
-
+                progressDialog.dismiss();
             }
 
             @Override
-            public void onFailure(Call<WatchlistTVShowJSON> call, Throwable t) {
+            public void onFailure(Call<TVList> call, Throwable t) {
                 Toast.makeText(getActivity(), "You are not connected to internet", Toast.LENGTH_SHORT).show();
-                b2 = true;
-                if(b1)
-                    progressDialog.dismiss();
+                progressDialog.dismiss();
             }
         });
-        super.onResume();
     }
 
-    @Override
-    public void onPause() {
-        paused = true;
-        if(progressDialog.isShowing())
-            progressDialog.dismiss();
-        MoviesWatchListResponse.cancel();
-        TVWatchListResponse.cancel();
-        super.onPause();
-    }
-
-    private void checkConnectivity() {
-        ConnectionDetector cd = new ConnectionDetector(getActivity());
-        if (!cd.isConnectingToInternet()) {
-            Intent intent = new Intent();
-            intent.setClass(getActivity(), NoInternetActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        }
-    }
 }

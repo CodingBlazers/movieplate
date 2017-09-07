@@ -17,6 +17,7 @@ public class MovieDetails implements Serializable{
     public String overview;
     public String release_date;
     public String title;
+    public String original_title;
     public String original_language;
     public String popularity;
     public String vote_count;

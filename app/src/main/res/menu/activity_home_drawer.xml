@@ -23,9 +23,13 @@
     <item android:title="Your Moviedb">
         <menu>
             <item
-                android:id="@+id/nav_watchlist"
+                android:id="@+id/nav_watchlist_movie"
                 android:icon="@drawable/watchlist"
-                android:title="Watchlist" />
+                android:title="Movie Watchlist" />
+            <item
+                android:id="@+id/nav_watchlist_tv_show"
+                android:icon="@drawable/watchlist"
+                android:title="TV Shows Watchlist" />
         </menu>
     </item>
 

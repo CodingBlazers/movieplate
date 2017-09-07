@@ -180,21 +180,30 @@ public class HomeActivity extends AppCompatActivity
         else if (id == R.id.nav_celebs) {
             setTitle("Most Popular Celebs");
             getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, new CelebsFragment()).commit();
-
         }
 
         // launching TVList fragment for click on TVList shows in navigation button
         else if (id == R.id.nav_tv) {
             setTitle("TVList");
             getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, new TvFragment()).commit();
-        } /*else if (id == R.id.nav_rating) {
-
-        }*/
+        }
 
         // launching watchlist fragment for click on watchlist in navigation button
-        else if (id == R.id.nav_watchlist) {
+        else if (id == R.id.nav_watchlist_movie) {
             setTitle("Watchlist");
-            getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, new FragmentWatchList()).commit();
+            FragmentWatchList fragment = new FragmentWatchList();
+            Bundle b = new Bundle();
+            b.putString(TYPE, MOVIE);
+            fragment.setArguments(b);
+            getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, fragment).commit();
+        }
+        else if (id == R.id.nav_watchlist_tv_show) {
+            setTitle("Watchlist");
+            FragmentWatchList fragment = new FragmentWatchList();
+            Bundle b = new Bundle();
+            b.putString(TYPE, TV_SHOWS);
+            fragment.setArguments(b);
+            getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, fragment).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.home_drawer_layout);

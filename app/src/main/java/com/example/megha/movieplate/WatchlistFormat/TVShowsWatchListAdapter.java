@@ -1,33 +1,79 @@
 package com.example.megha.movieplate.WatchlistFormat;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.megha.movieplate.R;
+import com.example.megha.movieplate.TVFormat.TVDetails;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 /**
  * Created by HIman$hu on 7/20/2016.
  */
-public class TVShowsWatchListAdapter extends ArrayAdapter {
+public class TVShowsWatchListAdapter extends BaseAdapter implements View.OnClickListener {
 
-    Context context;
-    String[] WatchListTvShowsPosterpath;
+    Context mContext;
+    private OnItemClickListener onItemClickListener;
 
-    public TVShowsWatchListAdapter(Context context,String[] WatchListTvShowsPosterpath) {
-        super(context, 0,WatchListTvShowsPosterpath);
-        this.context=context;
-        this.WatchListTvShowsPosterpath=WatchListTvShowsPosterpath;
+    private ArrayList<TVDetails> mTVList;
+
+    public TVShowsWatchListAdapter(Context context, ArrayList<TVDetails> tvList) {
+        mContext = context;
+        mTVList = tvList;
     }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {
-            convertView = View.inflate(context, R.layout.movies_watchlist_imageview, null);
-        }
-        Picasso.with(context).load(WatchListTvShowsPosterpath[position]).resize(500, 600).into((ImageView) convertView);
-        return convertView;
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_entity_in_list, parent, false);
+        itemView.setOnClickListener(this);
+        TVDetails item = mTVList.get(position);
+
+        ImageView poster = (ImageView) itemView.findViewById(R.id.poster_image_view);
+        ImageView watchlist = (ImageView) itemView.findViewById(R.id.watchlist_image_view);
+        TextView title = (TextView) itemView.findViewById(R.id.title_text_view);
+        TextView releaseDate = (TextView) itemView.findViewById(R.id.release_date_text_view);
+
+        Picasso.with(mContext).load("http://image.tmdb.org/t/p/w300/" + item.getPosterPath()).into(poster);
+        watchlist.setVisibility(View.GONE);
+        title.setText(item.getName());
+        releaseDate.setText(item.getFirstAirDate());
+
+        itemView.setTag(item);
+        return itemView;
     }
+
+    @Override
+    public int getCount() {
+        return mTVList.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return mTVList.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return 0;
+    }
+
+    @Override public void onClick(final View v) {
+        onItemClickListener.onItemClick(v, (TVDetails) v.getTag());
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(View view, TVDetails  tvDetails);
+    }
+
 }
