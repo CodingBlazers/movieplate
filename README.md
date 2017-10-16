@@ -9,7 +9,9 @@ It is a Entertainment based Android App that keeps you updated of movies and Tel
 <br>
 Libraries used - Retrofit,Picasso,Gson,Support Library.
 <br>
-###Screenshots:
+
+### Screenshots
+
 <p align="center">
   <img src="images/movieplate1.jpg" width="250"/>&nbsp;
   <img src="images/movieplate2.jpg" width="250"/>&nbsp;
